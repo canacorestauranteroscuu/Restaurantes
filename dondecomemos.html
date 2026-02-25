@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurantes CANACO Chihuahua</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #C4622D;
+    --gold: #E8A844;
+    --cream: #FFFFFF;
+    --dark: #1A0F08;
+    --mid: #3D2314;
+    --light-mid: #7A4828;
+    --green: #2D7A47;
+    --red-closed: #B91C1C;
+    --blue: #2B5E8A;
+    --wa: #25D366;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #FFFFFF;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: #FFFFFF;
+    padding: 28px 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after { display: none; }
+  .canaco-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 22px;
+  }
+  .canaco-badge {
+    background: var(--terracotta);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    padding: 8px 24px;
+    border-radius: 4px;
+  }
+  .canaco-sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #9A7055;
+    font-family: 'DM Sans', sans-serif;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 46px);
+    color: #1A0F08;
+    line-height: 1.1;
+  }
+  header h1 span { color: var(--gold); }
+  .header-tagline {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+
+  /* ── OPEN NOW TOGGLE ── */
+  .open-toggle-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .open-toggle-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .open-toggle-label .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #6B7280;
+    transition: background 0.3s;
+  }
+  .open-toggle-label.active .dot {
+    background: #22C55E;
+    box-shadow: 0 0 6px rgba(34,197,94,0.6);
+  }
+  .toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-track {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 24px;
+    transition: background 0.3s;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .toggle-switch input:checked + .toggle-track { background: #22C55E; border-color: #22C55E; }
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .toggle-switch input:checked ~ .toggle-thumb { transform: translateX(20px); }
+  .open-only-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-bottom: 8px;
+    min-height: 16px;
+    transition: opacity 0.3s;
+  }
+
+  /* ── JOIN SECTION ── */
+  .join-section {
+    background: var(--mid);
+    padding: 56px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .join-section::before {
+    content: '🤝';
+    position: absolute;
+    font-size: 220px;
+    opacity: 0.04;
+    bottom: -40px;
+    left: -20px;
+    transform: rotate(15deg);
+  }
+  .join-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .join-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 10px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .join-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 34px);
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .join-inner h2 span { color: var(--gold); }
+  .join-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 32px;
+  }
+  .join-perks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .perk-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .perk-icon { font-size: 22px; margin-bottom: 8px; }
+  .perk-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .perk-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.5;
+  }
+  .join-price-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    padding: 18px 20px;
+    background: rgba(232,168,68,0.08);
+    border: 1px solid rgba(232,168,68,0.2);
+    border-radius: 12px;
+    width: fit-content;
+  }
+  .join-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .join-price-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.5;
+  }
+  .join-price-label strong {
+    display: block;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+  }
+  .join-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+    max-width: 540px;
+  }
+  .join-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-body {}
+  .step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+  .step-desc a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .step-desc a:hover { text-decoration: underline; }
+  .join-cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--terracotta);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(196,98,45,0.35);
+  }
+  .cta-primary:hover { background: #d96f38; transform: translateY(-1px); }
+  .cta-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--wa);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
+  .join-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 16px;
+    letter-spacing: 0.3px;
+  }
+  .join-note a { color: rgba(255,255,255,0.4); }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: #FFFFFF;
+    padding: 16px 24px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 40px;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    background: transparent;
+    color: #5C3520;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .filter-btn.active {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: white;
+    box-shadow: 0 0 20px rgba(196,98,45,0.4);
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-wrap {
+    background: #FFFFFF;
+    padding: 0 24px 28px;
+    display: flex;
+    justify-content: center;
+  }
+  .search-input-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  #searchInput {
+    width: 100%;
+    background: #F5F0EA;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    border-radius: 40px;
+    color: #1A0F08;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 18px 10px 40px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #searchInput::placeholder { color: #B89070; }
+  #searchInput:focus { border-color: var(--terracotta); }
+
+  .search-wrap { border-bottom: 2px solid var(--terracotta); }
+
+  /* ── RANDOMIZER SECTION ── */
+  .randomizer-section {
+    background: #2C1508;
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .randomizer-section::before {
+    content: '🌮';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.04;
+    top: -30px;
+    right: -20px;
+    transform: rotate(-20deg);
+  }
+
+  /* ── SLOT MACHINE ── */
+  .slot-machine {
+    background: var(--dark);
+    border: 2px solid var(--terracotta);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 520px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(196,98,45,0.2), inset 0 0 30px rgba(0,0,0,0.5);
+  }
+  .slot-header {
+    background: var(--terracotta);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .slot-header span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+  }
+  .slot-dots { display: flex; gap: 6px; }
+  .slot-dots span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    display: block;
+  }
+  .slot-window {
+    padding: 28px 24px;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .slot-placeholder {
+    color: rgba(255,255,255,0.2);
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* spinning state */
+  .slot-spinning {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .spinning-names { height: 40px; overflow: hidden; }
+  .spinning-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+  .spin-loader { display: flex; gap: 6px; margin-top: 8px; }
+  .spin-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    animation: dotBounce 0.6s ease infinite;
+  }
+  .spin-dot:nth-child(2) { animation-delay: 0.1s; }
+  .spin-dot:nth-child(3) { animation-delay: 0.2s; }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  /* result state */
+  .slot-result {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    animation: resultReveal 0.4s ease forwards;
+  }
+  @keyframes resultReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 5vw, 30px);
+    color: var(--gold);
+    line-height: 1.2;
+    text-align: center;
+  }
+  .result-status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .result-open-pill {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .result-open-pill.open  { background: rgba(45,122,71,0.25); color: #6ee7a0; }
+  .result-open-pill.closed { background: rgba(185,28,28,0.25); color: #fca5a5; }
+  .result-rating {
+    font-size: 12px;
+    color: var(--gold);
+    opacity: 0.9;
+  }
+  .result-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  .result-tag {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .result-hours-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+  }
+  .result-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .result-link {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .result-link.maps   { background: var(--terracotta); color: white; }
+  .result-link.maps:hover { background: #d96f38; }
+  .result-link.call   { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
+  .result-link.call:hover { background: rgba(255,255,255,0.18); }
+  .result-link.wa     { background: var(--wa); color: white; }
+  .result-link.wa:hover { background: #1ebe5d; }
+  .result-link.web    { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.65); }
+  .result-link.web:hover { border-color: var(--gold); color: var(--gold); }
+  .result-scroll-link {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-top: 6px;
+    transition: color 0.2s;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  .result-scroll-link:hover { color: var(--gold); }
+
+  /* ── SPIN BUTTON ── */
+  .spin-btn {
+    background: linear-gradient(135deg, var(--terracotta), #E8672A);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 52px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 24px rgba(196,98,45,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .spin-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    pointer-events: none;
+  }
+  .spin-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(196,98,45,0.45); }
+  .spin-btn:active { transform: translateY(0); }
+  .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .count-badge {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── LIST SECTION ── */
+  .list-section {
+    padding: 44px 24px 60px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .list-header-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .list-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #2A1509;
+  }
+  .list-count {
+    font-size: 12px;
+    color: var(--light-mid);
+    letter-spacing: 1px;
+  }
+  .list-divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  /* ── CATEGORY GROUPS ── */
+  .category-group { margin-bottom: 44px; }
+  .category-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .category-label h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7A4828;
+    font-weight: 600;
+  }
+  .category-label::after {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--terracotta);
+    opacity: 0.4;
+  }
+
+  /* ── RESTAURANT CARD ── */
+  .restaurant-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .restaurant-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .restaurant-card.highlighted {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px var(--gold), 0 8px 20px rgba(232,168,68,0.2);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .card-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: #F4F4F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .card-name-wrap { min-width: 0; flex: 1; }
+  .card-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #110800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* open/closed pill on card */
+  .card-status {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .card-status.open   { background: #DCFCE7; color: #15803D; }
+  .card-status.closed { background: #FEE2E2; color: #B91C1C; }
+
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .card-mini-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .mini-tag {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .mini-tag.rest { background: #EEF2FF; color: #4338CA; }
+  .mini-tag.des  { background: #FFF7ED; color: #C2410C; }
+  .mini-tag.para { background: #F0FDF4; color: #166534; }
+  .mini-tag.bar  { background: #FDF4FF; color: #7E22CE; }
+  .mini-tag.otro { background: #F8FAFC; color: #475569; }
+
+  .card-rating {
+    font-size: 10px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .card-chevron {
+    color: var(--terracotta);
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .restaurant-card.open .card-chevron { transform: rotate(180deg); }
+
+  /* ── CARD DETAILS ── */
+  .card-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .restaurant-card.open .card-details { max-height: 500px; }
+
+  .details-inner {
+    padding: 16px 18px 18px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 480px) {
+    .details-inner { grid-template-columns: 1fr; }
+  }
+
+  .detail-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #B8521F;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .detail-value {
+    font-size: 13px;
+    color: #1A0F08;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .detail-block + .detail-block { margin-top: 14px; }
+
+  /* action buttons row in card */
+  .card-action-row {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .card-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.18s;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+  }
+  .cab-maps { background: var(--terracotta); color: white; }
+  .cab-maps:hover { background: #d96f38; }
+  .cab-call { background: #EEF2FF; color: #3730A3; }
+  .cab-call:hover { background: #E0E7FF; }
+  .cab-wa   { background: #DCFCE7; color: #15803D; }
+  .cab-wa:hover { background: #BBF7D0; }
+  .cab-web  { background: #F8FAFC; color: var(--mid); border: 1px solid rgba(0,0,0,0.1); }
+  .cab-web:hover { background: #F1F5F9; }
+
+  /* hours */
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 3px 0;
+    color: #3D2314;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .hours-row .day { font-weight: 600; color: #5C3520; min-width: 28px; }
+  .hours-row.today { color: var(--green); font-weight: 600; }
+  .hours-row.today .day { color: var(--green); }
+  .hours-row.today-closed { color: var(--red-closed) !important; }
+  .hours-row.today-closed .day { color: var(--red-closed) !important; }
+
+  /* no results */
+  .no-results {
+    text-align: center;
+    padding: 40px;
+    color: rgba(0,0,0,0.3);
+    font-size: 15px;
+  }
+
+  /* footer */
+  footer {
+    background: var(--dark);
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+  footer span { color: var(--gold); opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="canaco-lockup">
+    <div class="canaco-badge">CANACO</div>
+    <div class="canaco-sub">Sección Restauranteros · Chihuahua</div>
+  </div>
+  <h1>¿No sabes a dónde ir a <span>comer</span>?</h1>
+  <p class="header-tagline">Gira la Ruleta del Sabor — restaurantes locales de Chihuahua de quienes le echan ganas.</p>
+</header>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="Restaurante">Restaurante</button>
+  <button class="filter-btn" data-filter="Desayunos">Desayuno</button>
+  <button class="filter-btn" data-filter="Comida para llevar">Para Llevar</button>
+  <button class="filter-btn" data-filter="Restaurante Bar">Restaurante Bar</button>
+  <button class="filter-btn" data-filter="Otro">Otro</button>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-input-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Buscar restaurante…" autocomplete="off">
+  </div>
+</div>
+
+<!-- RANDOMIZER -->
+<div class="randomizer-section">
+  <div class="slot-machine">
+    <div class="slot-header">
+      <span>Ruleta del Sabor</span>
+      <div class="slot-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="slot-window" id="slotWindow">
+      <p class="slot-placeholder" id="slotPlaceholder">— Gira para descubrir —</p>
+
+      <div class="slot-spinning" id="slotSpinning">
+        <div class="spinning-names">
+          <div class="spinning-name" id="spinningName">…</div>
+        </div>
+        <div class="spin-loader">
+          <div class="spin-dot"></div>
+          <div class="spin-dot"></div>
+          <div class="spin-dot"></div>
+        </div>
+      </div>
+
+      <div class="slot-result" id="slotResult">
+        <div class="result-name" id="resultName"></div>
+        <div class="result-status-row">
+          <span class="result-open-pill" id="resultOpenPill"></span>
+          <span class="result-rating" id="resultRating"></span>
+        </div>
+        <div class="result-tags" id="resultTags"></div>
+        <div class="result-hours-text" id="resultHoursText"></div>
+        <div class="result-links" id="resultLinks"></div>
+        <button class="result-scroll-link" id="resultScrollBtn" onclick="scrollToWinner()">Ver en la lista ↓</button>
+      </div>
+    </div>
+  </div>
+  <div class="open-toggle-wrap">
+    <label class="open-toggle-label" id="openToggleLabel">
+      <span class="dot"></span>
+      Solo abiertos ahora
+    </label>
+    <label class="toggle-switch">
+      <input type="checkbox" id="openNowToggle">
+      <div class="toggle-track"></div>
+      <div class="toggle-thumb"></div>
+    </label>
+  </div>
+  <p class="open-only-note" id="openOnlyNote"></p>
+  <p class="count-badge" id="countBadge">17 restaurantes disponibles</p>
+  <button class="spin-btn" id="spinBtn" onclick="spin()">🎲 &nbsp; ¡Sorpréndeme!</button>
+</div>
+
+<!-- LIST -->
+<div style="background:#FFFFFF">
+<div class="list-section">
+  <div class="list-header-row">
+    <h2>Los Restaurantes</h2>
+    <span class="list-count" id="listCount"></span>
+  </div>
+  <div class="list-divider"></div>
+  <div id="listContainer"></div>
+</div>
+</div>
+
+<!-- JOIN SECTION -->
+<div class="join-section">
+  <div class="join-inner">
+    <p class="join-eyebrow">¿Eres restaurantero?</p>
+    <h2>Únete a la <span>Sección Restauranteros</span> CANACO</h2>
+    <p class="join-desc">Somos el grupo de empresarios de alimentos y bebidas más activo de Chihuahua. Juntas mensuales, red de contactos, y tu restaurante aparece aquí para que todo Chihuahua te encuentre.</p>
+
+    <div class="join-perks">
+      <div class="perk-card">
+        <div class="perk-icon">📅</div>
+        <div class="perk-title">Junta mensual</div>
+        <div class="perk-desc">Temas relevantes, invitados con info valiosa y novedades del sector</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">💬</div>
+        <div class="perk-title">Chat de WhatsApp</div>
+        <div class="perk-desc">Conecta con restauranteros de Chihuahua: proveedores, eventos, tips y más</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">📍</div>
+        <div class="perk-title">Aparece en este directorio</div>
+        <div class="perk-desc">Tu restaurante visible para toda la gente que quiere apoyar lo local</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">📚</div>
+        <div class="perk-title">Plataforma Notion</div>
+        <div class="perk-desc">Recursos exclusivos para miembros activos de la sección</div>
+      </div>
+    </div>
+
+    <div class="join-price-row">
+      <div class="join-price">$700</div>
+      <div class="join-price-label">
+        <strong>MXN por año</strong>
+        Inscripción anual a la sección<br>
+        (requiere membresía CANACO activa)
+      </div>
+    </div>
+
+    <div class="join-steps">
+      <div class="join-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Realiza el pago</div>
+          <div class="step-desc">Transfiere $700 MXN a BanBajío · Tarjeta <strong style="color:rgba(255,255,255,0.6)">4210 0300 6097 6144</strong> a nombre de Juan Carlos Matas</div>
+        </div>
+      </div>
+      <div class="join-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Llena el formulario de registro</div>
+          <div class="step-desc">Adjunta tu comprobante de pago en el formulario o mándalo por WhatsApp al <a href="https://wa.me/526142354312">614 235 4312</a></div>
+        </div>
+      </div>
+      <div class="join-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">¡Listo! Bienvenido al grupo</div>
+          <div class="step-desc">En cuanto recibamos tu comprobante te agregamos al WhatsApp, a Notion y a este directorio</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="join-cta-row">
+      <a class="cta-primary" href="https://www.notion.so/2f03b368f4968114b3c9d45cdd187877" target="_blank">📝 Llenar formulario de registro</a>
+    </div>
+    <p class="join-note"><a href="http://www.canacochihuahua.com" target="_blank">canacochihuahua.com</a></p>
+  </div>
+</div>
+
+<footer>CANACO Chihuahua &nbsp;·&nbsp; <span>Sección Restauranteros 2026</span> &nbsp;·&nbsp; <a href="mailto:canacorestauranteroscuu@gmail.com" style="color:rgba(255,255,255,0.3);text-decoration:none">canacorestauranteroscuu@gmail.com</a></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const todayName = DAYS[new Date().getDay()];
+
+function phoneDigits(p) {
+  if (!p) return null;
+  // strip to digits, prepend 52 for Mexico wa.me link
+  const d = p.replace(/\D/g,'');
+  return d.length === 10 ? '52' + d : d;
+}
+
+const restaurants = [
+  {
+    name: "Natural Balance Club",
+    emoji: "🥗",
+    categories: ["Comida para llevar", "Desayunos", "Otro"],
+    phone: "614 368 9898",
+    web: "https://naturalbalance.club",
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJr9wn5TtD6oYR-mtNxo-v9p4",
+    address: "Trasviña y Retes 3104, San Felipe II Etapa",
+    rating: 4.6,
+    hours: { Monday:"8:00 AM – 5:00 PM", Tuesday:"8:00 AM – 5:00 PM", Wednesday:"8:00 AM – 5:00 PM", Thursday:"8:00 AM – 5:00 PM", Friday:"8:00 AM – 5:00 PM", Saturday:"8:00 AM – 4:30 PM", Sunday:"Cerrado" }
+  },
+  {
+    name: "Ricos Tacos de la 24",
+    emoji: "🌮",
+    categories: ["Restaurante"],
+    phone: "614 488 1784",
+    web: null,
+    social: "https://www.facebook.com/ricostacosdela24",
+    mapsUrl: "https://maps.google.com/?cid=ChIJAaAxRzVD6oYR3XKBTQDTNDc",
+    address: "C. 24 1706, Mirador, Campestre-Lomas",
+    rating: 4.7,
+    hours: { Monday:"12:00 PM – 10:30 PM", Tuesday:"12:00 PM – 10:30 PM", Wednesday:"12:00 PM – 10:30 PM", Thursday:"12:00 PM – 10:30 PM", Friday:"12:00 PM – 10:30 PM", Saturday:"12:00 PM – 10:30 PM", Sunday:"12:00 PM – 10:00 PM" }
+  },
+  {
+    name: "Pinos Burguer",
+    emoji: "🍔",
+    categories: ["Restaurante"],
+    phone: "614 264 8695",
+    web: null,
+    social: "https://www.facebook.com/PinosBurguer/",
+    mapsUrl: "https://maps.google.com/?cid=ChIJU2PypMhc6oYRFsT2nlkqftI",
+    address: "C. 32 704, Guadalupe",
+    rating: 4.4,
+    hours: { Monday:"Cerrado", Tuesday:"1:00 PM – 7:30 PM", Wednesday:"1:00 PM – 7:30 PM", Thursday:"1:00 PM – 7:30 PM", Friday:"1:00 PM – 7:30 PM", Saturday:"1:00 PM – 7:30 PM", Sunday:"1:00 PM – 7:30 PM" }
+  },
+  {
+    name: "Costa Langosta",
+    emoji: "🦞",
+    categories: ["Restaurante", "Restaurante Bar"],
+    phone: "614 437 5381",
+    web: null,
+    social: "https://www.instagram.com/costalangosta.cuu",
+    mapsUrl: "https://maps.google.com/?cid=ChIJK_PCKtFD6oYRCadKWtIfA80",
+    address: "C. 27 Manuel Gómez Morín 1607B, Obrera",
+    rating: 4.6,
+    hours: { Monday:"11:00 AM – 8:00 PM", Tuesday:"11:00 AM – 8:00 PM", Wednesday:"11:00 AM – 8:00 PM", Thursday:"11:00 AM – 8:00 PM", Friday:"10:30 AM – 8:00 PM", Saturday:"11:00 AM – 8:00 PM", Sunday:"11:00 AM – 8:00 PM" }
+  },
+  {
+    name: "La Tarima Alitas & Burgers",
+    emoji: "🍗",
+    categories: ["Comida para llevar", "Restaurante"],
+    phone: "614 451 2516",
+    web: null,
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJ1cuIDABd6oYRrNKgn3SZTfY",
+    address: "Av. Prol. Teófilo Borunda 11811, Plazza Travessia",
+    rating: 5.0,
+    hours: { Monday:"1:00 PM – 9:00 PM", Tuesday:"1:00 PM – 9:00 PM", Wednesday:"1:00 PM – 9:00 PM", Thursday:"1:00 PM – 9:00 PM", Friday:"1:00 PM – 9:00 PM", Saturday:"1:00 PM – 9:00 PM", Sunday:"12:00 PM – 7:00 PM" }
+  },
+  {
+    name: "Deliciosa Mente",
+    emoji: "🥡",
+    categories: ["Comida para llevar", "Otro"],
+    phone: "614 162 8832",
+    web: null,
+    social: "https://www.facebook.com/share/18ta625yuh/",
+    mapsUrl: "https://maps.google.com/?cid=ChIJtYnmYQBB6oYRIdovdCpQbZA",
+    address: "Av Cristóbal Colón 11520-int 4, Complejo Industrial",
+    rating: null,
+    hours: {}
+  },
+  {
+    name: "Mayólica",
+    emoji: "☕",
+    categories: ["Comida para llevar", "Desayunos", "Restaurante"],
+    phone: "614 305 7311",
+    web: "https://www.instagram.com/mayolicarestaurante",
+    social: "https://www.instagram.com/mayolicarestaurante",
+    mapsUrl: "https://maps.google.com/?cid=ChIJ5dxIwDFD6oYROvKRptwXqA8",
+    address: "Blvrd Antonio Ortiz Mena 2033, Vermont",
+    rating: 4.4,
+    hours: { Monday:"Cerrado", Tuesday:"8:00 AM – 1:30 PM", Wednesday:"8:00 AM – 1:30 PM", Thursday:"8:00 AM – 1:30 PM", Friday:"8:00 AM – 1:30 PM", Saturday:"8:00 AM – 1:30 PM", Sunday:"8:00 AM – 1:30 PM" }
+  },
+  {
+    name: "Nómada Paradero Gastronómico",
+    emoji: "🍽️",
+    categories: ["Restaurante", "Restaurante Bar"],
+    phone: "614 538 3723",
+    web: null,
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJGwcDVpND6oYRy5WHNr8dj1A",
+    address: "Calle Guadalupe Victoria 200, 6o piso, Zona Centro",
+    rating: 4.5,
+    hours: { Monday:"Cerrado", Tuesday:"9:00 AM – 12:00 AM", Wednesday:"9:00 AM – 12:00 AM", Thursday:"9:00 AM – 12:00 AM", Friday:"9:00 AM – 2:00 AM", Saturday:"9:00 AM – 2:00 AM", Sunday:"9:00 AM – 12:00 AM" }
+  },
+  {
+    name: "El Temorense",
+    emoji: "🫔",
+    categories: ["Comida para llevar", "Desayunos", "Restaurante", "Restaurante Bar"],
+    phone: "614 609 6023",
+    web: null,
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJw2PxFM9D6oYRBG9VFtGjLmg",
+    address: "Av George Washington 1600-Local 204, Campestre III",
+    rating: 4.5,
+    hours: { Monday:"8:00 AM – 10:00 PM", Tuesday:"8:00 AM – 10:00 PM", Wednesday:"8:00 AM – 10:00 PM", Thursday:"8:00 AM – 10:00 PM", Friday:"8:00 AM – 10:00 PM", Saturday:"8:00 AM – 10:00 PM", Sunday:"8:00 AM – 10:00 PM" }
+  },
+  {
+    name: "Mariscos la Jaiba Feliz",
+    emoji: "🦀",
+    categories: ["Restaurante"],
+    phone: "614 179 5854",
+    web: "https://lajaibafeliz.wordpress.com/",
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJV7XrSQhD6oYRIvclicllJos",
+    address: "Perif. de la Juventud 401-Local 17, en Soriana",
+    rating: 4.3,
+    hours: { Monday:"10:00 AM – 6:00 PM", Tuesday:"10:00 AM – 6:00 PM", Wednesday:"10:00 AM – 6:00 PM", Thursday:"10:00 AM – 6:00 PM", Friday:"10:00 AM – 6:00 PM", Saturday:"10:00 AM – 6:00 PM", Sunday:"10:00 AM – 6:00 PM" }
+  },
+  {
+    name: "27 y Salsas",
+    emoji: "🔥",
+    categories: ["Comida para llevar", "Restaurante"],
+    phone: "614 414 1480",
+    web: null,
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJw3NVX0ND6oYR7E_pHUzpexg",
+    address: "C. 27 Manuel Gómez Morín #1104, Santo Niño",
+    rating: 4.5,
+    hours: { Monday:"Cerrado", Tuesday:"11:00 AM – 9:00 PM", Wednesday:"11:00 AM – 9:00 PM", Thursday:"11:00 AM – 9:00 PM", Friday:"11:00 AM – 9:00 PM", Saturday:"11:00 AM – 9:00 PM", Sunday:"8:00 AM – 8:00 PM" }
+  },
+  {
+    name: "El Norteñito Chihuahua",
+    emoji: "🤠",
+    categories: ["Comida para llevar", "Desayunos", "Restaurante Bar"],
+    phone: "614 443 1513",
+    web: null,
+    social: "https://www.facebook.com/share/1AY1bgRMAg/",
+    mapsUrl: "https://maps.google.com/?cid=ChIJjWBNx9JD6oYRXDUkGK94H0A",
+    address: "C. Ortiz de Campos 1101, San Felipe I Etapa",
+    rating: 4.5,
+    hours: { Monday:"8:00 AM – 9:00 PM", Tuesday:"8:00 AM – 9:00 PM", Wednesday:"8:00 AM – 9:00 PM", Thursday:"8:00 AM – 9:00 PM", Friday:"8:00 AM – 9:00 PM", Saturday:"8:00 AM – 9:00 PM", Sunday:"9:00 AM – 6:00 PM" }
+  },
+  {
+    name: "Tacos Villa",
+    emoji: "🌯",
+    categories: ["Comida para llevar"],
+    phone: "614 499 4210",
+    web: null,
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJfbvXdplq6oYRW1DWd6l2EK4",
+    address: "Av Río Colorado 1840, Riberas del Sacramento",
+    rating: 4.5,
+    hours: { Monday:"12:30 PM – 11:00 PM", Tuesday:"12:30 PM – 11:00 PM", Wednesday:"12:30 PM – 11:00 PM", Thursday:"12:30 PM – 11:00 PM", Friday:"12:30 PM – 11:00 PM", Saturday:"12:30 PM – 11:00 PM", Sunday:"12:30 PM – 11:00 PM" }
+  },
+  {
+    name: "Italianisimmo Pasta y Café",
+    emoji: "🍝",
+    categories: ["Restaurante"],
+    phone: "614 423 4000",
+    web: null,
+    social: "https://www.facebook.com/share/1GXUwrCC3r/",
+    mapsUrl: "https://maps.google.com/?cid=ChIJf-KCOSdD6oYR9Uc6DtSz9SY",
+    address: "Av. Mirador 4723-2, Campestre II Etapa",
+    rating: 4.4,
+    hours: { Monday:"Cerrado", Tuesday:"1:00 PM – 10:00 PM", Wednesday:"1:00 PM – 10:00 PM", Thursday:"1:00 PM – 10:00 PM", Friday:"1:00 PM – 10:00 PM", Saturday:"1:00 PM – 10:00 PM", Sunday:"1:00 PM – 8:00 PM" }
+  },
+  {
+    name: "Tortas Piolines",
+    emoji: "🥖",
+    categories: ["Restaurante"],
+    phone: "614 254 4111",
+    web: "https://tortaspiolines.com.mx",
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJ2Z0HTD1D6oYRgx5s_miN0fM",
+    address: "Av. Glandorf 3701, Parques de San Felipe",
+    rating: 4.4,
+    hours: { Monday:"10:00 AM – 11:00 PM", Tuesday:"10:00 AM – 11:00 PM", Wednesday:"10:00 AM – 11:00 PM", Thursday:"10:00 AM – 11:00 PM", Friday:"10:00 AM – 11:00 PM", Saturday:"10:00 AM – 11:00 PM", Sunday:"12:00 PM – 6:15 PM" }
+  },
+  {
+    name: "Asador Libanés",
+    emoji: "🥙",
+    categories: ["Restaurante", "Restaurante Bar"],
+    phone: "554 860 2909",
+    web: "https://www.asadorlibanes.com",
+    social: null,
+    mapsUrl: "https://maps.google.com/?cid=ChIJI83hCt9D6oYRAoFnffYOnvE",
+    address: "Periférico de la Juventud 6101 local 5, Plaza Las Palmas",
+    rating: 4.9,
+    hours: { Monday:"Cerrado", Tuesday:"1:00 PM – 11:00 PM", Wednesday:"1:00 PM – 11:00 PM", Thursday:"1:00 PM – 12:00 AM", Friday:"1:00 PM – 12:00 AM", Saturday:"1:00 PM – 12:00 AM", Sunday:"1:00 PM – 10:00 PM" }
+  },
+  {
+    name: "Aura Café",
+    emoji: "☕",
+    categories: ["Otro", "Restaurante"],
+    phone: "614 344 4373",
+    web: null,
+    social: "https://www.instagram.com/auracafe.mx",
+    mapsUrl: "https://maps.google.com/?cid=ChIJ16jSnsxd6oYRPlmYFmjSbEc",
+    address: "Av. Prol. Teófilo Borunda 11400",
+    rating: 4.6,
+    hours: { Monday:"Cerrado", Tuesday:"4:00 PM – 10:00 PM", Wednesday:"4:00 PM – 10:00 PM", Thursday:"4:00 PM – 10:00 PM", Friday:"4:00 PM – 10:00 PM", Saturday:"4:00 PM – 10:00 PM", Sunday:"4:00 PM – 10:00 PM" }
+  }
+].sort((a,b) => a.name.localeCompare(b.name, 'es'));
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+const CATEGORY_DEFINITIONS = {
+  'Restaurante':        { label: 'Restaurante', color: 'rest', emoji: '🍽️' },
+  'Desayunos':          { label: 'Desayuno',    color: 'des',  emoji: '🍳' },
+  'Comida para llevar': { label: 'Para Llevar', color: 'para', emoji: '📦' },
+  'Restaurante Bar':    { label: 'Restaurante Bar', color: 'bar',  emoji: '🍹' },
+  'Otro':               { label: 'Otro',         color: 'otro', emoji: '🌟' }
+};
+const ORDERED_CATS = ['Restaurante','Desayunos','Comida para llevar','Restaurante Bar','Otro'];
+
+function todayHours(r) {
+  return r.hours[todayName] || null;
+}
+
+function isOpenNow(r) {
+  const h = todayHours(r);
+  if (!h || h === 'Cerrado') return false;
+  // parse "HH:MM AM/PM – HH:MM AM/PM"
+  const parts = h.split('–').map(s => s.trim());
+  if (parts.length < 2) return false;
+  function toMins(str) {
+    const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (!m) return null;
+    let hr = parseInt(m[1]), mn = parseInt(m[2]);
+    const ap = m[3].toUpperCase();
+    if (ap === 'PM' && hr !== 12) hr += 12;
+    if (ap === 'AM' && hr === 12) hr = 0;
+    return hr * 60 + mn;
+  }
+  const now = new Date();
+  const nowMins = now.getHours() * 60 + now.getMinutes();
+  const open = toMins(parts[0]);
+  let close = toMins(parts[1]);
+  if (open === null || close === null) return false;
+  // handle past midnight close
+  if (close < open) close += 24 * 60;
+  return nowMins >= open && nowMins < close;
+}
+
+function statusPill(r, large = false) {
+  const h = todayHours(r);
+  const noInfo = !h;
+  const cerrado = h === 'Cerrado';
+  const open = !noInfo && !cerrado && isOpenNow(r);
+  if (noInfo) return '';
+  if (cerrado) return `<span class="${large ? 'result-open-pill' : 'card-status'} closed">Cerrado hoy</span>`;
+  if (open)    return `<span class="${large ? 'result-open-pill' : 'card-status'} open">Abierto</span>`;
+  return `<span class="${large ? 'result-open-pill' : 'card-status'} closed">Cerrado ahora</span>`;
+}
+
+function ratingStars(r) {
+  if (!r.rating) return '';
+  return `⭐ ${r.rating.toFixed(1)}`;
+}
+
+function waLink(phone) {
+  const d = phoneDigits(phone);
+  if (!d) return null;
+  return `https://wa.me/${d}`;
+}
+
+function safeUrl(url) {
+  if (!url) return null;
+  return url.startsWith('http') ? url : 'https://' + url;
+}
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let activeFilter = 'all';
+let searchQuery  = '';
+let lastWinner   = null;
+
+function getFiltered() {
+  let list = restaurants;
+  if (activeFilter !== 'all') list = list.filter(r => r.categories.includes(activeFilter));
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(r => r.name.toLowerCase().includes(q) || r.address.toLowerCase().includes(q));
+  }
+  return list;
+}
+
+// ─────────────────────────────────────────────
+// FILTER + SEARCH
+// ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    resetSlot();
+    renderList();
+    updateBadge();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  renderList();
+  updateBadge();
+});
+
+function updateBadge() {
+  const count = getFiltered().length;
+  document.getElementById('countBadge').textContent =
+    count + ' restaurante' + (count !== 1 ? 's' : '') + ' disponible' + (count !== 1 ? 's' : '');
+  document.getElementById('listCount').textContent =
+    count + ' resultado' + (count !== 1 ? 's' : '');
+}
+
+// ─────────────────────────────────────────────
+// SPINNER
+// ─────────────────────────────────────────────
+let isSpinning = false;
+let openNowOnly = false;
+
+function resetSlot() {
+  document.getElementById('slotPlaceholder').style.display = '';
+  document.getElementById('slotSpinning').style.display = 'none';
+  document.getElementById('slotResult').style.display = 'none';
+  document.querySelectorAll('.restaurant-card.highlighted').forEach(c => c.classList.remove('highlighted'));
+  lastWinner = null;
+}
+
+function spin() {
+  if (isSpinning) return;
+  let pool = getFiltered();
+  if (openNowOnly) pool = pool.filter(r => isOpenNow(r));
+  if (pool.length === 0) {
+    document.getElementById('openOnlyNote').textContent = '😔 Ningún restaurante está abierto ahora en esta categoría';
+    return;
+  }
+
+  isSpinning = true;
+  const btn = document.getElementById('spinBtn');
+  btn.disabled = true;
+
+  document.getElementById('slotPlaceholder').style.display = 'none';
+  document.getElementById('slotResult').style.display = 'none';
+  document.getElementById('slotSpinning').style.display = 'flex';
+  document.querySelectorAll('.restaurant-card.highlighted').forEach(c => c.classList.remove('highlighted'));
+
+  const winner = pool[Math.floor(Math.random() * pool.length)];
+  lastWinner = winner;
+
+  let cycles = 0;
+  const maxCycles = 20;
+  const nameEl = document.getElementById('spinningName');
+
+  const interval = setInterval(() => {
+    nameEl.textContent = pool[Math.floor(Math.random() * pool.length)].name;
+    cycles++;
+    if (cycles >= maxCycles) {
+      clearInterval(interval);
+      nameEl.textContent = winner.name;
+      setTimeout(() => {
+        document.getElementById('slotSpinning').style.display = 'none';
+        showResult(winner);
+        isSpinning = false;
+        btn.disabled = false;
+      }, 300);
+    }
+  }, 80);
+}
+
+function showResult(r) {
+  document.getElementById('resultName').textContent = r.name;
+
+  // open/closed pill
+  const pill = document.getElementById('resultOpenPill');
+  const h = todayHours(r);
+  if (!h) {
+    pill.style.display = 'none';
+  } else {
+    pill.style.display = '';
+    const open = h !== 'Cerrado' && isOpenNow(r);
+    const cerrado = h === 'Cerrado';
+    if (cerrado) { pill.textContent = 'Cerrado hoy'; pill.className = 'result-open-pill closed'; }
+    else if (open) { pill.textContent = 'Abierto ahora'; pill.className = 'result-open-pill open'; }
+    else { pill.textContent = 'Cerrado ahora'; pill.className = 'result-open-pill closed'; }
+  }
+
+  // rating
+  const ratingEl = document.getElementById('resultRating');
+  ratingEl.textContent = ratingStars(r);
+  ratingEl.style.display = r.rating ? '' : 'none';
+
+  // tags
+  document.getElementById('resultTags').innerHTML = r.categories
+    .filter(c => CATEGORY_DEFINITIONS[c])
+    .map(c => `<span class="result-tag">${CATEGORY_DEFINITIONS[c].emoji} ${CATEGORY_DEFINITIONS[c].label}</span>`)
+    .join('');
+
+  // hours text
+  const hoursEl = document.getElementById('resultHoursText');
+  if (h && h !== 'Cerrado') {
+    hoursEl.textContent = 'Hoy: ' + h;
+    hoursEl.style.display = '';
+  } else {
+    hoursEl.style.display = 'none';
+  }
+
+  // links
+  const linksEl = document.getElementById('resultLinks');
+  let html = `<a class="result-link maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>`;
+  if (r.phone) html += `<a class="result-link call" href="tel:${phoneDigits(r.phone)}"">📞 Llamar</a>`;
+  if (r.phone) html += `<a class="result-link wa" href="${waLink(r.phone)}" target="_blank">💬 WhatsApp</a>`;
+  if (r.web && r.web !== r.social) html += `<a class="result-link web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
+  if (r.social) html += `<a class="result-link web" href="${r.social}" target="_blank">📲 Redes</a>`;
+  linksEl.innerHTML = html;
+
+  document.getElementById('slotResult').style.display = 'flex';
+
+  // highlight the ONE card matching winner (only the first if duplicates across groups)
+  setTimeout(() => {
+    let highlighted = false;
+    document.querySelectorAll('.restaurant-card').forEach(card => {
+      card.classList.remove('highlighted');
+      if (!highlighted && card.dataset.name === r.name) {
+        card.classList.add('highlighted');
+        highlighted = true;
+      }
+    });
+  }, 200);
+}
+
+function scrollToWinner() {
+  if (!lastWinner) return;
+  const card = document.querySelector(`.restaurant-card[data-name="${CSS.escape(lastWinner.name)}"]`);
+  if (card) {
+    card.classList.add('open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// ─────────────────────────────────────────────
+// RENDER LIST
+// ─────────────────────────────────────────────
+function hoursHTML(hours) {
+  if (!hours || Object.keys(hours).length === 0)
+    return '<p style="font-size:12px;color:rgba(0,0,0,0.3)">Horario no disponible</p>';
+
+  const dayMap = { Sunday:'Dom', Monday:'Lun', Tuesday:'Mar', Wednesday:'Mié', Thursday:'Jue', Friday:'Vie', Saturday:'Sáb' };
+
+  return DAYS.map(day => {
+    const h = hours[day] || 'Cerrado';
+    const isToday = day === todayName;
+    const isTodayClosed = isToday && h === 'Cerrado';
+    return `<div class="hours-row ${isToday && !isTodayClosed ? 'today' : ''} ${isTodayClosed ? 'today-closed' : ''}">
+      <span class="day">${dayMap[day]}</span>
+      <span>${h}</span>
+    </div>`;
+  }).join('');
+}
+
+function cardHTML(r) {
+  const todayH = todayHours(r);
+  const tagHTML = r.categories
+    .filter(c => CATEGORY_DEFINITIONS[c])
+    .map(c => `<span class="mini-tag ${CATEGORY_DEFINITIONS[c].color}">${CATEGORY_DEFINITIONS[c].label}</span>`)
+    .join('');
+
+  const waHref = waLink(r.phone);
+  const telHref = r.phone ? `tel:${phoneDigits(r.phone)}` : null;
+
+  let actionBtns = `<a class="card-action-btn cab-maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>`;
+  if (telHref) actionBtns += `<a class="card-action-btn cab-call" href="${telHref}">📞 Llamar</a>`;
+  if (waHref)  actionBtns += `<a class="card-action-btn cab-wa"   href="${waHref}" target="_blank">💬 WhatsApp</a>`;
+  if (r.web && r.web !== r.social) actionBtns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
+  if (r.social) actionBtns += `<a class="card-action-btn cab-web" href="${r.social}" target="_blank">📲 Redes</a>`;
+
+  return `<div class="restaurant-card" data-name="${r.name.replace(/"/g,'&quot;')}">
+    <div class="card-header">
+      <div class="card-left">
+        <div class="card-icon">${r.emoji}</div>
+        <div class="card-name-wrap">
+          <div class="card-name-row">
+            <div class="card-name">${r.name}</div>
+            ${statusPill(r)}
+          </div>
+          <div class="card-meta-row">
+            <div class="card-mini-tags">${tagHTML}</div>
+            ${r.rating ? `<span class="card-rating">⭐ ${r.rating.toFixed(1)}</span>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="card-chevron">⌄</div>
+    </div>
+    <div class="card-details">
+      <div class="details-inner">
+        <div>
+          <div class="detail-block">
+            <div class="detail-label">Dirección</div>
+            <div class="detail-value">${r.address}</div>
+          </div>
+          ${r.phone ? `<div class="detail-block">
+            <div class="detail-label">Teléfono</div>
+            <div class="detail-value"><a href="tel:${phoneDigits(r.phone)}" style="color:var(--dark);text-decoration:none">${r.phone}</a></div>
+          </div>` : ''}
+          ${todayH ? `<div class="detail-block">
+            <div class="detail-label">Hoy</div>
+            <div class="detail-value" style="color:${todayH === 'Cerrado' ? 'var(--red-closed)' : 'var(--green)'};font-weight:600">${todayH}</div>
+          </div>` : ''}
+          <div class="card-action-row">${actionBtns}</div>
+        </div>
+        <div>
+          <div class="detail-label">Horario</div>
+          <div>${hoursHTML(r.hours)}</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderList() {
+  const container = document.getElementById('listContainer');
+  const filtered = getFiltered();
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="no-results">No se encontraron restaurantes.</div>';
+    return;
+  }
+
+  // if searching or single filter → flat sorted list
+  if (searchQuery || activeFilter !== 'all') {
+    container.innerHTML = filtered.map(r => cardHTML(r)).join('');
+  } else {
+    // group by category, alphabetical within each
+    let html = '';
+    ORDERED_CATS.forEach(cat => {
+      const inCat = restaurants.filter(r => r.categories.includes(cat));
+      if (inCat.length === 0) return;
+      const def = CATEGORY_DEFINITIONS[cat];
+      html += `<div class="category-group">
+        <div class="category-label"><h3>${def.emoji} ${def.label}</h3></div>
+        ${inCat.map(r => cardHTML(r)).join('')}
+      </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  // attach toggle listeners
+  container.querySelectorAll('.card-header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.closest('.restaurant-card').classList.toggle('open');
+    });
+  });
+}
+
+//
+
+
+// ─────────────────────────────────────────────
+// OPEN NOW TOGGLE
+// ─────────────────────────────────────────────
+document.getElementById('openNowToggle').addEventListener('change', function() {
+  openNowOnly = this.checked;
+  const label = document.getElementById('openToggleLabel');
+  const note = document.getElementById('openOnlyNote');
+  if (openNowOnly) {
+    label.classList.add('active');
+    const openCount = getFiltered().filter(r => isOpenNow(r)).length;
+    note.textContent = openCount + ' restaurante' + (openCount !== 1 ? 's' : '') + ' abierto' + (openCount !== 1 ? 's' : '') + ' ahora';
+  } else {
+    label.classList.remove('active');
+    note.textContent = '';
+  }
+  resetSlot();
+  updateBadge();
+});
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+renderList();
+updateBadge();
+</script>
+</body>
+</html>
