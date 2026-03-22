@@ -340,8 +340,12 @@ def main():
     new_html = re.sub(pattern, js_array, html, flags=re.DOTALL)
 
     if new_html == html:
-        print("⚠️  No changes detected — pattern may not have matched!")
-        sys.exit(1)
+        # Check if the pattern exists at all (real error) vs data just hasn't changed
+        if not re.search(r'const restaurants = \[', html):
+            print("⚠️  Pattern not found in HTML — file structure may have changed!")
+            sys.exit(1)
+        print("ℹ️  No changes — restaurant data is already up to date.")
+        sys.exit(0)
 
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(new_html)
