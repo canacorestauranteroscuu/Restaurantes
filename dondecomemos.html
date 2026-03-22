@@ -783,11 +783,19 @@
     border-radius: 10px;
     font-weight: 500;
   }
-  .mini-tag.rest { background: #EEF2FF; color: #4338CA; }
-  .mini-tag.des  { background: #FFF7ED; color: #C2410C; }
-  .mini-tag.para { background: #F0FDF4; color: #166534; }
-  .mini-tag.bar  { background: #FDF4FF; color: #7E22CE; }
-  .mini-tag.otro { background: #F8FAFC; color: #475569; }
+  .mini-tag.rest  { background: #EEF2FF; color: #4338CA; }
+  .mini-tag.des   { background: #FFF7ED; color: #C2410C; }
+  .mini-tag.para  { background: #F0FDF4; color: #166534; }
+  .mini-tag.rbar  { background: #FDF4FF; color: #7E22CE; }
+  .mini-tag.otro  { background: #F8FAFC; color: #475569; }
+  .mini-tag.bar   { background: #FEF3C7; color: #92400E; }
+  .mini-tag.cafe  { background: #FDF2F8; color: #9D174D; }
+  .mini-tag.dulc  { background: #FFF1F2; color: #BE123C; }
+  .mini-tag.past  { background: #FEFCE8; color: #854D0E; }
+  .mini-tag.pan   { background: #FEF9C3; color: #713F12; }
+  .mini-tag.exp   { background: #ECFDF5; color: #065F46; }
+  .mini-tag.even  { background: #EFF6FF; color: #1E40AF; }
+  .mini-tag.vent  { background: #F0FDFA; color: #115E59; }
 
   .card-rating {
     font-size: 10px;
@@ -918,14 +926,9 @@
   <p class="header-tagline">Gira la Ruleta del Sabor — restaurantes locales de Chihuahua de quienes le echan ganas.</p>
 </header>
 
-<!-- FILTER TABS -->
-<div class="filter-bar">
+<!-- FILTER TABS (auto-populated by JS) -->
+<div class="filter-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">Todos</button>
-  <button class="filter-btn" data-filter="Restaurante">Restaurante</button>
-  <button class="filter-btn" data-filter="Desayunos">Desayuno</button>
-  <button class="filter-btn" data-filter="Comida para llevar">Para Llevar</button>
-  <button class="filter-btn" data-filter="Restaurante Bar">Restaurante Bar</button>
-  <button class="filter-btn" data-filter="Otro">Otro</button>
 </div>
 
 <!-- SEARCH -->
@@ -1451,13 +1454,22 @@ const restaurants = [
 // HELPERS
 // ─────────────────────────────────────────────
 const CATEGORY_DEFINITIONS = {
-  'Restaurante':        { label: 'Restaurante', color: 'rest', emoji: '🍽️' },
-  'Desayunos':          { label: 'Desayuno',    color: 'des',  emoji: '🍳' },
-  'Comida para llevar': { label: 'Para Llevar', color: 'para', emoji: '📦' },
-  'Restaurante Bar':    { label: 'Restaurante Bar', color: 'bar',  emoji: '🍹' },
-  'Otro':               { label: 'Otro',         color: 'otro', emoji: '🌟' }
+  'Restaurante':          { label: 'Restaurante',     color: 'rest', emoji: '🍽️' },
+  'Desayunos':            { label: 'Desayuno',        color: 'des',  emoji: '🍳' },
+  'Comida para llevar':   { label: 'Para Llevar',     color: 'para', emoji: '📦' },
+  'Restaurante Bar':      { label: 'Restaurante Bar', color: 'rbar', emoji: '🍹' },
+  'Bar':                  { label: 'Bar',             color: 'bar',  emoji: '🍺' },
+  'Café':                 { label: 'Café',            color: 'cafe', emoji: '☕' },
+  'Dulcería':             { label: 'Dulcería',        color: 'dulc', emoji: '🍬' },
+  'Pastelería':           { label: 'Pastelería',      color: 'past', emoji: '🎂' },
+  'Panadería':            { label: 'Panadería',       color: 'pan',  emoji: '🥖' },
+  'Expendio':             { label: 'Expendio',        color: 'exp',  emoji: '🏪' },
+  'Eventos':              { label: 'Eventos',         color: 'even', emoji: '🎉' },
+  'Venta alimentos crudos': { label: 'Alimentos Crudos', color: 'vent', emoji: '🥩' },
+  'Otro':                 { label: 'Otro',            color: 'otro', emoji: '🌟' }
 };
-const ORDERED_CATS = ['Restaurante','Desayunos','Comida para llevar','Restaurante Bar','Otro'];
+// Auto-build ordered categories from what's actually in the data
+const ORDERED_CATS = Object.keys(CATEGORY_DEFINITIONS);
 
 function todayHours(r) {
   return r.hours[todayName] || null;
@@ -1535,6 +1547,22 @@ function getFiltered() {
 // ─────────────────────────────────────────────
 // FILTER + SEARCH
 // ─────────────────────────────────────────────
+// Auto-generate filter buttons from categories present in restaurant data
+(function buildFilterButtons() {
+  const bar = document.getElementById('filterBar');
+  const usedCats = new Set();
+  restaurants.forEach(r => r.categories.forEach(c => usedCats.add(c)));
+  ORDERED_CATS.filter(c => usedCats.has(c)).forEach(cat => {
+    const def = CATEGORY_DEFINITIONS[cat];
+    if (!def) return;
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = cat;
+    btn.textContent = def.label;
+    bar.appendChild(btn);
+  });
+})();
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
