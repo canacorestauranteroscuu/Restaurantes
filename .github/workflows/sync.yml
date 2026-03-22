@@ -1,0 +1,42 @@
+name: Sync Restaurant Directory
+
+on:
+  # Run daily at 6 AM Mexico City time (12:00 UTC)
+  schedule:
+    - cron: '0 12 * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run sync script
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          HTML_FILE: dondecomemos.html
+        run: python sync.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet dondecomemos.html || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "CANACO Sync Bot"
+          git config user.email "canacorestauranteroscuu@gmail.com"
+          git add dondecomemos.html
+          git commit -m "🔄 Auto-sync restaurant directory $(date +%Y-%m-%d)"
+          git push
