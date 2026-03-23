@@ -2021,8 +2021,9 @@ function showResult(r) {
   // links
   const linksEl = document.getElementById('resultLinks');
   let html = `<a class="result-link maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>`;
-  if (r.phone) html += `<a class="result-link call" href="tel:${phoneDigits(r.phone)}"">📞 Llamar</a>`;
-  if (r.phone) html += `<a class="result-link wa" href="${waLink(r.phone)}" target="_blank">💬 WhatsApp</a>`;
+  if (r.phone) html += `<a class="result-link call" href="tel:${phoneDigits(r.phone)}">📞 Llamar</a>`;
+  const waNum = r.whatsapp || r.phone;
+  if (waNum) html += `<a class="result-link wa" href="${waLink(waNum)}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) html += `<a class="result-link web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
   if (r.social) html += `<a class="result-link web" href="${safeSocial(r.social)}" target="_blank">📲 Redes</a>`;
   linksEl.innerHTML = html;
@@ -2107,7 +2108,7 @@ function cardHTML(r, idx) {
   const hasMulti = r.locations && r.locations.length > 0;
   const locCount = hasMulti ? r.locations.length : 0;
 
-  const waHref = waLink(r.phone);
+  const waHref = waLink(r.whatsapp || r.phone);
   const telHref = r.phone ? `tel:${phoneDigits(r.phone)}` : null;
 
   let actionBtns = r.mapsUrl ? `<a class="card-action-btn cab-maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>` : '';
@@ -2213,7 +2214,7 @@ function switchLocation(btn, restaurantIdx, locIdx) {
   let btns = loc.mapsUrl ? `<a class="card-action-btn cab-maps" href="${loc.mapsUrl}" target="_blank">📍 Maps</a>` : '';
   const ph = loc.phone || r.phone;
   if (ph) btns += `<a class="card-action-btn cab-call" href="tel:${phoneDigits(ph)}">📞 Llamar</a>`;
-  const wa = waLink(ph);
+  const wa = waLink(r.whatsapp || ph);
   if (wa) btns += `<a class="card-action-btn cab-wa" href="${wa}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) btns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
   if (r.social) btns += `<a class="card-action-btn cab-web" href="${safeSocial(r.social)}" target="_blank">📲 Redes</a>`;

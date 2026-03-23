@@ -77,6 +77,7 @@ def extract_notion_data(page):
     name = get_title(props.get("Nombre Restaurante", {}))
     categories = get_multi(props.get("Categoría ", {}))
     phone = get_phone(props.get("Teléfono restaurante", {}))
+    whatsapp = get_phone(props.get("WhatsApp Restaurante", {}))
     web = get_url(props.get("Página web (opcional)", {}))
     social = get_url(props.get("Nombre en redes sociales ", {}))
     emoji = get_text(props.get("Emoji", {}))
@@ -90,6 +91,7 @@ def extract_notion_data(page):
         "name": name,
         "categories": categories,
         "phone": phone,
+        "whatsapp": whatsapp or None,
         "web": web or None,
         "social": social or None,
         "emoji": emoji or "🍽️",
@@ -244,6 +246,7 @@ def build_restaurant_entry(notion_data, locations):
         "emoji": notion_data["emoji"],
         "categories": notion_data["categories"],
         "phone": primary.get("phone") or notion_data["phone"] or None,
+        "whatsapp": notion_data["whatsapp"],
         "web": notion_data["web"],
         "social": notion_data["social"],
         "mapsUrl": primary.get("mapsUrl"),
@@ -306,6 +309,7 @@ def entry_to_js(entry):
     lines.append(f'    emoji: {js_val(entry["emoji"])},')
     lines.append(f'    categories: {js_val(entry["categories"])},')
     lines.append(f'    phone: {js_val(entry["phone"])},')
+    lines.append(f'    whatsapp: {js_val(entry["whatsapp"])},')
     lines.append(f'    web: {js_val(entry["web"])},')
     lines.append(f'    social: {js_val(entry["social"])},')
     lines.append(f'    mapsUrl: {js_val(entry["mapsUrl"])},')
