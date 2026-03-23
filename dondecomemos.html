@@ -1797,7 +1797,7 @@ function spin() {
       setTimeout(() => {
         document.getElementById('slotSpinning').style.display = 'none';
         document.getElementById('slotMachine').classList.add('has-result');
-        document.getElementById('respinBtn').style.display = '';
+        document.getElementById('respinBtn').style.display = 'inline-block';
         showResult(winner);
         isSpinning = false;
       }, 300);
