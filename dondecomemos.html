@@ -671,6 +671,77 @@
     border: none;
   }
   .result-scroll-link:hover { color: var(--gold); }
+  .result-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--wa);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .result-share-btn:hover { background: #1ebe5d; }
+
+  /* ── SPOTLIGHT BANNER ── */
+  .spotlight-banner {
+    max-width: 520px;
+    margin: 0 auto 16px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #FFF8F0 0%, #FFF1E0 100%);
+    border: 1px solid rgba(232,168,68,0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .spotlight-banner:hover { border-color: var(--gold); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,168,68,0.15); }
+  .spotlight-badge {
+    background: var(--gold);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .spotlight-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .spotlight-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .spotlight-sub {
+    font-size: 12px;
+    color: var(--light-mid);
+    margin-top: 2px;
+  }
+  .spotlight-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
 
   /* ── SPIN BUTTON (hidden — slot machine is the button now) ── */
   .spin-btn { display: none; }
@@ -1089,6 +1160,16 @@
   <p>Encuentra los mejores restaurantes en Chihuahua: comida mexicana, comida saludable, cafés, pastelerías, panaderías, bares, restaurantes bar, comida para llevar, desayunos y más. Directorio oficial de la Sección Restauranteros de la Cámara Nacional de Comercio (CANACO) de Chihuahua. Horarios, direcciones, teléfonos y enlaces a Google Maps de cada restaurante.</p>
 </div>
 
+<!-- SPOTLIGHT -->
+<div class="spotlight-banner" id="spotlightBanner" style="display:none" onclick="scrollToSpotlight()">
+  <span class="spotlight-badge">⭐ Spotlight</span>
+  <div class="spotlight-content">
+    <div class="spotlight-name" id="spotlightName"></div>
+    <div class="spotlight-sub" id="spotlightSub"></div>
+  </div>
+  <span class="spotlight-arrow">›</span>
+</div>
+
 <!-- FILTER TABS (auto-populated by JS) -->
 <div class="filter-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">Todos</button>
@@ -1136,6 +1217,7 @@
         <div class="result-tags" id="resultTags"></div>
         <div class="result-hours-text" id="resultHoursText"></div>
         <div class="result-links" id="resultLinks" onclick="event.stopPropagation()"></div>
+        <button class="result-share-btn" id="resultShareBtn" onclick="event.stopPropagation(); shareResult()">📲 Compartir</button>
         <button class="result-scroll-link" id="resultScrollBtn" onclick="event.stopPropagation(); scrollToWinner()">Ver en la lista ↓</button>
         <button class="respin-btn" id="respinBtn" onclick="event.stopPropagation(); resetAndSpin()">🔄 Otra vez</button>
       </div>
@@ -1866,6 +1948,25 @@ function showResult(r) {
   }, 200);
 }
 
+function shareResult() {
+  if (!lastWinner) return;
+  const msgs = [
+    `🎰 La Ruleta del Sabor me mandó a *${lastWinner.name}* y no me puedo negar. ¿Vienes?`,
+    `🎲 Giré la Ruleta del Sabor y salió *${lastWinner.name}*. El destino ha hablado.`,
+    `🍽️ ¿Sin idea de dónde comer? Yo giré la Ruleta del Sabor y me tocó *${lastWinner.name}*. Hoy se come bien.`,
+    `🎰 La ruleta decidió: *${lastWinner.name}*. No hay vuelta atrás. ¿Quién se apunta?`,
+    `🎲 Dejé que la Ruleta del Sabor eligiera por mí: *${lastWinner.name}*. A veces el destino tiene buen gusto.`
+  ];
+  const msg = msgs[Math.floor(Math.random() * msgs.length)];
+  const url = 'https://canacorestauranteroscuu.github.io/Restaurantes/dondecomemos.html';
+  const text = msg + '\n\nGírala tú también 👉 ' + url;
+  if (navigator.share) {
+    navigator.share({ text: text }).catch(() => {});
+  } else {
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  }
+}
+
 function scrollToWinner() {
   if (!lastWinner) return;
   const card = document.querySelector(`.restaurant-card[data-name="${CSS.escape(lastWinner.name)}"]`);
@@ -2089,6 +2190,53 @@ document.getElementById('openNowToggle').addEventListener('change', function() {
 });
 
 // ─────────────────────────────────────────────
+// SPOTLIGHT — fair weekly rotation
+// ─────────────────────────────────────────────
+function getWeekNumber() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const diff = now - start;
+  return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+}
+
+function initSpotlight() {
+  if (restaurants.length === 0) return;
+  const week = getWeekNumber();
+  const idx = week % restaurants.length;
+  const r = restaurants[idx];
+  const banner = document.getElementById('spotlightBanner');
+  document.getElementById('spotlightName').textContent = r.emoji + ' ' + r.name;
+  const cats = r.categories.filter(c => CATEGORY_DEFINITIONS[c]).map(c => CATEGORY_DEFINITIONS[c].label).join(' · ');
+  document.getElementById('spotlightSub').textContent = cats || 'Restaurante de la semana';
+  banner.style.display = 'flex';
+  banner.dataset.name = r.name;
+}
+
+function scrollToSpotlight() {
+  const banner = document.getElementById('spotlightBanner');
+  const name = banner.dataset.name;
+  if (!name) return;
+  // Reset filters to show all
+  activeFilter = 'all';
+  document.getElementById('searchInput').value = '';
+  openNowOnly = false;
+  document.getElementById('openNowToggle').checked = false;
+  document.getElementById('openToggleLabel').classList.remove('active');
+  document.getElementById('openOnlyNote').textContent = '';
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+  renderList();
+  updateBadge();
+  // Find and open the card
+  setTimeout(() => {
+    const card = document.querySelector(`.restaurant-card[data-name="${CSS.escape(name)}"]`);
+    if (card) {
+      card.classList.add('open', 'highlighted');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+}
+
+// ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
 // Apply default "open now" state
@@ -2099,6 +2247,7 @@ document.getElementById('openNowToggle').addEventListener('change', function() {
   const openCount = getFiltered().filter(r => isOpenNow(r)).length;
   note.textContent = openCount + ' restaurante' + (openCount !== 1 ? 's' : '') + ' abierto' + (openCount !== 1 ? 's' : '') + ' ahora';
 })();
+initSpotlight();
 renderList();
 updateBadge();
 </script>
