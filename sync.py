@@ -221,56 +221,85 @@ def format_time(time_str):
 
 # ── Build restaurant entries ────────────────────────────────
 
-def build_restaurant_entry(notion_data, place_data=None):
-    """Combine Notion + Google Places data into one restaurant JS object."""
+def build_location(place_data):
+    """Build a single location object from Google Places data."""
+    addr = place_data.get("formatted_address", "").replace(", Mexico", "").replace(", México", "").strip() or None
+    return {
+        "address": addr,
+        "phone": place_data.get("formatted_phone_number") or None,
+        "rating": place_data.get("rating"),
+        "mapsUrl": place_data.get("url") or None,
+        "hours": parse_hours(place_data),
+        "website": place_data.get("website") or None
+    }
+
+
+def build_restaurant_entry(notion_data, locations):
+    """Combine Notion + Google Places data into one restaurant JS object.
+    locations is a list of location dicts from build_location()."""
+    primary = locations[0] if locations else {}
+
     entry = {
         "name": notion_data["name"],
         "emoji": notion_data["emoji"],
         "categories": notion_data["categories"],
-        "phone": None,
+        "phone": primary.get("phone") or notion_data["phone"] or None,
         "web": notion_data["web"],
         "social": notion_data["social"],
-        "mapsUrl": None,
-        "address": None,
-        "rating": None,
-        "hours": {}
+        "mapsUrl": primary.get("mapsUrl"),
+        "address": primary.get("address"),
+        "rating": primary.get("rating"),
+        "hours": primary.get("hours", {}),
+        "locations": locations if len(locations) > 1 else []
     }
 
-    if place_data:
-        entry["phone"] = place_data.get("formatted_phone_number") or notion_data["phone"] or None
-        entry["address"] = place_data.get("formatted_address", "").replace(", Mexico", "").replace(", México", "").strip() or None
-        entry["rating"] = place_data.get("rating")
-        entry["mapsUrl"] = place_data.get("url") or None
-        entry["hours"] = parse_hours(place_data)
-        # Use Google website if Notion doesn't have one
-        if not entry["web"] and place_data.get("website"):
-            entry["web"] = place_data["website"]
-    else:
-        entry["phone"] = notion_data["phone"] or None
+    # Use Google website if Notion doesn't have one
+    if not entry["web"] and primary.get("website"):
+        entry["web"] = primary["website"]
 
     return entry
 
 
+def js_val(v):
+    """Convert a Python value to a JS literal string."""
+    if v is None:
+        return "null"
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    if isinstance(v, list) and v and isinstance(v[0], dict):
+        # Array of objects (locations)
+        items = ", ".join(location_to_js(loc) for loc in v)
+        return f"[{items}]"
+    if isinstance(v, list):
+        items = ", ".join(f'"{i}"' for i in v)
+        return f"[{items}]"
+    if isinstance(v, dict):
+        if not v:
+            return "{}"
+        items = ", ".join(f'{k}:"{val}"' for k, val in v.items() if val)
+        return f"{{ {items} }}"
+    # Escape quotes in strings
+    s = str(v).replace('"', '\\"')
+    return f'"{s}"'
+
+
+def location_to_js(loc):
+    """Convert a location dict to a JS object string (inline)."""
+    h = loc.get("hours", {})
+    if h:
+        h_str = ", ".join(f'{k}:"{v}"' for k, v in h.items() if v)
+        hours_js = f"{{ {h_str} }}"
+    else:
+        hours_js = "{}"
+    return (f'{{ address:{js_val(loc.get("address"))}, phone:{js_val(loc.get("phone"))}, '
+            f'rating:{js_val(loc.get("rating"))}, mapsUrl:{js_val(loc.get("mapsUrl"))}, '
+            f'hours:{hours_js} }}')
+
+
 def entry_to_js(entry):
     """Convert a restaurant dict to a JS object string."""
-    def js_val(v):
-        if v is None:
-            return "null"
-        if isinstance(v, bool):
-            return "true" if v else "false"
-        if isinstance(v, (int, float)):
-            return str(v)
-        if isinstance(v, list):
-            items = ", ".join(f'"{i}"' for i in v)
-            return f"[{items}]"
-        if isinstance(v, dict):
-            if not v:
-                return "{}"
-            items = ", ".join(f'{k}:"{v}"' for k, v in v.items() if v)
-            return f"{{ {items} }}"
-        # Escape quotes in strings
-        return f'"{str(v)}"'
-
     lines = []
     lines.append("  {")
     lines.append(f'    name: {js_val(entry["name"])},')
@@ -286,9 +315,15 @@ def entry_to_js(entry):
     # Hours as object
     if entry["hours"]:
         h_items = ", ".join(f'{day}:"{time}"' for day, time in entry["hours"].items())
-        lines.append(f'    hours: {{ {h_items} }}')
+        lines.append(f'    hours: {{ {h_items} }},')
     else:
-        lines.append(f'    hours: {{}}')
+        lines.append(f'    hours: {{}},')
+
+    # Locations array (multi-location only)
+    if entry["locations"]:
+        lines.append(f'    locations: {js_val(entry["locations"])}')
+    else:
+        lines.append(f'    locations: []')
 
     lines.append("  }")
     return "\n".join(lines)
@@ -311,19 +346,17 @@ def main():
         print(f"\n📍 {notion_data['name']}")
 
         if notion_data["place_ids"]:
-            # Generate one entry per Place ID (multi-location support)
-            for i, pid in enumerate(notion_data["place_ids"]):
+            locations = []
+            for pid in notion_data["place_ids"]:
                 print(f"   Fetching Google Places: {pid}")
                 place_data = fetch_place_details(pid)
-                entry = build_restaurant_entry(notion_data, place_data)
-                if len(notion_data["place_ids"]) > 1 and place_data:
-                    # Append location indicator for multi-location restaurants
-                    addr = place_data.get("formatted_address", "")
-                    # Keep same name — address differentiates on the card
-                all_entries.append(entry)
+                if place_data:
+                    locations.append(build_location(place_data))
+            entry = build_restaurant_entry(notion_data, locations)
+            all_entries.append(entry)
         else:
             print("   ⚠️  No Google Place ID — using Notion data only")
-            entry = build_restaurant_entry(notion_data)
+            entry = build_restaurant_entry(notion_data, [])
             all_entries.append(entry)
 
     # Generate JS array

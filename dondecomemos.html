@@ -504,19 +504,27 @@
     align-items: center;
   }
   .slot-placeholder {
-    color: rgba(255,255,255,0.35);
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
     user-select: none;
     pointer-events: none;
   }
   .slot-placeholder .dice-icon {
-    display: inline-block;
+    font-size: 40px;
+    display: block;
     animation: dicePulse 2s ease-in-out infinite;
   }
+  .slot-placeholder .placeholder-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+  }
   @keyframes dicePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15) rotate(10deg); }
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(12deg); }
   }
 
   /* spinning state */
@@ -942,6 +950,40 @@
   .hours-row.today-closed { color: var(--red-closed) !important; }
   .hours-row.today-closed .day { color: var(--red-closed) !important; }
 
+  /* ── LOCATION PICKER (multi-location) ── */
+  .loc-picker {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .loc-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #F8F5F2;
+    color: #5C3520;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .loc-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .loc-btn.active {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: white;
+  }
+  .loc-badge {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-left: 4px;
+  }
+
   /* no results */
   .no-results {
     text-align: center;
@@ -1050,7 +1092,10 @@
       <div class="slot-dots"><span></span><span></span><span></span></div>
     </div>
     <div class="slot-window" id="slotWindow">
-      <p class="slot-placeholder" id="slotPlaceholder"><span class="dice-icon">🎲</span> &nbsp;¡Sorpréndeme!</p>
+      <div class="slot-placeholder" id="slotPlaceholder">
+        <span class="dice-icon">🎲</span>
+        <span class="placeholder-text">¡Sorpréndeme!</span>
+      </div>
 
       <div class="slot-spinning" id="slotSpinning">
         <div class="spinning-names">
@@ -1841,29 +1886,51 @@ function hoursHTML(hours) {
   }).join('');
 }
 
-function cardHTML(r) {
+function shortAddr(addr) {
+  if (!addr) return '';
+  // Extract the short part: street name or first meaningful chunk
+  const parts = addr.split(',');
+  return parts[0].trim();
+}
+
+function cardHTML(r, idx) {
   const todayH = todayHours(r);
   const tagHTML = r.categories
     .filter(c => CATEGORY_DEFINITIONS[c])
     .map(c => `<span class="mini-tag ${CATEGORY_DEFINITIONS[c].color}">${CATEGORY_DEFINITIONS[c].label}</span>`)
     .join('');
 
+  const hasMulti = r.locations && r.locations.length > 0;
+  const locCount = hasMulti ? r.locations.length : 0;
+
   const waHref = waLink(r.phone);
   const telHref = r.phone ? `tel:${phoneDigits(r.phone)}` : null;
 
-  let actionBtns = `<a class="card-action-btn cab-maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>`;
+  let actionBtns = r.mapsUrl ? `<a class="card-action-btn cab-maps" href="${r.mapsUrl}" target="_blank">📍 Maps</a>` : '';
   if (telHref) actionBtns += `<a class="card-action-btn cab-call" href="${telHref}">📞 Llamar</a>`;
   if (waHref)  actionBtns += `<a class="card-action-btn cab-wa"   href="${waHref}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) actionBtns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
   if (r.social) actionBtns += `<a class="card-action-btn cab-web" href="${r.social}" target="_blank">📲 Redes</a>`;
 
-  return `<div class="restaurant-card" data-name="${r.name.replace(/"/g,'&quot;')}">
+  // Location picker for multi-location restaurants
+  let locPickerHTML = '';
+  if (hasMulti) {
+    const locBtns = r.locations.map((loc, i) =>
+      `<button class="loc-btn ${i === 0 ? 'active' : ''}" onclick="event.stopPropagation(); switchLocation(this, ${idx}, ${i})">${shortAddr(loc.address)}</button>`
+    ).join('');
+    locPickerHTML = `<div class="loc-picker">${locBtns}</div>`;
+  }
+
+  const locBadge = hasMulti ? `<span class="loc-badge">${locCount} ubicaciones</span>` : '';
+
+  return `<div class="restaurant-card" data-name="${r.name.replace(/"/g,'&quot;')}" data-idx="${idx}">
     <div class="card-header">
       <div class="card-left">
         <div class="card-icon">${r.emoji}</div>
         <div class="card-name-wrap">
           <div class="card-name-row">
             <div class="card-name">${r.name}</div>
+            ${locBadge}
             ${statusPill(r)}
           </div>
           <div class="card-meta-row">
@@ -1877,27 +1944,82 @@ function cardHTML(r) {
     <div class="card-details">
       <div class="details-inner">
         <div>
+          ${locPickerHTML}
           <div class="detail-block">
             <div class="detail-label">Dirección</div>
-            <div class="detail-value">${r.address}</div>
+            <div class="detail-value loc-address">${r.address || 'No disponible'}</div>
           </div>
-          ${r.phone ? `<div class="detail-block">
+          <div class="detail-block loc-phone-block" ${r.phone ? '' : 'style="display:none"'}>
             <div class="detail-label">Teléfono</div>
-            <div class="detail-value"><a href="tel:${phoneDigits(r.phone)}" style="color:var(--dark);text-decoration:none">${r.phone}</a></div>
-          </div>` : ''}
-          ${todayH ? `<div class="detail-block">
+            <div class="detail-value loc-phone">${r.phone ? `<a href="tel:${phoneDigits(r.phone)}" style="color:var(--dark);text-decoration:none">${r.phone}</a>` : ''}</div>
+          </div>
+          <div class="detail-block loc-today-block" ${todayH ? '' : 'style="display:none"'}>
             <div class="detail-label">Hoy</div>
-            <div class="detail-value" style="color:${todayH === 'Cerrado' ? 'var(--red-closed)' : 'var(--green)'};font-weight:600">${todayH}</div>
-          </div>` : ''}
-          <div class="card-action-row">${actionBtns}</div>
+            <div class="detail-value loc-today" style="color:${todayH === 'Cerrado' ? 'var(--red-closed)' : 'var(--green)'};font-weight:600">${todayH || ''}</div>
+          </div>
+          <div class="card-action-row loc-actions">${actionBtns}</div>
         </div>
         <div>
           <div class="detail-label">Horario</div>
-          <div>${hoursHTML(r.hours)}</div>
+          <div class="loc-hours">${hoursHTML(r.hours)}</div>
         </div>
       </div>
     </div>
   </div>`;
+}
+
+function switchLocation(btn, restaurantIdx, locIdx) {
+  const r = restaurants[restaurantIdx];
+  if (!r.locations || !r.locations[locIdx]) return;
+  const loc = r.locations[locIdx];
+  const card = btn.closest('.restaurant-card');
+
+  // Update active button
+  card.querySelectorAll('.loc-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Update details
+  card.querySelector('.loc-address').textContent = loc.address || 'No disponible';
+
+  const phoneBlock = card.querySelector('.loc-phone-block');
+  const phoneEl = card.querySelector('.loc-phone');
+  if (loc.phone) {
+    phoneBlock.style.display = '';
+    phoneEl.innerHTML = `<a href="tel:${phoneDigits(loc.phone)}" style="color:var(--dark);text-decoration:none">${loc.phone}</a>`;
+  } else {
+    phoneBlock.style.display = 'none';
+  }
+
+  const todayBlock = card.querySelector('.loc-today-block');
+  const todayEl = card.querySelector('.loc-today');
+  const h = loc.hours ? loc.hours[todayName] : null;
+  if (h) {
+    todayBlock.style.display = '';
+    todayEl.textContent = h;
+    todayEl.style.color = h === 'Cerrado' ? 'var(--red-closed)' : 'var(--green)';
+  } else {
+    todayBlock.style.display = 'none';
+  }
+
+  // Update hours
+  card.querySelector('.loc-hours').innerHTML = hoursHTML(loc.hours || {});
+
+  // Update action buttons
+  const actionsEl = card.querySelector('.loc-actions');
+  let btns = loc.mapsUrl ? `<a class="card-action-btn cab-maps" href="${loc.mapsUrl}" target="_blank">📍 Maps</a>` : '';
+  const ph = loc.phone || r.phone;
+  if (ph) btns += `<a class="card-action-btn cab-call" href="tel:${phoneDigits(ph)}">📞 Llamar</a>`;
+  const wa = waLink(ph);
+  if (wa) btns += `<a class="card-action-btn cab-wa" href="${wa}" target="_blank">💬 WhatsApp</a>`;
+  if (r.web && r.web !== r.social) btns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
+  if (r.social) btns += `<a class="card-action-btn cab-web" href="${r.social}" target="_blank">📲 Redes</a>`;
+  actionsEl.innerHTML = btns;
+
+  // Update rating display
+  const ratingEl = card.querySelector('.card-rating');
+  if (ratingEl && loc.rating) {
+    ratingEl.textContent = `⭐ ${loc.rating.toFixed(1)}`;
+  }
 }
 
 function renderList() {
@@ -1911,7 +2033,7 @@ function renderList() {
 
   // if searching or single filter → flat sorted list
   if (searchQuery || activeFilter !== 'all') {
-    container.innerHTML = filtered.map(r => cardHTML(r)).join('');
+    container.innerHTML = filtered.map(r => cardHTML(r, restaurants.indexOf(r))).join('');
   } else {
     // group by category, alphabetical within each
     let html = '';
@@ -1921,7 +2043,7 @@ function renderList() {
       const def = CATEGORY_DEFINITIONS[cat];
       html += `<div class="category-group">
         <div class="category-label"><h3>${def.emoji} ${def.label}</h3></div>
-        ${inCat.map(r => cardHTML(r)).join('')}
+        ${inCat.map(r => cardHTML(r, restaurants.indexOf(r))).join('')}
       </div>`;
     });
     container.innerHTML = html;
