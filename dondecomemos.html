@@ -2270,18 +2270,21 @@ document.getElementById('openNowToggle').addEventListener('change', function() {
 // ─────────────────────────────────────────────
 // SPOTLIGHT — fair weekly rotation
 // ─────────────────────────────────────────────
-function getWeekNumber() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 1);
-  const diff = now - start;
-  return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+function getISOWeek() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 3 - ((d.getDay() + 6) % 7));
+  const yearStart = new Date(d.getFullYear(), 0, 4);
+  return Math.round(((d - yearStart) / 86400000 + 1) / 7);
 }
 
 function initSpotlight() {
   if (restaurants.length === 0) return;
-  const week = getWeekNumber();
-  const idx = week % restaurants.length;
-  const r = restaurants[idx];
+  // Sort names for stable ordering regardless of array mutations
+  const names = restaurants.map(r => r.name).sort((a, b) => a.localeCompare(b, 'es'));
+  const week = getISOWeek();
+  const idx = week % names.length;
+  const r = restaurants.find(x => x.name === names[idx]);
   const banner = document.getElementById('spotlightBanner');
   document.getElementById('spotlightName').textContent = r.emoji + ' ' + r.name;
   const cats = r.categories.filter(c => CATEGORY_DEFINITIONS[c]).map(c => CATEGORY_DEFINITIONS[c].label).join(' · ');
