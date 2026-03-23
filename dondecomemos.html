@@ -474,6 +474,18 @@
   .slot-machine:active { transform: translateY(0); }
   .slot-machine.has-result { cursor: default; }
   .slot-machine.has-result:hover { transform: none; box-shadow: 0 0 40px rgba(196,98,45,0.2), inset 0 0 30px rgba(0,0,0,0.5); }
+  .slot-touch-target {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .slot-machine.has-result .slot-touch-target { display: none; }
+  .slot-machine { position: relative; }
   .slot-header {
     background: var(--terracotta);
     padding: 10px 20px;
@@ -1086,7 +1098,8 @@
 
 <!-- RANDOMIZER -->
 <div class="randomizer-section">
-  <div class="slot-machine" id="slotMachine" onclick="slotClick()">
+  <div class="slot-machine" id="slotMachine">
+    <button class="slot-touch-target" id="slotTouchTarget" aria-label="Girar ruleta del sabor" onclick="slotClick()"></button>
     <div class="slot-header">
       <span>Ruleta del Sabor</span>
       <div class="slot-dots"><span></span><span></span><span></span></div>
