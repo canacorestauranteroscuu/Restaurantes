@@ -692,20 +692,23 @@
     max-width: 520px;
   }
   .respin-btn {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.5);
+    background: rgba(196,98,45,0.15);
+    border: 1px solid var(--terracotta);
+    color: var(--terracotta);
     font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 8px 20px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
     display: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
-  .respin-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .respin-btn:hover { background: var(--terracotta); color: white; }
 
   /* ── LIST SECTION ── */
   .list-section {
@@ -1141,7 +1144,7 @@
         Solo abiertos ahora
       </label>
       <label class="toggle-switch" onclick="event.stopPropagation()">
-        <input type="checkbox" id="openNowToggle">
+        <input type="checkbox" id="openNowToggle" checked>
         <div class="toggle-track"></div>
         <div class="toggle-thumb"></div>
       </label>
@@ -1734,7 +1737,7 @@ function updateBadge() {
 // SPINNER
 // ─────────────────────────────────────────────
 let isSpinning = false;
-let openNowOnly = false;
+let openNowOnly = true;
 
 function resetSlot() {
   const machine = document.getElementById('slotMachine');
@@ -2085,6 +2088,14 @@ document.getElementById('openNowToggle').addEventListener('change', function() {
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
+// Apply default "open now" state
+(function initOpenToggle() {
+  const label = document.getElementById('openToggleLabel');
+  const note = document.getElementById('openOnlyNote');
+  label.classList.add('active');
+  const openCount = getFiltered().filter(r => isOpenNow(r)).length;
+  note.textContent = openCount + ' restaurante' + (openCount !== 1 ? 's' : '') + ' abierto' + (openCount !== 1 ? 's' : '') + ' ahora';
+})();
 renderList();
 updateBadge();
 </script>
