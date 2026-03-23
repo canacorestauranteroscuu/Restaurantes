@@ -41,7 +41,7 @@
   /* ── HEADER ── */
   header {
     background: #FFFFFF;
-    padding: 28px 24px 20px;
+    padding: 24px 24px 14px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -339,38 +339,51 @@
   /* ── FILTER BAR ── */
   .filter-bar {
     background: #FFFFFF;
-    padding: 16px 24px 20px;
+    padding: 10px 16px 12px;
     display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     justify-content: center;
-    gap: 8px;
     flex-wrap: wrap;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  @media (max-width: 680px) {
+    .filter-bar {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding: 10px 12px;
+    }
   }
   .filter-btn {
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    padding: 8px 18px;
+    padding: 6px 14px;
     border-radius: 40px;
-    border: 1.5px solid rgba(0,0,0,0.15);
+    border: 1.5px solid rgba(0,0,0,0.12);
     background: transparent;
     color: #5C3520;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .filter-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
   .filter-btn.active {
     background: var(--terracotta);
     border-color: var(--terracotta);
     color: white;
-    box-shadow: 0 0 20px rgba(196,98,45,0.4);
+    box-shadow: 0 0 12px rgba(196,98,45,0.3);
   }
 
   /* ── SEARCH BAR ── */
   .search-wrap {
     background: #FFFFFF;
-    padding: 0 24px 28px;
+    padding: 0 24px 16px;
     display: flex;
     justify-content: center;
   }
@@ -408,11 +421,11 @@
   /* ── RANDOMIZER SECTION ── */
   .randomizer-section {
     background: #2C1508;
-    padding: 36px 24px;
+    padding: 24px 24px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
     position: relative;
     overflow: hidden;
   }
@@ -435,7 +448,13 @@
     max-width: 520px;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(196,98,45,0.2), inset 0 0 30px rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
+  .slot-machine:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(196,98,45,0.3), inset 0 0 30px rgba(0,0,0,0.5); }
+  .slot-machine:active { transform: translateY(0); }
+  .slot-machine.has-result { cursor: default; }
+  .slot-machine.has-result:hover { transform: none; box-shadow: 0 0 40px rgba(196,98,45,0.2), inset 0 0 30px rgba(0,0,0,0.5); }
   .slot-header {
     background: var(--terracotta);
     padding: 10px 20px;
@@ -457,19 +476,27 @@
     display: block;
   }
   .slot-window {
-    padding: 28px 24px;
+    padding: 20px 24px;
     text-align: center;
-    min-height: 200px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   .slot-placeholder {
-    color: rgba(255,255,255,0.2);
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    user-select: none;
+  }
+  .slot-placeholder .dice-icon {
+    display: inline-block;
+    animation: dicePulse 2s ease-in-out infinite;
+  }
+  @keyframes dicePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15) rotate(10deg); }
   }
 
   /* spinning state */
@@ -605,39 +632,40 @@
   }
   .result-scroll-link:hover { color: var(--gold); }
 
-  /* ── SPIN BUTTON ── */
-  .spin-btn {
-    background: linear-gradient(135deg, var(--terracotta), #E8672A);
-    color: white;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 16px 52px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 8px 24px rgba(196,98,45,0.35);
-    position: relative;
-    overflow: hidden;
-  }
-  .spin-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-    pointer-events: none;
-  }
-  .spin-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(196,98,45,0.45); }
-  .spin-btn:active { transform: translateY(0); }
-  .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  /* ── SPIN BUTTON (hidden — slot machine is the button now) ── */
+  .spin-btn { display: none; }
 
   .count-badge {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 1px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
     font-family: 'DM Sans', sans-serif;
   }
+
+  /* ── COMPACT CONTROLS ROW ── */
+  .controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 520px;
+  }
+  .respin-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: none;
+  }
+  .respin-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
   /* ── LIST SECTION ── */
   .list-section {
@@ -941,13 +969,13 @@
 
 <!-- RANDOMIZER -->
 <div class="randomizer-section">
-  <div class="slot-machine">
+  <div class="slot-machine" id="slotMachine" onclick="slotClick()">
     <div class="slot-header">
       <span>Ruleta del Sabor</span>
       <div class="slot-dots"><span></span><span></span><span></span></div>
     </div>
     <div class="slot-window" id="slotWindow">
-      <p class="slot-placeholder" id="slotPlaceholder">— Gira para descubrir —</p>
+      <p class="slot-placeholder" id="slotPlaceholder"><span class="dice-icon">🎲</span> &nbsp;¡Sorpréndeme!</p>
 
       <div class="slot-spinning" id="slotSpinning">
         <div class="spinning-names">
@@ -968,25 +996,28 @@
         </div>
         <div class="result-tags" id="resultTags"></div>
         <div class="result-hours-text" id="resultHoursText"></div>
-        <div class="result-links" id="resultLinks"></div>
-        <button class="result-scroll-link" id="resultScrollBtn" onclick="scrollToWinner()">Ver en la lista ↓</button>
+        <div class="result-links" id="resultLinks" onclick="event.stopPropagation()"></div>
+        <button class="result-scroll-link" id="resultScrollBtn" onclick="event.stopPropagation(); scrollToWinner()">Ver en la lista ↓</button>
       </div>
     </div>
   </div>
-  <div class="open-toggle-wrap">
-    <label class="open-toggle-label" id="openToggleLabel">
-      <span class="dot"></span>
-      Solo abiertos ahora
-    </label>
-    <label class="toggle-switch">
-      <input type="checkbox" id="openNowToggle">
-      <div class="toggle-track"></div>
-      <div class="toggle-thumb"></div>
-    </label>
+  <div class="controls-row">
+    <div class="open-toggle-wrap" style="margin-bottom:0">
+      <label class="open-toggle-label" id="openToggleLabel">
+        <span class="dot"></span>
+        Solo abiertos ahora
+      </label>
+      <label class="toggle-switch" onclick="event.stopPropagation()">
+        <input type="checkbox" id="openNowToggle">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+    <p class="count-badge" id="countBadge"></p>
+    <button class="respin-btn" id="respinBtn" onclick="event.stopPropagation(); resetAndSpin()">🔄 Otra vez</button>
   </div>
   <p class="open-only-note" id="openOnlyNote"></p>
-  <p class="count-badge" id="countBadge">17 restaurantes disponibles</p>
-  <button class="spin-btn" id="spinBtn" onclick="spin()">🎲 &nbsp; ¡Sorpréndeme!</button>
+  <button class="spin-btn" id="spinBtn" onclick="spin()">🎲 ¡Sorpréndeme!</button>
 </div>
 
 <!-- LIST -->
@@ -1583,11 +1614,25 @@ let isSpinning = false;
 let openNowOnly = false;
 
 function resetSlot() {
+  const machine = document.getElementById('slotMachine');
+  machine.classList.remove('has-result');
   document.getElementById('slotPlaceholder').style.display = '';
   document.getElementById('slotSpinning').style.display = 'none';
   document.getElementById('slotResult').style.display = 'none';
+  document.getElementById('respinBtn').style.display = 'none';
   document.querySelectorAll('.restaurant-card.highlighted').forEach(c => c.classList.remove('highlighted'));
   lastWinner = null;
+}
+
+function slotClick() {
+  if (isSpinning) return;
+  if (lastWinner) return; // already showing result, don't re-spin on click
+  spin();
+}
+
+function resetAndSpin() {
+  resetSlot();
+  spin();
 }
 
 function spin() {
@@ -1600,12 +1645,11 @@ function spin() {
   }
 
   isSpinning = true;
-  const btn = document.getElementById('spinBtn');
-  btn.disabled = true;
 
   document.getElementById('slotPlaceholder').style.display = 'none';
   document.getElementById('slotResult').style.display = 'none';
   document.getElementById('slotSpinning').style.display = 'flex';
+  document.getElementById('respinBtn').style.display = 'none';
   document.querySelectorAll('.restaurant-card.highlighted').forEach(c => c.classList.remove('highlighted'));
 
   const winner = pool[Math.floor(Math.random() * pool.length)];
@@ -1623,9 +1667,10 @@ function spin() {
       nameEl.textContent = winner.name;
       setTimeout(() => {
         document.getElementById('slotSpinning').style.display = 'none';
+        document.getElementById('slotMachine').classList.add('has-result');
+        document.getElementById('respinBtn').style.display = '';
         showResult(winner);
         isSpinning = false;
-        btn.disabled = false;
       }, 300);
     }
   }, 80);
