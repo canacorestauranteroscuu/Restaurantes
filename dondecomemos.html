@@ -692,23 +692,26 @@
     max-width: 520px;
   }
   .respin-btn {
-    background: rgba(196,98,45,0.15);
-    border: 1px solid var(--terracotta);
-    color: var(--terracotta);
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.3px;
-    padding: 8px 20px;
+    padding: 10px 24px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
     display: none;
+    margin: 8px auto 4px;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    z-index: 5;
+    position: relative;
   }
-  .respin-btn:hover { background: var(--terracotta); color: white; }
+  .respin-btn:hover { background: var(--gold); color: var(--dark); }
 
   /* ── LIST SECTION ── */
   .list-section {
@@ -1136,6 +1139,7 @@
         <button class="result-scroll-link" id="resultScrollBtn" onclick="event.stopPropagation(); scrollToWinner()">Ver en la lista ↓</button>
       </div>
     </div>
+    <button class="respin-btn" id="respinBtn" onclick="event.stopPropagation(); resetAndSpin()">🔄 Otra vez</button>
   </div>
   <div class="controls-row">
     <div class="open-toggle-wrap" style="margin-bottom:0">
@@ -1150,7 +1154,6 @@
       </label>
     </div>
     <p class="count-badge" id="countBadge"></p>
-    <button class="respin-btn" id="respinBtn" onclick="event.stopPropagation(); resetAndSpin()">🔄 Otra vez</button>
   </div>
   <p class="open-only-note" id="openOnlyNote"></p>
   <button class="spin-btn" id="spinBtn" onclick="spin()">🎲 ¡Sorpréndeme!</button>
