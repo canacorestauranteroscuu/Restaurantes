@@ -1835,6 +1835,22 @@ function safeUrl(url) {
   return url.startsWith('http') ? url : 'https://' + url;
 }
 
+function safeSocial(val) {
+  if (!val) return null;
+  // Already a full URL
+  if (val.startsWith('http')) return val;
+  // www.something
+  if (val.startsWith('www.')) return 'https://' + val;
+  // Facebook.com/...
+  if (/^facebook\.com\//i.test(val)) return 'https://www.' + val;
+  // @username → Instagram
+  if (val.startsWith('@')) return 'https://www.instagram.com/' + val.slice(1);
+  // Contains a dot + TLD → likely a URL (e.g. naturalbalance.club)
+  if (/\.\w{2,}\//.test(val) || /\.(com|club|mx|net|org|io)$/i.test(val)) return 'https://' + val;
+  // Looks like a social handle (no dots or single dot like username.page) → try Instagram
+  return 'https://www.instagram.com/' + val;
+}
+
 // ─────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────
@@ -2008,7 +2024,7 @@ function showResult(r) {
   if (r.phone) html += `<a class="result-link call" href="tel:${phoneDigits(r.phone)}"">📞 Llamar</a>`;
   if (r.phone) html += `<a class="result-link wa" href="${waLink(r.phone)}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) html += `<a class="result-link web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
-  if (r.social) html += `<a class="result-link web" href="${r.social}" target="_blank">📲 Redes</a>`;
+  if (r.social) html += `<a class="result-link web" href="${safeSocial(r.social)}" target="_blank">📲 Redes</a>`;
   linksEl.innerHTML = html;
 
   document.getElementById('slotResult').style.display = 'flex';
@@ -2098,7 +2114,7 @@ function cardHTML(r, idx) {
   if (telHref) actionBtns += `<a class="card-action-btn cab-call" href="${telHref}">📞 Llamar</a>`;
   if (waHref)  actionBtns += `<a class="card-action-btn cab-wa"   href="${waHref}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) actionBtns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
-  if (r.social) actionBtns += `<a class="card-action-btn cab-web" href="${r.social}" target="_blank">📲 Redes</a>`;
+  if (r.social) actionBtns += `<a class="card-action-btn cab-web" href="${safeSocial(r.social)}" target="_blank">📲 Redes</a>`;
 
   // Location picker for multi-location restaurants
   let locPickerHTML = '';
@@ -2200,7 +2216,7 @@ function switchLocation(btn, restaurantIdx, locIdx) {
   const wa = waLink(ph);
   if (wa) btns += `<a class="card-action-btn cab-wa" href="${wa}" target="_blank">💬 WhatsApp</a>`;
   if (r.web && r.web !== r.social) btns += `<a class="card-action-btn cab-web" href="${safeUrl(r.web)}" target="_blank">🌐 Web</a>`;
-  if (r.social) btns += `<a class="card-action-btn cab-web" href="${r.social}" target="_blank">📲 Redes</a>`;
+  if (r.social) btns += `<a class="card-action-btn cab-web" href="${safeSocial(r.social)}" target="_blank">📲 Redes</a>`;
   actionsEl.innerHTML = btns;
 
   // Update rating display
