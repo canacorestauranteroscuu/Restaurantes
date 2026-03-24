@@ -2268,23 +2268,7 @@ function renderList() {
     return;
   }
 
-  // if searching or single filter → flat sorted list
-  if (searchQuery || activeFilter !== 'all') {
-    container.innerHTML = filtered.map(r => cardHTML(r, restaurants.indexOf(r))).join('');
-  } else {
-    // group by category, alphabetical within each
-    let html = '';
-    ORDERED_CATS.forEach(cat => {
-      const inCat = restaurants.filter(r => r.categories.includes(cat));
-      if (inCat.length === 0) return;
-      const def = CATEGORY_DEFINITIONS[cat];
-      html += `<div class="category-group">
-        <div class="category-label"><h3>${def.emoji} ${def.label}</h3></div>
-        ${inCat.map(r => cardHTML(r, restaurants.indexOf(r))).join('')}
-      </div>`;
-    });
-    container.innerHTML = html;
-  }
+  container.innerHTML = filtered.map(r => cardHTML(r, restaurants.indexOf(r))).join('');
 
   // attach toggle listeners
   container.querySelectorAll('.card-header').forEach(header => {
