@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+  // GitHub Pages is case-sensitive. Redirect lowercase paths to correct case.
+  var path = window.location.pathname;
+  if (path.toLowerCase().indexOf('/restaurantes/') === 0 && path.indexOf('/Restaurantes/') !== 0) {
+    window.location.replace(path.replace(/\/restaurantes\//i, '/Restaurantes/'));
+  }
+</script>
+<title>Página no encontrada</title>
+</head>
+<body>
+<p>Redirigiendo...</p>
+</body>
+</html>
