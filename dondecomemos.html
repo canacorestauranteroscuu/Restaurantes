@@ -2026,6 +2026,7 @@ function spin() {
     document.getElementById('openOnlyNote').textContent = '😔 Ningún restaurante está abierto ahora en esta categoría';
     return;
   }
+  gtag('event', 'spin_ruleta', { event_category: 'engagement', event_label: activeFilter });
 
   isSpinning = true;
 
@@ -2123,6 +2124,7 @@ function showResult(r) {
 
 function shareResult() {
   if (!lastWinner) return;
+  gtag('event', 'share_result', { event_category: 'engagement', event_label: lastWinner.name });
   const msgs = [
     `🎰 La Ruleta del Sabor me mandó a *${lastWinner.name}* y no me puedo negar. ¿Vienes?`,
     `🎲 Giré la Ruleta del Sabor y salió *${lastWinner.name}*. El destino ha hablado.`,
@@ -2376,6 +2378,7 @@ function scrollToSpotlight() {
   const banner = document.getElementById('spotlightBanner');
   const name = banner.dataset.name;
   if (!name) return;
+  gtag('event', 'click_spotlight', { event_category: 'engagement', event_label: name });
   // Reset filters to show all
   activeFilter = 'all';
   document.getElementById('searchInput').value = '';
@@ -2395,6 +2398,32 @@ function scrollToSpotlight() {
     }
   }, 100);
 }
+
+// ─────────────────────────────────────────────
+// ANALYTICS — track outbound clicks + filter usage
+// ─────────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  // Track outbound action buttons (Maps, Llamar, WhatsApp, Web, Redes)
+  const actionBtn = e.target.closest('.card-action-btn, .result-link');
+  if (actionBtn) {
+    const text = actionBtn.textContent.trim();
+    const card = actionBtn.closest('.restaurant-card');
+    const name = card ? card.dataset.name : (lastWinner ? lastWinner.name : 'unknown');
+    let action = 'click_other';
+    if (text.includes('Maps')) action = 'click_maps';
+    else if (text.includes('Llamar')) action = 'click_llamar';
+    else if (text.includes('WhatsApp')) action = 'click_whatsapp';
+    else if (text.includes('Web')) action = 'click_web';
+    else if (text.includes('Redes')) action = 'click_redes';
+    gtag('event', action, { event_category: 'outbound', event_label: name });
+  }
+
+  // Track filter button clicks
+  const filterBtn = e.target.closest('.filter-btn');
+  if (filterBtn) {
+    gtag('event', 'filter_click', { event_category: 'engagement', event_label: filterBtn.dataset.filter || filterBtn.textContent.trim() });
+  }
+});
 
 // ─────────────────────────────────────────────
 // INIT
