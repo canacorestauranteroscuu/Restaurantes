@@ -1925,26 +1925,38 @@ function todayHours(r) {
 function isOpenNow(r) {
   const h = todayHours(r);
   if (!h || h === 'Cerrado') return false;
-  // parse "HH:MM AM/PM – HH:MM AM/PM"
-  const parts = h.split('–').map(s => s.trim());
-  if (parts.length < 2) return false;
+
   function toMins(str) {
-    const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
-    if (!m) return null;
-    let hr = parseInt(m[1]), mn = parseInt(m[2]);
-    const ap = m[3].toUpperCase();
-    if (ap === 'PM' && hr !== 12) hr += 12;
-    if (ap === 'AM' && hr === 12) hr = 0;
-    return hr * 60 + mn;
+    // Try AM/PM format first: "8:00 AM"
+    const ampm = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (ampm) {
+      let hr = parseInt(ampm[1]), mn = parseInt(ampm[2]);
+      const ap = ampm[3].toUpperCase();
+      if (ap === 'PM' && hr !== 12) hr += 12;
+      if (ap === 'AM' && hr === 12) hr = 0;
+      return hr * 60 + mn;
+    }
+    // Try 24h format: "18:00"
+    const mil = str.match(/(\d+):(\d+)/);
+    if (mil) return parseInt(mil[1]) * 60 + parseInt(mil[2]);
+    return null;
   }
+
   const now = new Date();
   const nowMins = now.getHours() * 60 + now.getMinutes();
-  const open = toMins(parts[0]);
-  let close = toMins(parts[1]);
-  if (open === null || close === null) return false;
-  // handle past midnight close
-  if (close < open) close += 24 * 60;
-  return nowMins >= open && nowMins < close;
+
+  // Support split shifts: "8:00–13:00, 18:00–23:00"
+  const ranges = h.split(',').map(s => s.trim());
+  for (const range of ranges) {
+    const parts = range.split('–').map(s => s.trim());
+    if (parts.length < 2) continue;
+    const open = toMins(parts[0]);
+    let close = toMins(parts[1]);
+    if (open === null || close === null) continue;
+    if (close < open) close += 24 * 60;
+    if (nowMins >= open && nowMins < close) return true;
+  }
+  return false;
 }
 
 function statusPill(r, large = false) {
