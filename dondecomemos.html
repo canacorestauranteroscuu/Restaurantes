@@ -1085,6 +1085,35 @@
     font-size: 15px;
   }
 
+  /* links CTA */
+  .links-cta {
+    text-align: center;
+    padding: 32px 20px;
+    background: linear-gradient(135deg, #1A0F08 0%, #2A1810 100%);
+    border-top: 1px solid rgba(196,98,45,0.15);
+  }
+  .links-cta-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 12px;
+  }
+  .links-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--terracotta);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 12px 28px;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .links-cta-btn:hover { background: #d96f38; transform: translateY(-1px); }
+
   /* footer */
   footer {
     background: var(--dark);
@@ -1327,6 +1356,10 @@
   </div>
 </div>
 
+<div class="links-cta">
+  <div class="links-cta-text">Conoce más sobre la Sección Restauranteros</div>
+  <a class="links-cta-btn" href="https://canacorestauranteroscuu.github.io/links.html" target="_blank" onclick="gtag('event','click_links_page',{event_category:'engagement'})">📲 Síguenos &amp; Más Info</a>
+</div>
 <footer>CANACO Chihuahua &nbsp;·&nbsp; <span>Sección Restauranteros 2026</span> &nbsp;·&nbsp; <a href="mailto:canacorestauranteroscuu@gmail.com" style="color:rgba(255,255,255,0.3);text-decoration:none">canacorestauranteroscuu@gmail.com</a></footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
