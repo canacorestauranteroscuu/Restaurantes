@@ -2430,19 +2430,18 @@ document.getElementById('openNowToggle').addEventListener('change', function() {
 // ─────────────────────────────────────────────
 // SPOTLIGHT — fair weekly rotation
 // ─────────────────────────────────────────────
-function getISOWeek() {
+function getSpotlightEpoch() {
+  // 3-day rotation: days since Unix epoch, divided by 3
   const d = new Date();
   d.setHours(0, 0, 0, 0);
-  d.setDate(d.getDate() + 3 - ((d.getDay() + 6) % 7));
-  const yearStart = new Date(d.getFullYear(), 0, 4);
-  return Math.round(((d - yearStart) / 86400000 + 1) / 7);
+  const daysSinceEpoch = Math.floor(d.getTime() / 86400000);
+  return Math.floor(daysSinceEpoch / 3);
 }
 
 function initSpotlight() {
   if (restaurants.length === 0) return;
-  const week = getISOWeek();
-  const year = new Date().getFullYear();
-  const seed = 'spotlight-' + year + '-W' + week;
+  const epoch = getSpotlightEpoch();
+  const seed = 'spotlight-epoch-' + epoch;
   // Deterministic hash: each restaurant name is hashed against the week seed.
   // The lowest hash wins. Adding/removing restaurants does NOT change the winner
   // because each name's hash is independent of the list size.
@@ -2462,7 +2461,7 @@ function initSpotlight() {
   const banner = document.getElementById('spotlightBanner');
   document.getElementById('spotlightName').textContent = r.emoji + ' ' + r.name;
   const cats = r.categories.filter(c => CATEGORY_DEFINITIONS[c]).map(c => CATEGORY_DEFINITIONS[c].label).join(' · ');
-  document.getElementById('spotlightSub').textContent = cats || 'Restaurante de la semana';
+  document.getElementById('spotlightSub').textContent = cats || 'Restaurante destacado';
   banner.style.display = 'flex';
   banner.dataset.name = r.name;
 }
