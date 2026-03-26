@@ -2440,11 +2440,25 @@ function getISOWeek() {
 
 function initSpotlight() {
   if (restaurants.length === 0) return;
-  // Sort names for stable ordering regardless of array mutations
-  const names = restaurants.map(r => r.name).sort((a, b) => a.localeCompare(b, 'es'));
   const week = getISOWeek();
-  const idx = week % names.length;
-  const r = restaurants.find(x => x.name === names[idx]);
+  const year = new Date().getFullYear();
+  const seed = 'spotlight-' + year + '-W' + week;
+  // Deterministic hash: each restaurant name is hashed against the week seed.
+  // The lowest hash wins. Adding/removing restaurants does NOT change the winner
+  // because each name's hash is independent of the list size.
+  function djb2(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) {
+      h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
+    }
+    return h;
+  }
+  let winner = null, winHash = Infinity;
+  for (const rest of restaurants) {
+    const h = djb2(seed + '|' + rest.name);
+    if (h < winHash) { winHash = h; winner = rest.name; }
+  }
+  const r = restaurants.find(x => x.name === winner);
   const banner = document.getElementById('spotlightBanner');
   document.getElementById('spotlightName').textContent = r.emoji + ' ' + r.name;
   const cats = r.categories.filter(c => CATEGORY_DEFINITIONS[c]).map(c => CATEGORY_DEFINITIONS[c].label).join(' · ');
