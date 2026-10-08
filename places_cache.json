@@ -1,4 +1,1821 @@
 {
   "version": 1,
-  "places": {}
+  "places": {
+    "ChIJY-G0pQld6oYRhUL6iZv4j0E": {
+      "fetched_at": "2026-10-08T20:34:07Z",
+      "location": {
+        "address": "C. 20 de Noviembre 2601, Pacífico, 31030 Chihuahua, Chih.",
+        "phone": "614 443 2366",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=4724267881053438597",
+        "hours": {
+          "Monday": "8:00 AM – 4:00 PM",
+          "Tuesday": "8:00 AM – 4:00 PM",
+          "Wednesday": "8:00 AM – 4:00 PM",
+          "Thursday": "8:00 AM – 4:00 PM",
+          "Friday": "8:00 AM – 4:00 PM",
+          "Saturday": "8:00 AM – 4:00 PM",
+          "Sunday": "9:00 AM – 3:00 PM"
+        },
+        "website": "https://sites.google.com/view/elhuauzontlecuu/men%C3%BA"
+      }
+    },
+    "ChIJBTiTCK1c6oYRtT0zxFmJmpU": {
+      "fetched_at": "2026-10-08T20:34:07Z",
+      "location": {
+        "address": "Paseo Simon Bolivar 806, Bolívar, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 115 5441",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=10780079676701490613",
+        "hours": {
+          "Monday": "4:00 PM – 11:30 PM",
+          "Tuesday": "4:00 PM – 11:30 PM",
+          "Wednesday": "12:00 PM – 1:30 AM",
+          "Thursday": "12:00 PM – 1:30 AM",
+          "Friday": "12:00 PM – 1:30 AM",
+          "Saturday": "12:00 PM – 1:30 AM",
+          "Sunday": "4:00 PM – 11:30 PM"
+        },
+        "website": "http://www.casacervecerabolivar.com/"
+      }
+    },
+    "ChIJRXbIXiVD6oYRo-EvhZBFNoY": {
+      "fetched_at": "2026-10-08T20:34:07Z",
+      "location": {
+        "address": "Av. Mirador 4111, Virreyes, Campestre-Lomas, 31205 Chihuahua, Chih.",
+        "phone": "614 101 4455",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=9670993736836833699",
+        "hours": {
+          "Monday": "12:00 PM – 1:30 AM",
+          "Tuesday": "12:00 PM – 1:30 AM",
+          "Wednesday": "12:00 PM – 1:30 AM",
+          "Thursday": "12:00 PM – 1:30 AM",
+          "Friday": "12:00 PM – 1:30 AM",
+          "Saturday": "12:00 PM – 1:30 AM",
+          "Sunday": "12:00 PM – 1:30 AM"
+        },
+        "website": "http://www.elgallitoingleschihuahua.com/"
+      }
+    },
+    "ChIJf2_URQBD6oYRKXhXBFgbvzQ": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "P.º Victoria 307, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 606 2666",
+        "rating": 4.8,
+        "mapsUrl": "https://maps.google.com/?cid=3800786675367901225",
+        "hours": {
+          "Monday": "9:00 AM – 11:00 PM",
+          "Tuesday": "9:00 AM – 11:00 PM",
+          "Wednesday": "9:00 AM – 11:00 PM",
+          "Thursday": "9:00 AM – 2:00 AM",
+          "Friday": "9:00 AM – 2:00 AM",
+          "Saturday": "9:00 AM – 2:00 AM",
+          "Sunday": "9:00 AM – 11:00 PM"
+        },
+        "website": "http://encuentrobar.com/"
+      }
+    },
+    "ChIJGUNfBRRD6oYRaTCfhfTB5LU": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "Avenida Universidad 3100, Magisterial Universidad, 31203 Chihuahua, Chih.",
+        "phone": "614 112 3646",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=13106814071512969321",
+        "hours": {
+          "Monday": "6:00 PM – 11:45 PM",
+          "Tuesday": "6:00 PM – 11:45 PM",
+          "Wednesday": "7:30 PM – 11:45 PM",
+          "Thursday": "6:00 PM – 11:45 PM",
+          "Friday": "6:00 PM – 11:45 PM",
+          "Saturday": "6:00 PM – 11:45 PM",
+          "Sunday": "6:00 PM – 11:45 PM"
+        },
+        "website": "https://www.facebook.com/steakblvd"
+      }
+    },
+    "ChIJCVu2XgBd6oYRoHH3BnfJiak": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "Av. Prol. Teófilo Borunda 11403-02, labor de terrazas, 31207 Chihuahua, Chih.",
+        "phone": "614 123 3348",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=12216516977274352032",
+        "hours": {
+          "Monday": "12:30 PM – 10:00 PM",
+          "Tuesday": "12:30 PM – 10:00 PM",
+          "Wednesday": "12:30 PM – 10:00 PM",
+          "Thursday": "12:30 PM – 10:00 PM",
+          "Friday": "12:30 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 10:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ-TxW1MpD6oYR5RsypasqrSI": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "P.º Victoria 104, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 443 0027",
+        "rating": 3.4,
+        "mapsUrl": "https://maps.google.com/?cid=2498700284959792101",
+        "hours": {
+          "Monday": "11:00 AM – 6:00 PM",
+          "Tuesday": "11:00 AM – 6:00 PM",
+          "Wednesday": "11:00 AM – 6:00 PM",
+          "Thursday": "11:00 AM – 6:00 PM",
+          "Friday": "11:00 AM – 6:00 PM",
+          "Saturday": "11:00 AM – 6:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJnSOYZwpD6oYRAfUnvEymc_I": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "Av. de la Cantera 9120-local 201 y 203, Fraccionamiento Las Misiones, 31115 Chihuahua, Chih.",
+        "phone": "614 281 2630",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=17470490228004746497",
+        "hours": {
+          "Monday": "11:00 AM – 1:50 AM",
+          "Tuesday": "11:00 AM – 1:50 AM",
+          "Wednesday": "11:00 AM – 1:50 AM",
+          "Thursday": "11:00 AM – 1:50 AM",
+          "Friday": "11:00 AM – 1:50 AM",
+          "Saturday": "11:00 AM – 1:50 AM",
+          "Sunday": "11:00 AM – 1:50 AM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ_Xwn4QRD6oYRs73AbY6F83Y": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "Av. Homero 4802-int 306, plaza, campus city, 31124 Chihuahua, Chih.",
+        "phone": "614 373 3718",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=8571341362589384115",
+        "hours": {
+          "Monday": "11:00 AM – 2:00 AM",
+          "Tuesday": "11:00 AM – 2:00 AM",
+          "Wednesday": "11:00 AM – 2:00 AM",
+          "Thursday": "11:00 AM – 2:00 AM",
+          "Friday": "11:00 AM – 2:00 AM",
+          "Saturday": "11:00 AM – 2:00 AM",
+          "Sunday": "11:00 AM – 2:00 AM"
+        },
+        "website": null
+      }
+    },
+    "ChIJu61k5r9B6oYR9UZNx4VRn74": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "Av. Antonio de Deza Y Ulloa 4725, Cumbres III Etapa, Progreso, 31210 Chihuahua, Chih.",
+        "phone": "614 529 8048",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=13735787023519532789",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "6:00 PM – 11:00 PM",
+          "Wednesday": "6:00 PM – 11:00 PM",
+          "Thursday": "6:00 PM – 11:00 PM",
+          "Friday": "6:00 PM – 11:30 PM",
+          "Saturday": "6:00 PM – 11:30 PM",
+          "Sunday": "5:00 PM – 10:00 PM"
+        },
+        "website": "http://www.salchichasberlin.com/"
+      }
+    },
+    "ChIJp43ReFlB6oYRS5LNU_znvZk": {
+      "fetched_at": "2026-10-08T20:34:08Z",
+      "location": {
+        "address": "P.º de las Facultades 801-Int 10, Cafetales, 31125 Chihuahua, Chih.",
+        "phone": "614 493 8638",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=11078265729325044299",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "5:00 PM – 11:00 PM",
+          "Wednesday": "5:00 PM – 11:00 PM",
+          "Thursday": "5:00 PM – 11:00 PM",
+          "Friday": "5:00 PM – 11:00 PM",
+          "Saturday": "5:00 PM – 11:00 PM",
+          "Sunday": "4:00 PM – 10:00 PM"
+        },
+        "website": "https://www.salchichasberlin.com/"
+      }
+    },
+    "ChIJFembH1ND6oYRJ4bqSGzuXXU": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Gómez Farias 8, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 415 3807",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=8457177824118867495",
+        "hours": {
+          "Monday": "9:00 AM – 10:45 PM",
+          "Tuesday": "9:00 AM – 10:45 PM",
+          "Wednesday": "9:00 AM – 10:45 PM",
+          "Thursday": "9:00 AM – 10:45 PM",
+          "Friday": "9:00 AM – 10:45 PM",
+          "Saturday": "10:00 AM – 10:45 PM",
+          "Sunday": "4:00 PM – 10:45 PM"
+        },
+        "website": "https://www.cafecortez.mx/"
+      }
+    },
+    "ChIJmXuECKxc6oYR8vDt20jSa28": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "C. 20 de Noviembre 2510, Obrera, 31350 Chihuahua, Chih.",
+        "phone": "614 412 0404",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=8028741971087323378",
+        "hours": {
+          "Monday": "11:00 AM – 9:00 PM",
+          "Tuesday": "11:00 AM – 9:00 PM",
+          "Wednesday": "11:00 AM – 9:00 PM",
+          "Thursday": "11:00 AM – 9:00 PM",
+          "Friday": "11:00 AM – 9:00 PM",
+          "Saturday": "11:00 AM – 9:00 PM",
+          "Sunday": "11:00 AM – 9:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ6VwvSfFC6oYRIX0yyqlNHQA": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Av Francisco Villa 2705, Zona Sin Asignación de Nombre de Colonia, 31110 Chihuahua, Chih.",
+        "phone": "614 102 0743",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=8248165961727265",
+        "hours": {
+          "Monday": "11:30 AM – 8:30 PM",
+          "Tuesday": "11:30 AM – 8:30 PM",
+          "Wednesday": "11:30 AM – 8:30 PM",
+          "Thursday": "11:30 AM – 8:30 PM",
+          "Friday": "11:30 AM – 8:30 PM",
+          "Saturday": "11:30 AM – 8:00 PM",
+          "Sunday": "11:30 AM – 8:00 PM"
+        },
+        "website": "https://senorcamaron.mx/"
+      }
+    },
+    "ChIJ68VdytpC6oYRdNUW1Fo1QiU": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Perif. de la Juventud 3500-8, Haciendas III, 31215 Chihuahua, Chih.",
+        "phone": "614 430 3434",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=2684766992087831924",
+        "hours": {
+          "Monday": "12:00 PM – 10:00 PM",
+          "Tuesday": "12:00 PM – 10:00 PM",
+          "Wednesday": "12:00 PM – 10:00 PM",
+          "Thursday": "12:00 PM – 10:00 PM",
+          "Friday": "12:00 PM – 10:00 PM",
+          "Saturday": "12:00 PM – 10:00 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": "https://www.facebook.com/sushikochihuahua/"
+      }
+    },
+    "ChIJdZx296Vd6oYR5VV0j7Kdbzc": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Av. Prol. Teófilo Borunda 10801, Labor de Terrazas, 31207 Chihuahua, Chih.",
+        "phone": "614 430 3030",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=3994584784737424869",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 11:00 PM",
+          "Saturday": "12:00 PM – 11:00 PM",
+          "Sunday": "12:00 PM – 11:00 PM"
+        },
+        "website": "http://www.akari.com.mx/"
+      }
+    },
+    "ChIJHRHSAL_sb4YRkdBWohKI-sY": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Av. Hacienda del Valle 7104-Int. 1, Cumbres Residencial, 31217 Chihuahua, Chih.",
+        "phone": "614 423 3838",
+        "rating": 3.7,
+        "mapsUrl": "https://maps.google.com/?cid=14337921977301782673",
+        "hours": {
+          "Monday": "1:00 PM – 11:00 PM",
+          "Tuesday": "1:00 PM – 11:00 PM",
+          "Wednesday": "1:00 PM – 11:00 PM",
+          "Thursday": "1:00 PM – 11:00 PM",
+          "Friday": "1:00 PM – 12:00 PM",
+          "Saturday": "1:00 PM – 12:00 PM",
+          "Sunday": "1:00 PM – 11:00 PM"
+        },
+        "website": "http://www.akari.com.mx/"
+      }
+    },
+    "ChIJiwo-ctxc6oYRYgMWLuJ-dMQ": {
+      "fetched_at": "2026-10-08T20:34:09Z",
+      "location": {
+        "address": "Blvrd Antonio Ortiz Mena 1804, Los Sicomoros, Campestre-Lomas, 31205 Chihuahua, Chih.",
+        "phone": "614 437 0202",
+        "rating": 4,
+        "mapsUrl": "https://maps.google.com/?cid=14156079038633214818",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 12:00 PM",
+          "Saturday": "12:00 PM – 12:00 PM",
+          "Sunday": "12:00 PM – 11:00 PM"
+        },
+        "website": "http://www.akari.com.mx/"
+      }
+    },
+    "ChIJMz9Kxitd6oYRTVAF6y5QCqI": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Perif. de la Juventud 3501, Plaza del Sol, 31206 Chihuahua, Chih.",
+        "phone": "614 493 9898",
+        "rating": 3.7,
+        "mapsUrl": "https://maps.google.com/?cid=11676233146353143885",
+        "hours": {
+          "Monday": "12:00 PM – 9:30 PM",
+          "Tuesday": "12:00 PM – 9:30 PM",
+          "Wednesday": "12:00 PM – 9:30 PM",
+          "Thursday": "12:00 PM – 9:30 PM",
+          "Friday": "12:00 PM – 9:30 PM",
+          "Saturday": "12:00 PM – 9:30 PM",
+          "Sunday": "12:00 PM – 9:30 PM"
+        },
+        "website": "http://www.akari.com.mx/"
+      }
+    },
+    "ChIJQ9XcgfFC6oYR9giHeXnzmsQ": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Distrito Uno, Vía Lombardía 3000, Zona Sin Asignación de Nombre de Colonia, 31110 Chihuahua, Chih.",
+        "phone": "614 425 6868",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=14166903280902801654",
+        "hours": {
+          "Monday": "1:00 PM – 12:00 PM",
+          "Tuesday": "1:00 PM – 12:00 PM",
+          "Wednesday": "1:00 PM – 12:00 PM",
+          "Thursday": "1:00 PM – 12:00 PM",
+          "Friday": "1:00 PM – 12:00 PM",
+          "Saturday": "1:00 PM – 12:00 PM",
+          "Sunday": "1:00 PM – 11:00 PM"
+        },
+        "website": "http://www.akari.com.mx/"
+      }
+    },
+    "ChIJ-wUF0EVD6oYRTWeALtKLbe4": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Av. Prol. Teófilo Borunda 801, Zona Centro II, 31020 Chihuahua, Chih.",
+        "phone": "614 436 4213",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=17180541888327870285",
+        "hours": {
+          "Monday": "8:00 AM – 6:00 PM",
+          "Tuesday": "8:00 AM – 6:00 PM",
+          "Wednesday": "8:00 AM – 6:00 PM",
+          "Thursday": "8:00 AM – 6:00 PM",
+          "Friday": "8:00 AM – 6:00 PM",
+          "Saturday": "8:00 AM – 6:00 PM",
+          "Sunday": "8:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJQUVL1Zpd6oYRl7U8FEtcPPY": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Calle Paseo Vistas del Sol 6801; Fraccionamiento Comercial Vistas del Sol Torre Corporativa Azenzo; Local 1 , PB, Plaza del Sol, 31206 Chihuahua, Chih.",
+        "phone": "614 437 4531",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=17743158109464737175",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 11:00 PM",
+          "Wednesday": "1:00 PM – 11:00 PM",
+          "Thursday": "1:00 PM – 12:00 PM",
+          "Friday": "1:00 PM – 12:00 PM",
+          "Saturday": "1:00 PM – 12:00 PM",
+          "Sunday": "1:00 PM – 10:00 PM"
+        },
+        "website": "https://kabukibistro.mx/"
+      }
+    },
+    "ChIJ21-0MQpF6oYRt2C0Aio0UCY": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "C. Mariano Jiménez 2525, Centro, 31350 Chihuahua, Chih.",
+        "phone": "614 554 2488",
+        "rating": 4.8,
+        "mapsUrl": "https://maps.google.com/?cid=2760763926616760503",
+        "hours": {
+          "Monday": "10:00 AM – 11:00 PM",
+          "Tuesday": "10:00 AM – 11:00 PM",
+          "Wednesday": "10:00 AM – 11:00 PM",
+          "Thursday": "10:00 AM – 11:00 PM",
+          "Friday": "10:00 AM – 11:00 PM",
+          "Saturday": "10:00 AM – 11:00 PM",
+          "Sunday": "10:00 AM – 11:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJkVhoU3FD6oYR2K3jTXeCw3A": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Av. Mirador 7108, Campestre Washington, Campestre-Lomas, 31217 Chihuahua, Chih.",
+        "phone": null,
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=8125481601625992664",
+        "hours": {
+          "Monday": "9:00 AM – 11:00 PM",
+          "Tuesday": "9:00 AM – 11:00 PM",
+          "Wednesday": "9:00 AM – 11:00 PM",
+          "Thursday": "9:00 AM – 11:00 PM",
+          "Friday": "9:00 AM – 11:00 PM",
+          "Saturday": "9:00 AM – 11:00 PM",
+          "Sunday": "9:00 AM – 11:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJo11Q4V5D6oYR2PIsWx5CScY": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "C. Colegio San Marco 1828, Misión Universidad II, 31124 Chihuahua, Chih.",
+        "phone": "614 216 1369",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=14288023990955733720",
+        "hours": {
+          "Monday": "9:00 AM – 11:00 PM",
+          "Tuesday": "9:00 AM – 11:00 PM",
+          "Wednesday": "9:00 AM – 11:00 PM",
+          "Thursday": "9:00 AM – 11:00 PM",
+          "Friday": "9:00 AM – 11:00 PM",
+          "Saturday": "9:00 AM – 11:00 PM",
+          "Sunday": "9:00 AM – 11:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJKzRfU-FD6oYRqeAI5HYgfOY": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Av Francisco Villa 6701, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 587 1204",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=16608185220839563433",
+        "hours": {
+          "Monday": "8:00 AM – 10:00 PM",
+          "Tuesday": "8:00 AM – 10:00 PM",
+          "Wednesday": "8:00 AM – 10:00 PM",
+          "Thursday": "8:00 AM – 10:00 PM",
+          "Friday": "8:00 AM – 10:30 PM",
+          "Saturday": "8:00 AM – 10:00 PM",
+          "Sunday": "9:00 AM – 5:00 PM"
+        },
+        "website": "https://pittacos.com.mx/"
+      }
+    },
+    "ChIJBU3y_shc6oYRK4_zCtT3fiA": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Av. Instituto Politécnico Nacional 507, Guadalupe, 31410 Chihuahua, Chih.",
+        "phone": "614 411 4600",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=2341581346368098091",
+        "hours": {
+          "Monday": "8:00 AM – 10:00 PM",
+          "Tuesday": "8:00 AM – 10:00 PM",
+          "Wednesday": "8:00 AM – 10:00 PM",
+          "Thursday": "8:00 AM – 10:00 PM",
+          "Friday": "8:00 AM – 10:30 PM",
+          "Saturday": "8:00 AM – 10:00 PM",
+          "Sunday": "9:00 AM – 5:00 PM"
+        },
+        "website": "https://pittacos.com.mx/"
+      }
+    },
+    "ChIJOV3-A15D6oYRwIfEthXtroI": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Avenida La Junta, Jesús, Av Professor Jesus Lujan 918, Industrial, 31304 Chihuahua, Chih.",
+        "phone": "614 414 4623",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=9416724548394715072",
+        "hours": {
+          "Monday": "8:00 AM – 10:00 PM",
+          "Tuesday": "8:00 AM – 10:00 PM",
+          "Wednesday": "8:00 AM – 10:00 PM",
+          "Thursday": "8:00 AM – 10:00 PM",
+          "Friday": "8:00 AM – 10:00 PM",
+          "Saturday": "8:00 AM – 10:00 PM",
+          "Sunday": "8:00 AM – 4:00 PM"
+        },
+        "website": "https://pittacos.com.mx/"
+      }
+    },
+    "ChIJgeLeOABr6oYRdd0xrP5APxI": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "31183 Chihuahua, Chih.",
+        "phone": "614 605 5495",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=1314841078770294133",
+        "hours": {
+          "Monday": "12:00 PM – 7:00 PM",
+          "Tuesday": "Cerrado",
+          "Wednesday": "12:00 PM – 7:00 PM",
+          "Thursday": "12:00 PM – 7:00 PM",
+          "Friday": "12:00 PM – 8:00 PM",
+          "Saturday": "12:00 PM – 8:00 PM",
+          "Sunday": "12:00 PM – 8:00 PM"
+        },
+        "website": "https://www.facebook.com/share/1bZJB1QP3h/"
+      }
+    },
+    "ChIJI-aPhM1c6oYRXbkme0fz4mI": {
+      "fetched_at": "2026-10-08T20:34:10Z",
+      "location": {
+        "address": "Blvrd Antonio Ortiz Mena 3807, Mirador, Campestre-Lomas, 31250 Chihuahua, Chih.",
+        "phone": "614 430 3430",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=7125525048787908957",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 11:00 PM",
+          "Saturday": "12:00 PM – 11:00 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": "http://facebook.com/carbonsburgermx"
+      }
+    },
+    "ChIJ8eea5GFD6oYRdcqL2JmZEXE": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Av. de las Américas 1000, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 489 1904",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=8147462086932023925",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 11:00 PM",
+          "Saturday": "12:00 PM – 11:00 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJNaaRLEtD6oYRimjNR3HyOK8": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Av. Tomás Valles Vivar 7515, Fraccionamiento La Cantera, 31216 Chihuahua, Chih.",
+        "phone": "614 438 4344",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=12626108123683055754",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 11:00 PM",
+          "Saturday": "12:00 PM – 11:00 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": "https://www.facebook.com/CarbonsBurgerMx/"
+      }
+    },
+    "ChIJn3hR8fdB6oYRwuqeelXM8yo": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "plaza puerta norte, P.º de las Facultades E n, Los Huertos, 31125 Chihuahua, Chih.",
+        "phone": "614 493 9355",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=3095042036435184322",
+        "hours": {
+          "Monday": "12:00 PM – 11:00 PM",
+          "Tuesday": "12:00 PM – 11:00 PM",
+          "Wednesday": "12:00 PM – 11:00 PM",
+          "Thursday": "12:00 PM – 11:00 PM",
+          "Friday": "12:00 PM – 11:00 PM",
+          "Saturday": "12:00 PM – 11:00 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": "https://www.facebook.com/CarbonsBurgerMx"
+      }
+    },
+    "ChIJ339ZTSBD6oYRdnlaTZV5Y5s": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Av. Tomás Valles Vivar 6701-Loc 5, Rincón de las Lomas II, 31216 Chihuahua, Chih.",
+        "phone": null,
+        "rating": 4.8,
+        "mapsUrl": "https://maps.google.com/?cid=11196926780728047990",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "8:00 AM – 11:00 PM",
+          "Wednesday": "8:00 AM – 11:00 PM",
+          "Thursday": "8:00 AM – 11:00 PM",
+          "Friday": "8:00 AM – 11:00 PM",
+          "Saturday": "8:30 AM – 11:00 PM",
+          "Sunday": "8:30 AM – 5:30 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJHZZfVQBD6oYRqhGcy21gIhs": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Plaza Loreto, Av de la Empresa 3110, Haciendas Sta Fe, 31215 Chihuahua, Chih.",
+        "phone": "614 137 9993",
+        "rating": 5,
+        "mapsUrl": "https://maps.google.com/?cid=1955231212915921322",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 11:00 PM",
+          "Wednesday": "1:00 PM – 11:00 PM",
+          "Thursday": "1:00 PM – 11:00 PM",
+          "Friday": "1:00 PM – 11:00 PM",
+          "Saturday": "1:00 PM – 11:00 PM",
+          "Sunday": "1:00 PM – 5:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJawO1S-pC6oYRm4eFGJxEXcg": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Perif. de la Juventud 7521, Misiones I Etapa, 31161 Chihuahua, Chih.",
+        "phone": "614 426 2627",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=14437771417636669339",
+        "hours": {
+          "Monday": "12:00 PM – 12:00 PM",
+          "Tuesday": "12:00 PM – 12:00 PM",
+          "Wednesday": "12:00 PM – 12:00 PM",
+          "Thursday": "12:00 PM – 12:00 PM",
+          "Friday": "12:00 PM – 1:00 AM",
+          "Saturday": "12:00 PM – 1:00 AM",
+          "Sunday": "12:00 PM – 12:00 PM"
+        },
+        "website": "https://bostons.com.mx/chihuahua/menu"
+      }
+    },
+    "ChIJp9AbD2RD6oYRKOQV5UJPjgE": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Perif. de la Juventud 5705, Saucito, 31110 Chihuahua, Chih.",
+        "phone": "614 404 7711",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=112114189460694056",
+        "hours": {
+          "Monday": "2:00 PM – 12:00 PM",
+          "Tuesday": "2:00 PM – 1:00 AM",
+          "Wednesday": "2:00 PM – 1:00 AM",
+          "Thursday": "1:00 PM – 1:30 AM",
+          "Friday": "1:00 PM – 1:30 AM",
+          "Saturday": "1:00 PM – 1:30 AM",
+          "Sunday": "2:00 PM – 12:00 PM"
+        },
+        "website": "http://www.newsheridancuu.com/"
+      }
+    },
+    "ChIJhZ2yy6ByiIYR20mI2OET7k4": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "C. Maria Luisa 504, Jardines del Santuario, 31206 Chihuahua, Chih.",
+        "phone": "614 411 9399",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=5687505240136894939",
+        "hours": {
+          "Monday": "8:00 AM – 7:30 PM",
+          "Tuesday": "8:00 AM – 7:30 PM",
+          "Wednesday": "8:00 AM – 7:30 PM",
+          "Thursday": "8:00 AM – 7:30 PM",
+          "Friday": "8:00 AM – 7:30 PM",
+          "Saturday": "9:00 AM – 7:30 PM",
+          "Sunday": "8:30 AM – 6:00 PM"
+        },
+        "website": "https://www.facebook.com/profile.php?id=61577592346705"
+      }
+    },
+    "ChIJl897tCJD6oYRkLizX6sC3EU": {
+      "fetched_at": "2026-10-08T20:34:11Z",
+      "location": {
+        "address": "Blvrd Antonio Ortiz Mena 2037, Las Águilas, Campestre-Lomas, 31214 Chihuahua, Chih.",
+        "phone": "614 423 7196",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=5033901418561648784",
+        "hours": {
+          "Monday": "11:00 AM – 11:00 PM",
+          "Tuesday": "11:00 AM – 11:00 PM",
+          "Wednesday": "11:00 AM – 11:00 PM",
+          "Thursday": "11:00 AM – 11:00 PM",
+          "Friday": "11:00 AM – 11:00 PM",
+          "Saturday": "11:00 AM – 11:00 PM",
+          "Sunday": "11:00 AM – 10:00 PM"
+        },
+        "website": "http://tacotote.com/"
+      }
+    },
+    "ChIJ46G1WZVC6oYR-DRiT2-EMbo": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Av. de la Cantera 9100, Misiones I Etapa, 31115 Chihuahua, Chih.",
+        "phone": "614 443 8087",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=13416650378521490680",
+        "hours": {
+          "Monday": "11:00 AM – 11:00 PM",
+          "Tuesday": "11:00 AM – 11:00 PM",
+          "Wednesday": "11:00 AM – 11:00 PM",
+          "Thursday": "11:00 AM – 11:00 PM",
+          "Friday": "11:00 AM – 11:00 PM",
+          "Saturday": "11:00 AM – 11:00 PM",
+          "Sunday": "11:00 AM – 10:00 PM"
+        },
+        "website": "https://tacotote.com/es/ubicaciones/chihuahua-chihuahua-es/"
+      }
+    },
+    "ChIJwSGUgm9D6oYRCWHaOpH5EWw": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Calle Egipto esquina con Ramón Betances Chihuahua, Nuevo Paraíso, 31123 Chihuahua, Chih.",
+        "phone": "614 235 7522",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=7787279632853262601",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "Cerrado",
+          "Wednesday": "8:00–13:00, 18:00–23:00",
+          "Thursday": "8:00–13:00, 18:00–23:00",
+          "Friday": "8:00–13:00, 18:00–23:00",
+          "Saturday": "8:00–13:00, 18:00–23:00",
+          "Sunday": "8:00–13:00, 18:00–23:00"
+        },
+        "website": "https://instagram.com/foodpark.corazon.contento?igshid=YmMyMTA2M2Y="
+      }
+    },
+    "ChIJrRb9ZC9D6oYRallwtcZtKM8": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Calle Libertadores y Asociación, Lomas de Santa Rosa, Juventud Nte, 31124 Chihuahua, Chih.",
+        "phone": null,
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=14927301665134500202",
+        "hours": {
+          "Monday": "6:00 PM – 12:00 PM",
+          "Tuesday": "6:00 PM – 12:00 PM",
+          "Wednesday": "6:00 PM – 12:00 PM",
+          "Thursday": "6:00 PM – 12:00 PM",
+          "Friday": "6:00 PM – 3:00 AM",
+          "Saturday": "6:00 PM – 3:00 AM",
+          "Sunday": "4:30 PM – 12:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ5YNa2-Is6IYRTnv4IgVAXWk": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Carretera Chihuaha -Juarez Km 151, 32840 Sueco, Chih.",
+        "phone": "614 354 3209",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=7592294937622248270",
+        "hours": {
+          "Monday": "6:00 AM – 12:00 PM",
+          "Tuesday": "6:00 AM – 12:00 PM",
+          "Wednesday": "6:00 AM – 12:00 PM",
+          "Thursday": "6:00 AM – 12:00 PM",
+          "Friday": "6:00 AM – 12:00 PM",
+          "Saturday": "6:00 AM – 12:00 PM",
+          "Sunday": "6:00 AM – 12:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJvRep41db6oYR7cIkSUeL4vQ": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "C. 12a. 4008, Santa Rosa, 31050 Chihuahua, Chih.",
+        "phone": "614 416 1605",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=17645819428277109485",
+        "hours": {
+          "Monday": "10:00 AM – 8:00 PM",
+          "Tuesday": "10:00 AM – 8:00 PM",
+          "Wednesday": "10:00 AM – 8:00 PM",
+          "Thursday": "10:00 AM – 8:00 PM",
+          "Friday": "10:00 AM – 8:00 PM",
+          "Saturday": "10:00 AM – 8:00 PM",
+          "Sunday": "10:00 AM – 8:00 PM"
+        },
+        "website": "https://www.facebook.com/mariscoslabuenavida/"
+      }
+    },
+    "ChIJ09hVjhVd6oYR2SpRZvf5CDs": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Perif. de la Juventud 3501, Puerta de Hierro, 31410 Chihuahua, Chih.",
+        "phone": "614 438 5296",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=4253924689020267225",
+        "hours": {
+          "Monday": "11:00 AM – 8:45 PM",
+          "Tuesday": "11:00 AM – 8:45 PM",
+          "Wednesday": "11:00 AM – 8:45 PM",
+          "Thursday": "11:00 AM – 8:45 PM",
+          "Friday": "11:00 AM – 8:45 PM",
+          "Saturday": "11:00 AM – 8:45 PM",
+          "Sunday": "11:00 AM – 8:45 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJQWwa3CJD6oYRgz-TnMFwLS0": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Av Antonio de Montes 4300-Int. 5, San Felipe I Etapa, 31213 Chihuahua, Chih.",
+        "phone": "614 262 4897",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=3255382082516631427",
+        "hours": {
+          "Monday": "11:00 AM – 6:30 PM",
+          "Tuesday": "11:00 AM – 6:30 PM",
+          "Wednesday": "12:00 PM – 7:30 PM",
+          "Thursday": "12:00 PM – 7:30 PM",
+          "Friday": "12:00 PM – 7:30 PM",
+          "Saturday": "12:00 PM – 7:30 PM",
+          "Sunday": "12:00 PM – 7:30 PM"
+        },
+        "website": "https://www.facebook.com/thehottiewings"
+      }
+    },
+    "ChIJ0c6mLD9D6oYR3GghDQchonk": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Av División del Nte 5-A, San Felipe I Etapa, 31203 Chihuahua, Chih.",
+        "phone": "614 423 7070",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=8764604138985187548",
+        "hours": {
+          "Monday": "1:00 PM – 9:00 PM",
+          "Tuesday": "1:00 PM – 9:00 PM",
+          "Wednesday": "1:00 PM – 9:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 8:00 PM"
+        },
+        "website": "http://www.smokehouse.mx/"
+      }
+    },
+    "ChIJbWqHpNRC6oYRkLMFYiy72Tg": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Av de la Empresa 3102, Vistas del Sol, 31215 Chihuahua, Chih.",
+        "phone": "614 430 0201",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=4096511135367672720",
+        "hours": {
+          "Monday": "1:00 PM – 9:00 PM",
+          "Tuesday": "1:00 PM – 9:00 PM",
+          "Wednesday": "1:00 PM – 9:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 8:00 PM"
+        },
+        "website": "http://www.smokehouse.mx/"
+      }
+    },
+    "ChIJZ3mQFvlB6oYRl1jKmySHBGU": {
+      "fetched_at": "2026-10-08T20:34:12Z",
+      "location": {
+        "address": "Circuito Universitario 15504, Colonia Los, Cafetales, 31125 Chihuahua, Chih.",
+        "phone": "614 493 9977",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=7279091489039866007",
+        "hours": {
+          "Monday": "1:00 PM – 9:00 PM",
+          "Tuesday": "1:00 PM – 9:00 PM",
+          "Wednesday": "1:00 PM – 9:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 8:00 PM"
+        },
+        "website": "http://www.smokehouse.mx/"
+      }
+    },
+    "ChIJn-kVcCdG6oYRT-b6gg9TgDg": {
+      "fetched_at": "2026-10-08T20:34:13Z",
+      "location": {
+        "address": "Carretera Aldama Km.18.5 La Mesa, 32901 Juan Aldama, Chih.",
+        "phone": "614 251 5633",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=4071345389230024271",
+        "hours": {
+          "Monday": "12:00 PM – 7:00 PM",
+          "Tuesday": "Cerrado",
+          "Wednesday": "12:00 PM – 7:00 PM",
+          "Thursday": "12:00 PM – 7:00 PM",
+          "Friday": "12:00 PM – 7:00 PM",
+          "Saturday": "12:00 PM – 7:00 PM",
+          "Sunday": "12:00 PM – 7:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJfS2zOxhD6oYRbPgH5c3F1x8": {
+      "fetched_at": "2026-10-08T20:34:13Z",
+      "location": {
+        "address": "Laguna Pastores 4305-1, San Felipe V Etapa, 31203 Chihuahua, Chih.",
+        "phone": "614 414 2630",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=2294520023270029420",
+        "hours": {
+          "Monday": "1:00 PM – 8:00 PM",
+          "Tuesday": "Cerrado",
+          "Wednesday": "1:00 PM – 8:00 PM",
+          "Thursday": "1:00 PM – 8:00 PM",
+          "Friday": "1:00 PM – 8:00 PM",
+          "Saturday": "1:00 PM – 8:00 PM",
+          "Sunday": "1:00 PM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJE00eUVBD6oYR0LergzaPN-4": {
+      "fetched_at": "2026-10-08T20:34:13Z",
+      "location": {
+        "address": "C. Manuel Doblado 1321, Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 410 2687",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=17165345969046009808",
+        "hours": {
+          "Monday": "12:00 PM – 1:30 AM",
+          "Tuesday": "12:00 PM – 1:30 AM",
+          "Wednesday": "12:00 PM – 1:30 AM",
+          "Thursday": "12:00 PM – 1:30 AM",
+          "Friday": "12:00 PM – 1:30 AM",
+          "Saturday": "12:00 PM – 1:30 AM",
+          "Sunday": "12:00 PM – 1:30 AM"
+        },
+        "website": "https://barsanluis.com/"
+      }
+    },
+    "ChIJ8WonOT5D6oYRjn_lU8wzHzg": {
+      "fetched_at": "2026-10-08T20:34:13Z",
+      "location": {
+        "address": "Av San Felipe 307, San Felipe III Etapa, 31203 Chihuahua, Chih.",
+        "phone": "614 221 5394",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=4044007943075889038",
+        "hours": {
+          "Monday": "11:00 AM – 11:00 PM",
+          "Tuesday": "11:00 AM – 11:00 PM",
+          "Wednesday": "11:00 AM – 11:00 PM",
+          "Thursday": "11:00 AM – 11:00 PM",
+          "Friday": "11:00 AM – 11:00 PM",
+          "Saturday": "12:00 PM – 12:00 PM",
+          "Sunday": "12:00 PM – 12:00 PM"
+        },
+        "website": "https://www.facebook.com/CharlysDaniels?fref=ts"
+      }
+    },
+    "ChIJY3PY4LtD6oYRf6F9UaoISas": {
+      "fetched_at": "2026-10-08T20:34:13Z",
+      "location": {
+        "address": "A. F. Carbonel 5308, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 414 0387",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=12342405781390205311",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "12:00 PM – 8:00 PM",
+          "Wednesday": "12:00 PM – 8:00 PM",
+          "Thursday": "12:00 PM – 8:00 PM",
+          "Friday": "12:00 PM – 8:00 PM",
+          "Saturday": "12:00 PM – 8:00 PM",
+          "Sunday": "12:00 PM – 6:00 PM"
+        },
+        "website": "https://linktr.ee/lasanisima"
+      }
+    },
+    "ChIJqU0z5EVF6oYRdqDgcBUNvdI": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Chihuahua - Ojinaga 3006, 31313 Chihuahua, Chih.",
+        "phone": "614 436 5151",
+        "rating": 3.8,
+        "mapsUrl": "https://maps.google.com/?cid=15185307904302424182",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJd1cWPj9B6oYRe-QYvJ1CB1o": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Alamedas III Etapa, Chihuahua 2000, 31136 Chihuahua, Chih.",
+        "phone": "614 441 4444",
+        "rating": 3.7,
+        "mapsUrl": "https://maps.google.com/?cid=6487227033483535483",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJaZwOCRxD6oYRTcfTO3CLKU8": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Av. de las Américas #403, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 688 3902",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=5704243717197776717",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": "https://m.facebook.com/dulcenoviembrechihuahua/"
+      }
+    },
+    "ChIJzZEC3Dpb6oYR4_4y5aI9djA": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Mármol Viejo, Vialidad Ch-P 8812, Nueva España I y II, 31063 Chihuahua, Chih.",
+        "phone": "614 389 7174",
+        "rating": 4.1,
+        "mapsUrl": "https://maps.google.com/?cid=3492046330911719139",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ7Xl7pXBD6oYR4qkV4lS1cDY": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Av. Colón #305, Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 443 3624",
+        "rating": 3.5,
+        "mapsUrl": "https://maps.google.com/?cid=3922834651614652898",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJjeInMAJC6oYRRHbR9M1sWVg": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "C. Colegio de San Idelfonso 1801, San Sebastian, 31124 Chihuahua, Chih.",
+        "phone": "614 498 8636",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=6366239180096370244",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": "https://www.facebook.com/dulcenoviembrechihuahua/"
+      }
+    },
+    "ChIJ__9LdpVC6oYRGHUKz1O8fbU": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Av. de la Cantera 9124, Misiones I Etapa, 31115 Chihuahua, Chih.",
+        "phone": "614 632 5842",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=13077815961095664920",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJU56LjOJd6oYRSLp8oOLL4bA": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Av. Instituto Politécnico Nacional s/n-y, Quintas del Sol, Campestre-Lomas, 31214 Chihuahua, Chih.",
+        "phone": "614 443 4154",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=12745692594650790472",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "10:00 AM – 6:00 PM"
+        },
+        "website": "https://dulcenoviembrepasteleria.com/"
+      }
+    },
+    "ChIJZ12iAt9d6oYRjCbNxVTAjp8": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Av. Pedro Zuloaga 11210-Int. 106, Labor de Terrazas, 31223 Chihuahua, Chih.",
+        "phone": "614 118 9545",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=11497338369051797132",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "Cerrado",
+          "Wednesday": "6:00 PM – 11:30 PM",
+          "Thursday": "6:00 PM – 11:30 PM",
+          "Friday": "6:00 PM – 11:30 PM",
+          "Saturday": "6:00 PM – 11:30 PM",
+          "Sunday": "2:00 PM – 7:30 PM"
+        },
+        "website": "https://linktr.ee/sorrentochih"
+      }
+    },
+    "ChIJJ_cFZ1JD6oYRM905bwZCLtU": {
+      "fetched_at": "2026-10-08T20:34:14Z",
+      "location": {
+        "address": "Calle Ignacio Allende 200, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 413 4329",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=15361287974410640691",
+        "hours": {
+          "Monday": "8:00 AM – 2:00 PM",
+          "Tuesday": "8:00 AM – 9:15 PM",
+          "Wednesday": "8:00 AM – 2:00 PM",
+          "Thursday": "4:00 AM – 10:00 PM",
+          "Friday": "8:00–14:00, 16:00–22:00",
+          "Saturday": "8:00–14:00, 16:00–22:00",
+          "Sunday": "8:00 AM – 2:00 PM"
+        },
+        "website": "http://www.el-hojaldre.com/"
+      }
+    },
+    "ChIJ4woVccNF6oYRM-9t-Xa-4Xo": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Carretera Chihuahua a Aldama km 12.5 Num. 21501, CP 31314, 31314 Chihuahua, Chih.",
+        "phone": "614 436 9142",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=8854567760587255603",
+        "hours": {
+          "Monday": "11:00 AM – 9:00 PM",
+          "Tuesday": "Cerrado",
+          "Wednesday": "11:00 AM – 9:00 PM",
+          "Thursday": "11:00 AM – 9:00 PM",
+          "Friday": "11:00 AM – 9:00 PM",
+          "Saturday": "11:00 AM – 9:00 PM",
+          "Sunday": "11:00 AM – 9:00 PM"
+        },
+        "website": "https://www.facebook.com/LaIguanaMariscos/"
+      }
+    },
+    "ChIJA1FlErrLwYYRRRgudwF7mkE": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Altamirano 2512, Altavista, 31200 Chihuahua, Chih.",
+        "phone": "614 413 0809",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=4727226005103450181",
+        "hours": {
+          "Monday": "7:30 AM – 5:00 PM",
+          "Tuesday": "7:30 AM – 5:00 PM",
+          "Wednesday": "7:30 AM – 5:00 PM",
+          "Thursday": "7:30 AM – 5:00 PM",
+          "Friday": "7:30 AM – 5:00 PM",
+          "Saturday": "8:00 AM – 4:00 PM",
+          "Sunday": "Cerrado"
+        },
+        "website": null
+      }
+    },
+    "ChIJX9ILpadD6oYRwPgjvAoJwB0": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Av. Misión Del Bosque 9701, Misiones III Etapa, 31115 Chihuahua, Chih.",
+        "phone": "614 426 0481",
+        "rating": 3.2,
+        "mapsUrl": "https://maps.google.com/?cid=2143723364339153088",
+        "hours": {
+          "Monday": "7:30 AM – 5:00 PM",
+          "Tuesday": "7:30 AM – 5:00 PM",
+          "Wednesday": "7:30 AM – 5:00 PM",
+          "Thursday": "7:30 AM – 5:00 PM",
+          "Friday": "7:30 AM – 5:00 PM",
+          "Saturday": "8:00 AM – 4:00 PM",
+          "Sunday": "Cerrado"
+        },
+        "website": "https://www.facebook.com/naranjaylimoncuu?mibextid=LQQJ4d"
+      }
+    },
+    "ChIJ-6qEjFFD6oYRAvV9ESYrPpc": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "P.º Victoria 5, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": null,
+        "rating": 2.9,
+        "mapsUrl": "https://maps.google.com/?cid=10898195590785398018",
+        "hours": {
+          "Monday": "9:00 AM – 10:30 PM",
+          "Tuesday": "9:00 AM – 10:30 PM",
+          "Wednesday": "9:00 AM – 10:30 PM",
+          "Thursday": "9:00 AM – 10:30 PM",
+          "Friday": "9:00 AM – 10:30 PM",
+          "Saturday": "9:00 AM – 10:30 PM",
+          "Sunday": "9:00 AM – 10:30 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJJ7nRWLFD6oYRP7f1fQFEPPM": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Rio de Janeiro 530, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 413 5757",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=17526958623018039103",
+        "hours": {
+          "Monday": "8:00 AM – 9:30 PM",
+          "Tuesday": "8:00 AM – 9:30 PM",
+          "Wednesday": "8:00 AM – 9:30 PM",
+          "Thursday": "8:00 AM – 9:30 PM",
+          "Friday": "8:00 AM – 9:30 PM",
+          "Saturday": "8:00 AM – 9:30 PM",
+          "Sunday": "8:00 AM – 3:30 PM"
+        },
+        "website": "https://lflux.co/carolarewards/order"
+      }
+    },
+    "ChIJEStn9x9D6oYRi1Wn3rywRZE": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Av Antonio de Montes 5900, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 413 2821",
+        "rating": 4,
+        "mapsUrl": "https://maps.google.com/?cid=10467967234128434571",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 10:00 PM",
+          "Wednesday": "1:00 PM – 10:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 10:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJc7Q-qTZD6oYR_HA2aneszS4": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Blas Cano de los Ríos 249, San Felipe I Etapa, 31203 Chihuahua, Chih.",
+        "phone": "614 415 0898",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=3372541324853407996",
+        "hours": {
+          "Monday": "8:00 AM – 5:00 PM",
+          "Tuesday": "8:00 AM – 5:00 PM",
+          "Wednesday": "8:00 AM – 5:00 PM",
+          "Thursday": "8:00 AM – 5:00 PM",
+          "Friday": "8:00 AM – 5:00 PM",
+          "Saturday": "10:00 AM – 1:30 PM",
+          "Sunday": "10:00 AM – 1:30 PM"
+        },
+        "website": "http://www.facebook.com/bettycooker.cocina"
+      }
+    },
+    "ChIJ16jSnsxd6oYRPlmYFmjSbEc": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Av. Prol. Teófilo Borunda 11400, 31207 Chihuahua, Chih.",
+        "phone": "614 189 4618",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=5146719818675149118",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "4:00 PM – 10:00 PM",
+          "Wednesday": "4:00 PM – 10:00 PM",
+          "Thursday": "4:00 PM – 10:00 PM",
+          "Friday": "4:00 PM – 10:00 PM",
+          "Saturday": "4:00 PM – 10:00 PM",
+          "Sunday": "4:00 PM – 10:00 PM"
+        },
+        "website": "https://m.facebook.com/auracafecuu/"
+      }
+    },
+    "ChIJI83hCt9D6oYRAoFnffYOnvE": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Periférico de la Juventud 6101 local 5 Plaza Las Palmas, Rtno. Haciendas del Valle Col, Plaza del Sol, 31216 Chihuahua, Chih.",
+        "phone": "614 443 6636",
+        "rating": 4.9,
+        "mapsUrl": "https://maps.google.com/?cid=17410369661289595138",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 11:00 PM",
+          "Wednesday": "1:00 PM – 11:00 PM",
+          "Thursday": "1:00 PM – 12:00 PM",
+          "Friday": "1:00 PM – 12:00 PM",
+          "Saturday": "1:00 PM – 12:00 PM",
+          "Sunday": "1:00 PM – 10:00 PM"
+        },
+        "website": "http://www.asadorlibanes.com/"
+      }
+    },
+    "ChIJ2Z0HTD1D6oYRgx5s_miN0fM": {
+      "fetched_at": "2026-10-08T20:34:15Z",
+      "location": {
+        "address": "Av. Glandorf 3701, Parques de San Felipe, 31203 Chihuahua, Chih.",
+        "phone": "614 414 4551",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=17568979103433629315",
+        "hours": {
+          "Monday": "10:00 AM – 11:00 PM",
+          "Tuesday": "10:00 AM – 11:00 PM",
+          "Wednesday": "10:00 AM – 11:00 PM",
+          "Thursday": "10:00 AM – 11:00 PM",
+          "Friday": "10:00 AM – 11:00 PM",
+          "Saturday": "10:00 AM – 11:00 PM",
+          "Sunday": "10:00 AM – 5:30 PM"
+        },
+        "website": "http://tortaspiolines.com/escritorio.html"
+      }
+    },
+    "ChIJOa4LnN9C6oYR4stm3fErcjA": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "Plaza Rayuela, Av. de la Cantera s/n, Panamericana, 31210 Chihuahua, Chih.",
+        "phone": "614 426 1010",
+        "rating": 4.2,
+        "mapsUrl": "https://maps.google.com/?cid=3490900978967170018",
+        "hours": {
+          "Monday": "10:00 AM – 10:00 PM",
+          "Tuesday": "10:00 AM – 10:00 PM",
+          "Wednesday": "10:00 AM – 10:00 PM",
+          "Thursday": "10:00 AM – 10:00 PM",
+          "Friday": "10:00 AM – 10:00 PM",
+          "Saturday": "10:00 AM – 10:00 PM",
+          "Sunday": "10:00 AM – 10:00 PM"
+        },
+        "website": "http://tortaspiolines.com/"
+      }
+    },
+    "ChIJOWTGhd1c6oYR-r-yThn_V_w": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "es incorrecta la direccion del mapa, Paseos Vista del Sol 6404, Vistas del Sol, 31215 Chihuahua, Chih.",
+        "phone": "614 541 5885",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=18183282504691269626",
+        "hours": {
+          "Monday": "10:00 AM – 11:00 PM",
+          "Tuesday": "10:00 AM – 11:00 PM",
+          "Wednesday": "10:00 AM – 11:00 PM",
+          "Thursday": "10:00 AM – 11:00 PM",
+          "Friday": "10:00 AM – 11:00 PM",
+          "Saturday": "10:00 AM – 11:00 PM",
+          "Sunday": "10:00 AM – 10:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ8aYinhFb6oYRIPUviXwYVdE": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "Vialidad Chp, Av. Nueva España 8812, Mármol Viejo, 31063 Chihuahua, Chih.",
+        "phone": "614 389 2291",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=15083989450103977248",
+        "hours": {
+          "Monday": "10:00 AM – 10:00 PM",
+          "Tuesday": "10:00 AM – 10:00 PM",
+          "Wednesday": "10:00 AM – 10:00 PM",
+          "Thursday": "10:00 AM – 10:00 PM",
+          "Friday": "10:00 AM – 10:00 PM",
+          "Saturday": "10:00 AM – 10:00 PM",
+          "Sunday": "10:00 AM – 10:00 PM"
+        },
+        "website": "http://www.tortaspiolines.com/"
+      }
+    },
+    "ChIJf-KCOSdD6oYR9Uc6DtSz9SY": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "Av. Mirador 4723-2, Campestre II Etapa, Campestre-Lomas, 31213 Chihuahua, Chih.",
+        "phone": "614 423 4000",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=2807347666088511477",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 10:00 PM",
+          "Wednesday": "1:00 PM – 10:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 8:00 PM"
+        },
+        "website": "https://m.facebook.com/italianisimmo/"
+      }
+    },
+    "ChIJfbvXdplq6oYRW1DWd6l2EK4": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "Av Río Colorado 1840, Riberas del Sacramento, 31184 Chihuahua, Chih.",
+        "phone": "614 499 4210",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=12542655432458915931",
+        "hours": {
+          "Monday": "12:30 PM – 11:00 PM",
+          "Tuesday": "12:30 PM – 11:00 PM",
+          "Wednesday": "12:30 PM – 11:00 PM",
+          "Thursday": "12:30 PM – 11:00 PM",
+          "Friday": "12:30 PM – 11:00 PM",
+          "Saturday": "12:30 PM – 11:00 PM",
+          "Sunday": "12:30 PM – 11:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJjWBNx9JD6oYRXDUkGK94H0A": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "C. Ortiz de Campos 1101, San Felipe I Etapa, 31203 Chihuahua, Chih.",
+        "phone": "614 443 1513",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=4620544436125054300",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "8:00 AM – 9:00 PM",
+          "Wednesday": "8:00 AM – 9:00 PM",
+          "Thursday": "8:00 AM – 9:00 PM",
+          "Friday": "8:00 AM – 9:00 PM",
+          "Saturday": "8:00 AM – 9:00 PM",
+          "Sunday": "9:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJw3NVX0ND6oYR7E_pHUzpexg": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "C. 27 Manuel Gómez Morín #1104, Santo Niño, 31200 Chihuahua, Chih.",
+        "phone": "614 414 1480",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=1764260192174297068",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "11:00 AM – 9:00 PM",
+          "Wednesday": "11:00 AM – 9:00 PM",
+          "Thursday": "11:00 AM – 9:00 PM",
+          "Friday": "11:00 AM – 9:00 PM",
+          "Saturday": "11:00 AM – 9:00 PM",
+          "Sunday": "8:00 AM – 8:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJV7XrSQhD6oYRIvclicllJos": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "en Soriana Juventud, Perif. de la Juventud 401-Local 17, Paseos de Chihuahua, 31125 Chihuahua, Chih.",
+        "phone": "614 179 5854",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=10026813536650786594",
+        "hours": {
+          "Monday": "10:00 AM – 6:00 PM",
+          "Tuesday": "10:00 AM – 6:00 PM",
+          "Wednesday": "10:00 AM – 6:00 PM",
+          "Thursday": "10:00 AM – 6:00 PM",
+          "Friday": "10:00 AM – 6:00 PM",
+          "Saturday": "10:00 AM – 6:00 PM",
+          "Sunday": "10:00 AM – 6:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJsctTDP5B6oYRhXfs4fZ6a_k": {
+      "fetched_at": "2026-10-08T20:34:16Z",
+      "location": {
+        "address": "C. Portal de Ébano 17101, Los Arcos, 31137 Chihuahua, Chih.",
+        "phone": "614 490 3998",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=17972593938723010437",
+        "hours": {
+          "Monday": "10:00 AM – 6:00 PM",
+          "Tuesday": "10:00 AM – 6:00 PM",
+          "Wednesday": "10:00 AM – 6:00 PM",
+          "Thursday": "10:00 AM – 6:00 PM",
+          "Friday": "10:00 AM – 6:00 PM",
+          "Saturday": "10:00 AM – 6:00 PM",
+          "Sunday": "10:00 AM – 6:00 PM"
+        },
+        "website": "http://lajaibafeliz.negocio.site/"
+      }
+    },
+    "ChIJw2PxFM9D6oYRBG9VFtGjLmg": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Av. George Washington 1600-Local 204, Campestre III Etapa, Campestre-Lomas, 31213 Chihuahua, Chih.",
+        "phone": "614 609 6023",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=7507117747291385604",
+        "hours": {
+          "Monday": "8:00 AM – 8:00 PM",
+          "Tuesday": "8:00 AM – 8:00 PM",
+          "Wednesday": "8:00 AM – 8:00 PM",
+          "Thursday": "8:00 AM – 8:00 PM",
+          "Friday": "8:00 AM – 8:00 PM",
+          "Saturday": "8:00 AM – 8:00 PM",
+          "Sunday": "8:00 AM – 8:00 PM"
+        },
+        "website": "https://linktr.ee/eltemorense"
+      }
+    },
+    "ChIJGwcDVpND6oYRy5WHNr8dj1A": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Calle Guadalupe Victoria 200-6o piso, Zona Centro, 31000 Chihuahua, Chih.",
+        "phone": "614 538 3723",
+        "rating": 4.5,
+        "mapsUrl": "https://maps.google.com/?cid=5804891151794673099",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "9:00 AM – 12:00 PM",
+          "Wednesday": "9:00 AM – 12:00 PM",
+          "Thursday": "9:00 AM – 12:00 PM",
+          "Friday": "9:00 AM – 2:00 AM",
+          "Saturday": "9:00 AM – 2:00 AM",
+          "Sunday": "9:00 AM – 12:00 PM"
+        },
+        "website": "https://linktr.ee/nmdcuu"
+      }
+    },
+    "ChIJ5dxIwDFD6oYROvKRptwXqA8": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Blvrd Antonio Ortiz Mena 2033, Vermont, Campestre-Lomas, 31214 Chihuahua, Chih.",
+        "phone": "614 305 7311",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=1128177943111135802",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "8:00 AM – 1:30 PM",
+          "Wednesday": "8:00 AM – 1:30 PM",
+          "Thursday": "8:00 AM – 1:30 PM",
+          "Friday": "8:00 AM – 1:30 PM",
+          "Saturday": "8:00 AM – 1:30 PM",
+          "Sunday": "8:00 AM – 1:30 PM"
+        },
+        "website": "http://www.mayolica.mx/"
+      }
+    },
+    "ChIJtYnmYQBB6oYRIdovdCpQbZA": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Av Cristobal Colón 11520-int 4, Complejo Industrial Chihuahua, 31136 Chihuahua, Chih.",
+        "phone": null,
+        "rating": null,
+        "mapsUrl": "https://maps.google.com/?cid=10407062457191225889",
+        "hours": {},
+        "website": null
+      }
+    },
+    "ChIJ1cuIDABd6oYRrNKgn3SZTfY": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Av. Prol. Teófilo Borunda 11811, 31220 Chihuahua, Chih.",
+        "phone": "614 377 0099",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=17748010432710365868",
+        "hours": {
+          "Monday": "1:00 PM – 9:00 AM",
+          "Tuesday": "1:00 PM – 9:00 PM",
+          "Wednesday": "1:00 PM – 9:00 PM",
+          "Thursday": "1:00 PM – 10:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 9:00 PM",
+          "Sunday": "12:00 PM – 7:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJg1gohRE36oYRRzp4ypST78k": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "C. Juárez #4, Centro, 32910 Juan Aldama, Chih.",
+        "phone": "614 451 2516",
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=14551011188318681671",
+        "hours": {
+          "Monday": "1:00 PM – 9:00 PM",
+          "Tuesday": "1:00 PM – 9:00 PM",
+          "Wednesday": "1:00 PM – 9:00 PM",
+          "Thursday": "1:00 PM – 9:00 PM",
+          "Friday": "1:00 PM – 10:00 PM",
+          "Saturday": "1:00 PM – 10:00 PM",
+          "Sunday": "1:00 PM – 9:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJK_PCKtFD6oYRCadKWtIfA80": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "C. 27 Manuel Gómez Morín 1607B, Obrera, 31350 Chihuahua, Chih.",
+        "phone": "614 415 4967",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=14772686191023793929",
+        "hours": {
+          "Monday": "11:00 AM – 8:00 PM",
+          "Tuesday": "11:00 AM – 8:00 PM",
+          "Wednesday": "11:00 AM – 8:00 PM",
+          "Thursday": "11:00 AM – 8:00 PM",
+          "Friday": "11:00 AM – 8:00 PM",
+          "Saturday": "11:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 8:00 PM"
+        },
+        "website": "https://www.facebook.com/costalangostacuu/"
+      }
+    },
+    "ChIJMaaRiepD6oYR75IUDJgF7Pg": {
+      "fetched_at": "2026-10-08T20:34:17Z",
+      "location": {
+        "address": "Av. de la Cantera 10105, La Haciendita, 31216 Chihuahua, Chih.",
+        "phone": "614 598 6551",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=17936717566505685743",
+        "hours": {
+          "Monday": "11:00 AM – 8:00 PM",
+          "Tuesday": "11:00 AM – 8:00 PM",
+          "Wednesday": "11:00 AM – 8:00 PM",
+          "Thursday": "11:00 AM – 8:00 PM",
+          "Friday": "11:00 AM – 8:00 PM",
+          "Saturday": "11:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 8:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJQWo1BwBB6oYRllJNetTWxAo": {
+      "fetched_at": "2026-10-08T20:34:18Z",
+      "location": {
+        "address": "Av Fedor Dostoyevzki 1106, Alamedas III Etapa, Chihuahua 2000, 31136 Chihuahua, Chih.",
+        "phone": "614 437 9914",
+        "rating": 4.3,
+        "mapsUrl": "https://maps.google.com/?cid=775981243887866518",
+        "hours": {
+          "Monday": "11:00 AM – 8:00 PM",
+          "Tuesday": "11:00 AM – 8:00 PM",
+          "Wednesday": "11:00 AM – 8:00 PM",
+          "Thursday": "11:00 AM – 8:00 PM",
+          "Friday": "11:00 AM – 8:00 PM",
+          "Saturday": "11:00 AM – 8:00 PM",
+          "Sunday": "11:00 AM – 8:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJU2PypMhc6oYRFsT2nlkqftI": {
+      "fetched_at": "2026-10-08T20:34:18Z",
+      "location": {
+        "address": "C. 32 704, Guadalupe, 31410 Chihuahua, Chih.",
+        "phone": "614 264 8695",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=15167607159437837334",
+        "hours": {
+          "Monday": "Cerrado",
+          "Tuesday": "1:00 PM – 7:30 PM",
+          "Wednesday": "1:00 PM – 7:30 PM",
+          "Thursday": "1:00 PM – 7:30 PM",
+          "Friday": "1:00 PM – 7:30 PM",
+          "Saturday": "1:00 PM – 7:30 PM",
+          "Sunday": "1:00 PM – 7:30 PM"
+        },
+        "website": "https://www.facebook.com/PinosBurguer"
+      }
+    },
+    "ChIJAaAxRzVD6oYR3XKBTQDTNDc": {
+      "fetched_at": "2026-10-08T20:34:18Z",
+      "location": {
+        "address": "C. 24 1706, Mirador, Campestre-Lomas, 31205 Chihuahua, Chih.",
+        "phone": "614 410 3882",
+        "rating": 4.7,
+        "mapsUrl": "https://maps.google.com/?cid=3978036369128780509",
+        "hours": {
+          "Monday": "12:00 PM – 10:30 PM",
+          "Tuesday": "12:00 PM – 10:30 PM",
+          "Wednesday": "12:00 PM – 10:30 PM",
+          "Thursday": "12:00 PM – 10:30 PM",
+          "Friday": "12:00 PM – 10:30 PM",
+          "Saturday": "12:00 PM – 10:30 PM",
+          "Sunday": "12:00 PM – 10:00 PM"
+        },
+        "website": null
+      }
+    },
+    "ChIJ1-6nacNC6oYR8VWLWWJgwvg": {
+      "fetched_at": "2026-10-08T20:34:18Z",
+      "location": {
+        "address": "Perif. de la Juventud 7500-Interior 8, Colinas del Valle, Campestre-Lomas, 31217 Chihuahua, Chih.",
+        "phone": "614 335 1162",
+        "rating": 4.4,
+        "mapsUrl": "https://maps.google.com/?cid=17924995442413360625",
+        "hours": {
+          "Monday": "12:00 PM – 10:30 PM",
+          "Tuesday": "12:00 PM – 10:30 PM",
+          "Wednesday": "12:00 PM – 10:30 PM",
+          "Thursday": "12:00 PM – 10:30 PM",
+          "Friday": "12:00 PM – 10:30 PM",
+          "Saturday": "12:00 PM – 10:30 PM",
+          "Sunday": "12:00 PM – 10:30 PM"
+        },
+        "website": "http://www.ricostacosdelajuventud.com/"
+      }
+    },
+    "ChIJr9wn5TtD6oYR-mtNxo-v9p4": {
+      "fetched_at": "2026-10-08T20:34:18Z",
+      "location": {
+        "address": "Trasviña y Retes 3104, San Felipe II Etapa, 31203 Chihuahua, Chih.",
+        "phone": null,
+        "rating": 4.6,
+        "mapsUrl": "https://maps.google.com/?cid=11454535734305582074",
+        "hours": {
+          "Monday": "8:00 AM – 5:00 PM",
+          "Tuesday": "8:00 AM – 5:00 PM",
+          "Wednesday": "8:00 AM – 5:00 PM",
+          "Thursday": "8:00 AM – 5:00 PM",
+          "Friday": "8:00 AM – 5:00 PM",
+          "Saturday": "8:00 AM – 4:30 PM",
+          "Sunday": "Cerrado"
+        },
+        "website": "http://naturalbalance.club/"
+      }
+    }
+  }
 }
