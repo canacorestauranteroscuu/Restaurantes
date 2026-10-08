@@ -5,12 +5,17 @@ Pulls active (Pagado) restaurants from Notion, enriches with Google Places data,
 and updates the restaurant array in the HTML file.
 """
 import os, json, re, sys
+from datetime import datetime, timezone
 import urllib.request, urllib.parse
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NOTION_DB_ID = os.environ.get("NOTION_DB_ID", "2f03b368f49680c4adefdd8d3a244068")
 GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"]
 HTML_FILE = os.environ.get("HTML_FILE", "dondecomemos.html")
+CACHE_FILE = os.environ.get("PLACES_CACHE_FILE", "places_cache.json")
+FORCE_PLACES_REFRESH = os.environ.get("FORCE_PLACES_REFRESH", "").lower() in (
+    "1", "true", "yes",
+)
 
 # ── Notion API ──────────────────────────────────────────────
 
@@ -98,6 +103,34 @@ def extract_notion_data(page):
         "place_ids": place_ids,
         "num_locations": int(num_locations) if num_locations else 1
     }
+
+
+# ── Places cache (avoid daily Details API calls) ────────────
+
+def load_places_cache():
+    """Load cached Google Places location payloads keyed by place_id."""
+    try:
+        with open(CACHE_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {"version": 1, "places": {}}
+    if "places" not in data:
+        data["places"] = {}
+    return data
+
+
+def save_places_cache(cache):
+    with open(CACHE_FILE, "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def prune_places_cache(cache, active_place_ids):
+    """Drop cache entries for Place IDs no longer referenced in Notion."""
+    stale = [pid for pid in cache["places"] if pid not in active_place_ids]
+    for pid in stale:
+        del cache["places"][pid]
+    return len(stale)
 
 
 # ── Google Places API ───────────────────────────────────────
@@ -335,12 +368,45 @@ def entry_to_js(entry):
 
 # ── Main ────────────────────────────────────────────────────
 
+def resolve_location(place_id, cache, stats):
+    """Return a location dict from cache or Google Places API."""
+    if not FORCE_PLACES_REFRESH and place_id in cache["places"]:
+        stats["cache_hits"] += 1
+        print(f"   Using cached Places data: {place_id}")
+        return cache["places"][place_id]["location"]
+
+    stats["api_calls"] += 1
+    print(f"   Fetching Google Places: {place_id}")
+    place_data = fetch_place_details(place_id)
+    if not place_data:
+        cached = cache["places"].get(place_id)
+        if cached:
+            print(f"   ⚠️  API failed — keeping previous cache for {place_id}")
+            return cached["location"]
+        return None
+
+    location = build_location(place_data)
+    cache["places"][place_id] = {
+        "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "location": location,
+    }
+    stats["cache_updated"] = True
+    return location
+
+
 def main():
+    if FORCE_PLACES_REFRESH:
+        print("⚡ FORCE_PLACES_REFRESH enabled — refetching all Place IDs from Google")
+
+    cache = load_places_cache()
+    stats = {"api_calls": 0, "cache_hits": 0, "cache_updated": False}
+
     print("🔄 Fetching restaurants from Notion...")
     pages = get_all_restaurants()
     print(f"   Found {len(pages)} restaurants with 'Pagado' status")
 
     all_entries = []
+    active_place_ids = set()
 
     for page in pages:
         notion_data = extract_notion_data(page)
@@ -352,16 +418,29 @@ def main():
         if notion_data["place_ids"]:
             locations = []
             for pid in notion_data["place_ids"]:
-                print(f"   Fetching Google Places: {pid}")
-                place_data = fetch_place_details(pid)
-                if place_data:
-                    locations.append(build_location(place_data))
+                active_place_ids.add(pid)
+                loc = resolve_location(pid, cache, stats)
+                if loc:
+                    locations.append(loc)
             entry = build_restaurant_entry(notion_data, locations)
             all_entries.append(entry)
         else:
             print("   ⚠️  No Google Place ID — using Notion data only")
             entry = build_restaurant_entry(notion_data, [])
             all_entries.append(entry)
+
+    removed = prune_places_cache(cache, active_place_ids)
+    if removed:
+        stats["cache_updated"] = True
+        print(f"\n🧹 Removed {removed} stale Place ID(s) from cache")
+
+    if stats["cache_updated"]:
+        save_places_cache(cache)
+
+    print(
+        f"\n📊 Places API: {stats['api_calls']} call(s), "
+        f"{stats['cache_hits']} cache hit(s)"
+    )
 
     # Generate JS array
     js_entries = ",\n".join(entry_to_js(e) for e in all_entries)
