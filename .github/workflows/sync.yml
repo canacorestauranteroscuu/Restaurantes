@@ -1,11 +1,19 @@
 name: Sync Restaurant Directory
 
 on:
-  # Run daily at 6 AM Mexico City time (12:00 UTC)
+  # Run daily at 6 AM Mexico City time (12:00 UTC) — Notion only; Places uses cache
   schedule:
     - cron: '0 12 * * *'
-  # Allow manual trigger from GitHub Actions tab
+  # Optional hook when a new restaurantero is added (e.g. Notion automation → webhook)
+  repository_dispatch:
+    types: [sync-restaurants]
   workflow_dispatch:
+    inputs:
+      force_places_refresh:
+        description: 'Refrescar todos los datos de Google Places (no solo entradas nuevas)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -28,18 +36,19 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
           HTML_FILE: dondecomemos.html
+          FORCE_PLACES_REFRESH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_places_refresh == true && 'true' || '' }}
         run: python sync.py
 
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet dondecomemos.html || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet dondecomemos.html places_cache.json || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "CANACO Sync Bot"
           git config user.email "canacorestauranteroscuu@gmail.com"
-          git add dondecomemos.html
+          git add dondecomemos.html places_cache.json
           git commit -m "🔄 Auto-sync restaurant directory $(date +%Y-%m-%d)"
           git push
