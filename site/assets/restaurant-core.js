@@ -28,13 +28,27 @@ const HOME_FILTER_CHIPS = [
   { key: 'Café', label: 'Café' },
 ];
 
-const MORE_FILTER_CATEGORIES = [
-  'Bar',
-  'Comida para llevar',
-  'Restaurante Bar',
-  'Pastelería',
-  'Panadería',
-];
+/** Categorías en chips fijos del home (no van al menú «Más»). */
+const HOME_CHIP_CATEGORY_KEYS = ['Restaurante', 'Desayunos', 'Café'];
+
+/** Todas las demás categorías presentes en datos, por conteo ↓ y nombre; «Otro» al final. */
+function moreFilterCategories() {
+  if (typeof restaurants === 'undefined') return [];
+  const counts = new Map();
+  for (const r of restaurants) {
+    for (const cat of r.categories) {
+      if (HOME_CHIP_CATEGORY_KEYS.includes(cat)) continue;
+      counts.set(cat, (counts.get(cat) || 0) + 1);
+    }
+  }
+  return [...counts.keys()].sort((a, b) => {
+    if (a === 'Otro') return 1;
+    if (b === 'Otro') return -1;
+    const diff = (counts.get(b) || 0) - (counts.get(a) || 0);
+    if (diff !== 0) return diff;
+    return (CATEGORY_LABELS[a] || a).localeCompare(CATEGORY_LABELS[b] || b, 'es');
+  });
+}
 
 function phoneDigits(p) {
   if (!p) return null;

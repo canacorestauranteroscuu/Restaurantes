@@ -20,5 +20,6 @@ jobs:
           bash scripts/check_gh_pages_root_redirects.sh
           node scripts/test_midnight_hours.mjs
           node scripts/test_ruleta_spin.mjs
+          node scripts/test_category_filters.mjs
           python3 scripts/test_logo_utils_auth.py
           python3 scripts/test_logo_standardize.py
