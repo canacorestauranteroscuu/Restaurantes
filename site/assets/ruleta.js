@@ -141,18 +141,34 @@
   const segmentUnderPointer = (a) => Math.floor(mod(15 - a, 360) / SEG);
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  const hubTileCache = new Map();
+  function hubTileHtml(r) {
+    return logoTile(r, 'sm').replace(' loading="lazy"', '');
+  }
   function setHub(r) {
     const key = slugify(r.name);
     if (hub.dataset.slug === key) return;
     hub.dataset.slug = key;
-    hub.innerHTML = logoTile(r, 'sm').replace(' loading="lazy"', '');
+    hub.innerHTML = hubTileCache.get(key) || hubTileHtml(r);
   }
   async function preloadSlots(slots) {
+    const seen = new Set();
+    const unique = slots.filter((r) => {
+      const k = slugify(r.name);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
     await Promise.race([
-      Promise.allSettled(slots.map(async (r) => {
-        const m = /src="([^"]+)"/.exec(logoTile(r, 'sm'));
+      Promise.allSettled(unique.map(async (r) => {
+        const key = slugify(r.name);
+        const html = hubTileHtml(r);
+        hubTileCache.set(key, html);
+        const m = /src="([^"]+)"/.exec(html);
         if (!m) return;
-        const img = new Image(); img.src = m[1]; await img.decode();
+        const img = new Image();
+        img.src = m[1];
+        await img.decode();
       })),
       new Promise((resolve) => setTimeout(resolve, 700))
     ]);
@@ -193,8 +209,8 @@
       showWinner(winner); spinning = false; setBusy(false);
     };
     if (motion.matches) { finish(); return; }
-    paint(start);
     await preloadSlots(slots);
+    paint(start);
     const t0 = performance.now();
     (function frame(now) {
       const p = Math.min(1, (now - t0) / SPIN_MS);
