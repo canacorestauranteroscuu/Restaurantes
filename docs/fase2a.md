@@ -25,21 +25,25 @@ Los 67 socios actuales se cargan después, desde Notion. Esta migración no los 
 | `cuentas_socio` | Usuario de Auth ↔ socio. Máximo 2 por socio. |
 | `cuota_anual` | Un renglón por año. 2027 = 1200 MXN. El cálculo lee esta tabla. |
 | `membresias` | Un renglón por socio y año. `activa`, `vencida` o `en_revision`. Aprobar deja `activa` (eso alimenta después el “Pagado” de la ruleta). |
-| `renovaciones` | `alta` o `renovacion`. El socio carga fecha, monto reportado, método y ruta del comprobante. Queda `pendiente`. |
+| `renovaciones` | El socio carga `anio`, fecha, monto reportado, método y ruta del comprobante. El servidor fija `alta` o `renovacion`. Queda `pendiente`. |
 | `auditoria` | Solo append: `aprobar`, `rechazar`, `cambio_monto`. Actor, antes, después, timestamp. |
 
 `renovaciones_pendientes_24h` es una vista `security_invoker` para `/admin/renovaciones`: pendientes con más de 24 horas. Respeta el RLS de quien consulta.
 
 ## Regla de cuotas
 
-`aprobar_renovacion` calcula `monto_esperado` en el servidor, con la cuota del año de `fecha_pago`:
+`aprobar_renovacion` calcula `monto_esperado` en el servidor, con la cuota de `renovaciones.anio` (no con el año de `fecha_pago`). Así un pago de diciembre 2026 puede ser la membresía 2027.
 
-- `renovacion`, o alta de un `es_socio_base`: la cuota entera de ese año.
-- `alta` de quien no es base: `(cuota / 12) * (13 - mes de fecha_pago)`, redondeado a 2 decimales. Con 1200 MXN: enero 1200 … diciembre 100. El mes de la fecha de pago sí cuenta. El día en que alguien aprieta aprobar no cuenta.
+El tipo también lo fija el servidor: `renovacion` si `es_socio_base` o si ya hay un año anterior aprobado (`membresias` activa o vencida, o una renovación `aprobada`). Si no, `alta`. Un socio base o con historial nunca queda como alta.
 
-El tesorero o el presidente pueden corregir `fecha_pago`. Pueden cambiar el monto solo si mandan un `motivo` no vacío; eso escribe `cambio_monto` y también `aprobar`. Rechazar exige motivo, deja `rechazada` y no activa la membresía.
+- `renovacion`, o un `alta` cuya fecha cae en otro año: la cuota entera de `anio`.
+- `alta` del mismo año: `round(cuota * (13 - mes) / 12, 2)`, un solo redondeo. Con 1200 MXN: enero 1200 … diciembre 100. El mes de `fecha_pago` sí cuenta. El día en que alguien aprieta aprobar no cuenta.
 
-Cualquiera de los dos basta. `admin_lectura` ve los datos de admin y no aprueba ni rechaza.
+`fecha_pago` tiene que caer entre 2026-01-01 y 2036-12-31, y `anio` es ese año o el siguiente. Hay una sola renovación `aprobada` por socio y año.
+
+Si el monto final no es el `monto_reportado`, si el override no es la cuota, o si corregir `fecha_pago` mueve la cuota, hace falta un `motivo` y queda una fila `cambio_monto`. Un monto negativo o con más de 2 decimales se rechaza.
+
+Quien aprueba no puede ser socio de esa ficha. Tesorero o presidente, cualquiera de los dos. `admin_lectura` ve y no aprueba. Rechazar exige motivo, deja `rechazada` y no activa la membresía. Aprobar deja la membresía de `anio` en `activa`.
 
 ## RLS y funciones
 
@@ -61,7 +65,9 @@ Bucket privado `comprobantes` (no público): jpeg, png o pdf, tope 10 MiB. Ruta 
 
 `storage.objects` y `storage.buckets` son de `supabase_storage_admin`. La migración no hace `ALTER`, `GRANT` ni `REVOKE` en ese esquema: `postgres` no es el dueño y el apply se revierte entero. RLS ya está activo en el proyecto. Lo que sí crea la migración son las políticas.
 
-Políticas solo para `authenticated`. El socio sube y lee su carpeta. Tesorero, presidente y admin de lectura leen todo. No hay política para `public` ni para `anon`, así que el rol anónimo no ve filas aunque la plataforma le deje privilegio de tabla. Se sirven con URL firmada, no con un URL público del bucket.
+Políticas solo de lectura e inserción para `authenticated`. No hay UPDATE ni DELETE: el comprobante no se reescribe. El INSERT exige que la renovación siga `pendiente`, que la primera carpeta sea el `socio_id` de esa fila y que la extensión sea jpg, jpeg, png o pdf. Si el objeto trae `metadata.mimetype`, tiene que ser `image/jpeg`, `image/png` o `application/pdf`.
+
+El socio sube y lee su carpeta. Tesorero, presidente y admin de lectura leen todo. No hay política para `public` ni para `anon`, así que el rol anónimo no ve filas aunque la plataforma le deje privilegio de tabla. Se abren con URL firmada y disposición `download`, no en línea.
 
 ## Cómo se prueban
 
@@ -79,4 +85,22 @@ Cubren: anon sin permiso, aislamiento entre dos socios, `admin_lectura` no aprue
 - `private` no está en `api.schemas`. El API solo ve wrappers `SECURITY INVOKER`. La función que escribe es `SECURITY DEFINER` en `private` y vuelve a exigir tesorero o presidente con `auth.uid()`, no con un id del cliente.
 - Los roles no se leen de `app_metadata`. La tabla evita un JWT viejo: el cambio de rol vale en la siguiente consulta.
 - `es_socio_base` y el vínculo cuenta↔socio no los puede reasignar `authenticated` ni `anon`.
-- La cuota no está hardcodeada en la fórmula: sale de `cuota_anual`.
+- La cuota no está hardcodeada en la fórmula: sale de `cuota_anual` para `anio`.
+- Un tesorero o presidente que también es socio de esa ficha no aprueba ni rechaza ese pago.
+- `auditoria` tampoco se puede truncar. `service_role` no tiene TRUNCATE, UPDATE ni DELETE.
+- `anon` no ejecuta las tres funciones públicas, aunque el proyecto le dé EXECUTE por default privileges. Tampoco usa la secuencia de `auditoria`.
+
+## Dashboard antes del go-live
+
+`config.toml` no se aplica solo al proyecto hospedado. Antes de abrir el login, en `lynbusuqmexsehpvaqev`:
+
+1. Signups apagados.
+2. Anonymous sign-ins apagados.
+3. OTP de 6 dígitos y caducidad de a lo más 900 segundos.
+4. Plantillas Magic Link e Invite con `{{ .Token }}` (`supabase/templates/magic_link.html` y `supabase/templates/invite.html`), no un enlace.
+5. SMTP propio. El correo integrado de Supabase solo llega al equipo del proyecto.
+6. Site URL `https://sercanaco.com`. Allowlist de redirects solo `https://sercanaco.com/**`.
+7. Rate limits de auth (envío de correo, verificación de OTP y sign-ins).
+8. Contraseña mínima de 10, con mayúsculas, minúsculas, dígitos y símbolo, y secure password change. La protección de contraseñas filtradas pide plan Pro: en el plan free no está.
+9. El API expone solo `public` y `graphql_public`. `private` no va en esa lista.
+10. Después del apply, el bucket `comprobantes` queda privado, 10 MiB, y solo jpeg, png y pdf. `anon` no ejecuta `aprobar_renovacion`.

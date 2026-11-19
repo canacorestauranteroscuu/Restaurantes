@@ -70,8 +70,8 @@ BEGIN
     RAISE EXCEPTION 'socio A ve al socio B';
   END IF;
   BEGIN
-    INSERT INTO public.renovaciones (socio_id, tipo, fecha_pago, monto_reportado, metodo)
-    VALUES ('10000000-0000-4000-8000-000000000002', 'alta', DATE '2027-03-01', 1000, 'transferencia');
+    INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado, metodo)
+    VALUES ('10000000-0000-4000-8000-000000000002', 2027, DATE '2027-03-01', 1000, 'transferencia');
     RAISE EXCEPTION 'socio A no debe insertar renovacion de B';
   EXCEPTION
     WHEN insufficient_privilege OR check_violation THEN
@@ -83,11 +83,11 @@ RESET ROLE;
 -- Alta propia del socio nuevo (no base), marzo 2027 → 1000.
 SET ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a1', false);
-INSERT INTO public.renovaciones (id, socio_id, tipo, fecha_pago, monto_reportado, metodo, comprobante_path)
+INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado, metodo, comprobante_path)
 VALUES (
   '20000000-0000-4000-8000-000000000010',
   '10000000-0000-4000-8000-000000000001',
-  'alta',
+  2027,
   DATE '2027-03-15',
   1000,
   'transferencia',
@@ -96,10 +96,10 @@ VALUES (
 
 DO $$
 BEGIN
-  INSERT INTO public.renovaciones (socio_id, tipo, fecha_pago, monto_reportado, estado)
+  INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado, estado)
   VALUES (
     '10000000-0000-4000-8000-000000000001',
-    'alta',
+    2027,
     DATE '2027-04-01',
     900,
     'aprobada'
@@ -177,11 +177,11 @@ DECLARE
   expect numeric;
 BEGIN
   FOR m IN 1..12 LOOP
-    expect := (1200.00 / 12) * (13 - m);
+    expect := round(1200.00 * (13 - m) / 12, 2);
     got := public.calcular_monto_esperado(
       '10000000-0000-4000-8000-000000000001',
-      'alta',
-      make_date(2027, m, 15)
+      make_date(2027, m, 15),
+      2027
     );
     IF got IS DISTINCT FROM expect THEN
       RAISE EXCEPTION 'mes %: obtuvo % esperaba %', m, got, expect;
@@ -191,8 +191,8 @@ BEGIN
   -- El mes de aprobación no cuenta: enero aunque "hoy" no sea enero.
   got := public.calcular_monto_esperado(
     '10000000-0000-4000-8000-000000000001',
-    'alta',
-    DATE '2027-01-31'
+    DATE '2027-01-31',
+    2027
   );
   IF got <> 1200 THEN
     RAISE EXCEPTION 'enero debio ser 1200, fue %', got;
@@ -200,20 +200,22 @@ BEGIN
 
   got := public.calcular_monto_esperado(
     '10000000-0000-4000-8000-000000000002',
-    'alta',
-    DATE '2027-12-01'
+    DATE '2027-12-01',
+    2027
   );
   IF got <> 1200 THEN
     RAISE EXCEPTION 'socio base en diciembre debio pagar 1200, fue %', got;
   END IF;
 
+  -- Sin historial, diciembre sigue siendo alta: 100. La cuota completa de una
+  -- renovación con año previo se prueba en fase2a_neg.sql.
   got := public.calcular_monto_esperado(
     '10000000-0000-4000-8000-000000000001',
-    'renovacion',
-    DATE '2027-12-01'
+    DATE '2027-12-01',
+    2027
   );
-  IF got <> 1200 THEN
-    RAISE EXCEPTION 'renovacion en diciembre debio ser 1200, fue %', got;
+  IF got <> 100 THEN
+    RAISE EXCEPTION 'alta de diciembre debio ser 100, fue %', got;
   END IF;
 END $$;
 RESET ROLE;
@@ -277,52 +279,14 @@ BEGIN
 END $$;
 RESET ROLE;
 
--- Corregir fecha_pago sin override no exige motivo y recalcula la cuota del año.
-INSERT INTO public.renovaciones (id, socio_id, tipo, fecha_pago, monto_reportado, metodo)
-VALUES (
-  '20000000-0000-4000-8000-000000000011',
-  '10000000-0000-4000-8000-000000000001',
-  'alta',
-  DATE '2027-12-01',
-  100,
-  'transferencia'
-);
-SET ROLE authenticated;
-SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b1', false);
-SELECT public.aprobar_renovacion(
-  '20000000-0000-4000-8000-000000000011',
-  DATE '2027-01-31',
-  NULL,
-  NULL
-);
-DO $$
-DECLARE
-  n_cambio int;
-BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM public.renovaciones
-    WHERE id = '20000000-0000-4000-8000-000000000011'
-      AND fecha_pago = DATE '2027-01-31'
-      AND monto_esperado = 1200
-      AND motivo_cambio IS NULL
-  ) THEN
-    RAISE EXCEPTION 'corregir la fecha no dejo la cuota de enero';
-  END IF;
-  SELECT count(*) INTO n_cambio FROM public.auditoria WHERE accion = 'cambio_monto';
-  IF n_cambio <> 1 THEN
-    RAISE EXCEPTION 'corregir la fecha no debe ser cambio_monto, hay %', n_cambio;
-  END IF;
-END $$;
-RESET ROLE;
-
 -- Presidente rechaza otra solicitud.
 SET ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a2', false);
-INSERT INTO public.renovaciones (id, socio_id, tipo, fecha_pago, monto_reportado, metodo)
+INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado, metodo)
 VALUES (
   '20000000-0000-4000-8000-000000000020',
   '10000000-0000-4000-8000-000000000002',
-  'renovacion',
+  2027,
   DATE '2027-01-10',
   1200,
   'efectivo'
@@ -373,11 +337,11 @@ EXCEPTION
 END $$;
 
 -- Pendiente > 24 h visible para staff, no para el otro socio.
-INSERT INTO public.renovaciones (id, socio_id, tipo, fecha_pago, monto_reportado, created_at)
+INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado, created_at)
 VALUES (
   '20000000-0000-4000-8000-000000000030',
   '10000000-0000-4000-8000-000000000001',
-  'alta',
+  2027,
   DATE '2027-06-01',
   700,
   now() - interval '25 hours'
@@ -415,7 +379,7 @@ SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a1
 INSERT INTO storage.objects (bucket_id, name)
 VALUES (
   'comprobantes',
-  '10000000-0000-4000-8000-000000000001/20000000-0000-4000-8000-000000000010/comprobante.pdf'
+  '10000000-0000-4000-8000-000000000001/20000000-0000-4000-8000-000000000030/comprobante.pdf'
 );
 DO $$
 BEGIN
@@ -434,7 +398,7 @@ BEGIN
   INSERT INTO storage.objects (bucket_id, name)
   VALUES (
     'comprobantes',
-    '10000000-0000-4000-8000-000000000001/20000000-0000-4000-8000-000000000010/comprobante.exe'
+    '10000000-0000-4000-8000-000000000001/20000000-0000-4000-8000-000000000030/comprobante.exe'
   );
   RAISE EXCEPTION 'extension no permitida';
 EXCEPTION

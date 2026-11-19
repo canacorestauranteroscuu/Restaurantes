@@ -70,10 +70,19 @@ AS $$
   SELECT lower((regexp_match(name, '\.([^.]+)$'))[1]);
 $$;
 
--- En el proyecto hospedado esto ya existe y no se toca desde la migración:
--- RLS activo, y los privilegios de tabla los pone la plataforma.
+-- En el proyecto hospedado esto ya existe y no se toca desde la migración.
 ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
-GRANT USAGE ON SCHEMA storage TO anon, authenticated;
-GRANT SELECT, INSERT, UPDATE ON storage.objects TO authenticated;
-REVOKE ALL ON storage.objects FROM anon;
-REVOKE ALL ON storage.objects FROM PUBLIC;
+
+-- Copia de los default privileges leídos en el proyecto destino, más los
+-- GRANT de storage.objects (anon y authenticated tienen arwd).
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
+  GRANT ALL ON TABLES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
+  GRANT ALL ON FUNCTIONS TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
+  GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+
+GRANT USAGE ON SCHEMA public TO service_role;
+GRANT USAGE ON SCHEMA storage TO anon, authenticated, service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON storage.objects, storage.buckets TO anon, authenticated;
+GRANT ALL ON storage.objects, storage.buckets TO service_role;

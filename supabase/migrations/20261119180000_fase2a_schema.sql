@@ -32,8 +32,8 @@ CREATE TABLE public.cuentas_socio (
 CREATE INDEX cuentas_socio_socio_id_idx ON public.cuentas_socio (socio_id);
 
 CREATE TABLE public.cuota_anual (
-  anio integer PRIMARY KEY CHECK (anio BETWEEN 2000 AND 2100),
-  monto numeric(12, 2) NOT NULL CHECK (monto > 0)
+  anio integer PRIMARY KEY CHECK (anio BETWEEN 2026 AND 2036),
+  monto numeric NOT NULL CHECK (monto > 0 AND monto = round(monto, 2))
 );
 
 CREATE TABLE public.membresias (
@@ -48,18 +48,33 @@ CREATE TABLE public.membresias (
 CREATE TABLE public.renovaciones (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   socio_id uuid NOT NULL REFERENCES public.socios (id) ON DELETE CASCADE,
+  anio integer NOT NULL CHECK (anio BETWEEN 2026 AND 2036),
   tipo text NOT NULL CHECK (tipo IN ('alta', 'renovacion')),
   fecha_pago date NOT NULL,
-  monto_reportado numeric(12, 2) NOT NULL CHECK (monto_reportado >= 0),
+  monto_reportado numeric NOT NULL,
   metodo text,
   comprobante_path text,
   estado text NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente', 'aprobada', 'rechazada')),
-  monto_esperado numeric(12, 2),
+  monto_esperado numeric,
   motivo_cambio text,
   motivo_rechazo text,
   aprobado_por uuid REFERENCES auth.users (id),
   aprobado_at timestamptz,
   created_at timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT renovaciones_monto_reportado_chk CHECK (
+    monto_reportado >= 0 AND monto_reportado = round(monto_reportado, 2)
+  ),
+  CONSTRAINT renovaciones_monto_esperado_chk CHECK (
+    monto_esperado IS NULL
+    OR (monto_esperado >= 0 AND monto_esperado = round(monto_esperado, 2))
+  ),
+  CONSTRAINT renovaciones_fecha_pago_chk CHECK (
+    fecha_pago BETWEEN DATE '2026-01-01' AND DATE '2036-12-31'
+  ),
+  CONSTRAINT renovaciones_anio_fecha_chk CHECK (
+    anio = EXTRACT(YEAR FROM fecha_pago)::integer
+    OR anio = EXTRACT(YEAR FROM fecha_pago)::integer + 1
+  ),
   CONSTRAINT renovaciones_comprobante_path_chk CHECK (
     comprobante_path IS NULL
     OR comprobante_path LIKE (socio_id::text || '/' || id::text || '/%')
@@ -70,6 +85,10 @@ CREATE INDEX renovaciones_socio_estado_idx ON public.renovaciones (socio_id, est
 CREATE INDEX renovaciones_pendientes_created_idx
   ON public.renovaciones (created_at)
   WHERE estado = 'pendiente';
+
+CREATE UNIQUE INDEX renovaciones_socio_anio_aprobada_uidx
+  ON public.renovaciones (socio_id, anio)
+  WHERE estado = 'aprobada';
 
 CREATE TABLE public.auditoria (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -170,9 +189,12 @@ AS $$
 DECLARE
   n integer;
 BEGIN
+  -- Serializa altas concurrentes de la misma ficha.
+  PERFORM 1 FROM public.socios WHERE id = NEW.socio_id FOR UPDATE;
   SELECT count(*) INTO n
   FROM public.cuentas_socio
-  WHERE socio_id = NEW.socio_id;
+  WHERE socio_id = NEW.socio_id
+    AND id IS DISTINCT FROM NEW.id;
   IF n >= 2 THEN
     RAISE EXCEPTION 'maximo 2 cuentas por socio';
   END IF;
@@ -181,7 +203,7 @@ END;
 $$;
 
 CREATE TRIGGER cuentas_socio_max_two
-BEFORE INSERT ON public.cuentas_socio
+BEFORE INSERT OR UPDATE OF socio_id ON public.cuentas_socio
 FOR EACH ROW
 EXECUTE FUNCTION private.enforce_max_two_cuentas();
 
@@ -238,6 +260,11 @@ BEFORE UPDATE OR DELETE ON public.auditoria
 FOR EACH ROW
 EXECUTE FUNCTION private.auditoria_append_only();
 
+CREATE TRIGGER auditoria_no_truncate
+BEFORE TRUNCATE ON public.auditoria
+FOR EACH STATEMENT
+EXECUTE FUNCTION private.auditoria_append_only();
+
 REVOKE ALL ON FUNCTION private.enforce_max_two_cuentas() FROM PUBLIC;
 REVOKE ALL ON FUNCTION private.cuentas_socio_no_reasignar() FROM PUBLIC;
 REVOKE ALL ON FUNCTION private.socios_proteger_base() FROM PUBLIC;
@@ -248,13 +275,66 @@ GRANT EXECUTE ON FUNCTION private.socios_proteger_base() TO authenticated;
 GRANT EXECUTE ON FUNCTION private.auditoria_append_only() TO authenticated;
 
 -- ---------------------------------------------------------------------------
--- Dinero: el mes de aprobación no entra; solo fecha_pago y la cuota del año
+-- Dinero: el año es la columna anio; el mes de aprobación no entra
 -- ---------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION private.tipo_membresia(p_socio_id uuid, p_anio integer)
+RETURNS text
+LANGUAGE plpgsql
+STABLE
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+DECLARE
+  v_base boolean;
+BEGIN
+  SELECT s.es_socio_base INTO v_base
+  FROM public.socios s
+  WHERE s.id = p_socio_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'socio no encontrado';
+  END IF;
+
+  IF v_base OR EXISTS (
+    SELECT 1
+    FROM public.membresias m
+    WHERE m.socio_id = p_socio_id
+      AND m.anio < p_anio
+      AND m.estado IN ('activa', 'vencida')
+  ) OR EXISTS (
+    SELECT 1
+    FROM public.renovaciones r
+    WHERE r.socio_id = p_socio_id
+      AND r.anio < p_anio
+      AND r.estado = 'aprobada'
+  ) THEN
+    RETURN 'renovacion';
+  END IF;
+  RETURN 'alta';
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION private.renovaciones_fijar_tipo()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+BEGIN
+  NEW.tipo := private.tipo_membresia(NEW.socio_id, NEW.anio);
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER renovaciones_fijar_tipo
+BEFORE INSERT OR UPDATE OF anio, socio_id ON public.renovaciones
+FOR EACH ROW
+EXECUTE FUNCTION private.renovaciones_fijar_tipo();
 
 CREATE OR REPLACE FUNCTION private.calcular_monto_esperado(
   p_socio_id uuid,
-  p_tipo text,
-  p_fecha date
+  p_fecha date,
+  p_anio integer
 )
 RETURNS numeric
 LANGUAGE plpgsql
@@ -263,7 +343,7 @@ SECURITY DEFINER
 SET search_path = ''
 AS $$
 DECLARE
-  v_base boolean;
+  v_tipo text;
   v_cuota numeric;
   v_month integer;
 BEGIN
@@ -272,29 +352,23 @@ BEGIN
     RAISE EXCEPTION 'no autorizado';
   END IF;
 
-  SELECT s.es_socio_base INTO v_base
-  FROM public.socios s
-  WHERE s.id = p_socio_id;
-  IF NOT FOUND THEN
-    RAISE EXCEPTION 'socio no encontrado';
-  END IF;
+  v_tipo := private.tipo_membresia(p_socio_id, p_anio);
 
   SELECT c.monto INTO v_cuota
   FROM public.cuota_anual c
-  WHERE c.anio = EXTRACT(YEAR FROM p_fecha)::integer;
+  WHERE c.anio = p_anio;
   IF v_cuota IS NULL THEN
-    RAISE EXCEPTION 'no hay cuota_anual para %', EXTRACT(YEAR FROM p_fecha)::integer;
+    RAISE EXCEPTION 'no hay cuota_anual para %', p_anio;
   END IF;
 
-  IF p_tipo = 'renovacion' OR v_base THEN
+  -- Renovación, socio base, o un pago de otro año (dic 2026 para 2027): cuota entera.
+  -- El prorrateo solo aplica a un alta del mismo año que anio. Un solo redondeo.
+  IF v_tipo = 'renovacion' OR EXTRACT(YEAR FROM p_fecha)::integer <> p_anio THEN
     RETURN v_cuota;
-  END IF;
-  IF p_tipo <> 'alta' THEN
-    RAISE EXCEPTION 'tipo invalido';
   END IF;
 
   v_month := EXTRACT(MONTH FROM p_fecha)::integer;
-  RETURN round((v_cuota / 12) * (13 - v_month), 2);
+  RETURN round(v_cuota * (13 - v_month) / 12, 2);
 END;
 $$;
 
@@ -307,6 +381,7 @@ AS $$
   SELECT jsonb_build_object(
     'estado', p.estado,
     'tipo', p.tipo,
+    'anio', p.anio,
     'fecha_pago', p.fecha_pago,
     'monto_reportado', p.monto_reportado,
     'monto_esperado', p.monto_esperado,
@@ -331,11 +406,13 @@ AS $$
 DECLARE
   v public.renovaciones;
   v_fecha date;
+  v_tipo text;
   v_esperado numeric;
+  v_esperado_original numeric;
   v_final numeric;
   v_antes jsonb;
   v_despues jsonb;
-  v_anio integer;
+  v_motivo text;
 BEGIN
   IF NOT private.puede_aprobar() THEN
     RAISE EXCEPTION 'solo tesorero o presidente pueden aprobar';
@@ -351,25 +428,49 @@ BEGIN
   IF v.estado <> 'pendiente' THEN
     RAISE EXCEPTION 'la renovacion no esta pendiente';
   END IF;
+  IF v.socio_id IN (SELECT private.socio_ids_propios()) THEN
+    RAISE EXCEPTION 'no puede aprobar su propia renovacion';
+  END IF;
 
   v_antes := private.renovacion_snapshot(v);
+  v_tipo := private.tipo_membresia(v.socio_id, v.anio);
   v_fecha := COALESCE(p_fecha_pago, v.fecha_pago);
-  v_esperado := private.calcular_monto_esperado(v.socio_id, v.tipo, v_fecha);
+  v_esperado_original := private.calcular_monto_esperado(v.socio_id, v.fecha_pago, v.anio);
+  v_esperado := private.calcular_monto_esperado(v.socio_id, v_fecha, v.anio);
+
+  IF p_monto_override IS NOT NULL
+     AND (p_monto_override < 0 OR p_monto_override <> round(p_monto_override, 2)) THEN
+    RAISE EXCEPTION 'monto invalido';
+  END IF;
 
   IF p_monto_override IS NOT NULL AND p_monto_override IS DISTINCT FROM v_esperado THEN
-    IF p_motivo IS NULL OR btrim(p_motivo) = '' THEN
-      RAISE EXCEPTION 'override de monto requiere motivo';
-    END IF;
     v_final := p_monto_override;
   ELSE
     v_final := v_esperado;
-    p_motivo := NULL;
+  END IF;
+
+  -- Motivo si el monto final no es el reportado, si hay override, o si mover
+  -- la fecha cambia la cuota. Un solo redondeo ya ocurrió en el cálculo.
+  IF v.monto_reportado IS DISTINCT FROM v_final
+     OR (p_monto_override IS NOT NULL AND p_monto_override IS DISTINCT FROM v_esperado)
+     OR (
+       p_fecha_pago IS NOT NULL
+       AND p_fecha_pago IS DISTINCT FROM v.fecha_pago
+       AND v_esperado IS DISTINCT FROM v_esperado_original
+     ) THEN
+    IF p_motivo IS NULL OR btrim(p_motivo) = '' THEN
+      RAISE EXCEPTION 'la diferencia de monto requiere motivo';
+    END IF;
+    v_motivo := btrim(p_motivo);
+  ELSE
+    v_motivo := NULL;
   END IF;
 
   UPDATE public.renovaciones
-  SET fecha_pago = v_fecha,
+  SET tipo = v_tipo,
+      fecha_pago = v_fecha,
       monto_esperado = v_final,
-      motivo_cambio = p_motivo,
+      motivo_cambio = v_motivo,
       estado = 'aprobada',
       aprobado_por = (SELECT auth.uid()),
       aprobado_at = now()
@@ -378,7 +479,7 @@ BEGIN
 
   v_despues := private.renovacion_snapshot(v);
 
-  IF p_motivo IS NOT NULL THEN
+  IF v_motivo IS NOT NULL THEN
     INSERT INTO public.auditoria (accion, actor, renovacion_id, antes, despues)
     VALUES ('cambio_monto', (SELECT auth.uid()), p_renovacion_id, v_antes, v_despues);
   END IF;
@@ -386,9 +487,8 @@ BEGIN
   INSERT INTO public.auditoria (accion, actor, renovacion_id, antes, despues)
   VALUES ('aprobar', (SELECT auth.uid()), p_renovacion_id, v_antes, v_despues);
 
-  v_anio := EXTRACT(YEAR FROM v_fecha)::integer;
   INSERT INTO public.membresias (socio_id, anio, estado)
-  VALUES (v.socio_id, v_anio, 'activa')
+  VALUES (v.socio_id, v.anio, 'activa')
   ON CONFLICT (socio_id, anio) DO UPDATE
     SET estado = 'activa',
         updated_at = now();
@@ -427,6 +527,9 @@ BEGIN
   IF v.estado <> 'pendiente' THEN
     RAISE EXCEPTION 'la renovacion no esta pendiente';
   END IF;
+  IF v.socio_id IN (SELECT private.socio_ids_propios()) THEN
+    RAISE EXCEPTION 'no puede rechazar su propia renovacion';
+  END IF;
 
   v_antes := private.renovacion_snapshot(v);
 
@@ -451,13 +554,16 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION private.calcular_monto_esperado(uuid, text, date) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.tipo_membresia(uuid, integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.renovaciones_fijar_tipo() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION private.renovaciones_fijar_tipo() TO authenticated;
+REVOKE ALL ON FUNCTION private.calcular_monto_esperado(uuid, date, integer) FROM PUBLIC;
 REVOKE ALL ON FUNCTION private.renovacion_snapshot(public.renovaciones) FROM PUBLIC;
 REVOKE ALL ON FUNCTION private.aprobar_renovacion(uuid, date, numeric, text) FROM PUBLIC;
 REVOKE ALL ON FUNCTION private.rechazar_renovacion(uuid, text) FROM PUBLIC;
 -- PostgREST no expone `private`. Estas tres sí se pueden llamar desde una
 -- sesión authenticated (el API no las publica). Siguen revisando el rol adentro.
-GRANT EXECUTE ON FUNCTION private.calcular_monto_esperado(uuid, text, date) TO authenticated;
+GRANT EXECUTE ON FUNCTION private.calcular_monto_esperado(uuid, date, integer) TO authenticated;
 GRANT EXECUTE ON FUNCTION private.aprobar_renovacion(uuid, date, numeric, text) TO authenticated;
 GRANT EXECUTE ON FUNCTION private.rechazar_renovacion(uuid, text) TO authenticated;
 
@@ -494,8 +600,8 @@ $$;
 
 CREATE OR REPLACE FUNCTION public.calcular_monto_esperado(
   p_socio_id uuid,
-  p_tipo text,
-  p_fecha date
+  p_fecha date,
+  p_anio integer
 )
 RETURNS numeric
 LANGUAGE sql
@@ -503,15 +609,15 @@ STABLE
 SECURITY INVOKER
 SET search_path = ''
 AS $$
-  SELECT private.calcular_monto_esperado(p_socio_id, p_tipo, p_fecha);
+  SELECT private.calcular_monto_esperado(p_socio_id, p_fecha, p_anio);
 $$;
 
-REVOKE ALL ON FUNCTION public.aprobar_renovacion(uuid, date, numeric, text) FROM PUBLIC;
-REVOKE ALL ON FUNCTION public.rechazar_renovacion(uuid, text) FROM PUBLIC;
-REVOKE ALL ON FUNCTION public.calcular_monto_esperado(uuid, text, date) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.aprobar_renovacion(uuid, date, numeric, text) FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.rechazar_renovacion(uuid, text) FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.calcular_monto_esperado(uuid, date, integer) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.aprobar_renovacion(uuid, date, numeric, text) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.rechazar_renovacion(uuid, text) TO authenticated;
-GRANT EXECUTE ON FUNCTION public.calcular_monto_esperado(uuid, text, date) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.calcular_monto_esperado(uuid, date, integer) TO authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Vista de cola > 24 h (security invoker: respeta RLS del llamador)
@@ -562,11 +668,6 @@ USING (
   OR (SELECT private.es_lector_admin())
 );
 
-CREATE POLICY cuentas_update_own ON public.cuentas_socio
-FOR UPDATE TO authenticated
-USING (user_id = (SELECT auth.uid()))
-WITH CHECK (user_id = (SELECT auth.uid()));
-
 CREATE POLICY cuota_select ON public.cuota_anual
 FOR SELECT TO authenticated
 USING (true);
@@ -608,13 +709,14 @@ REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC, anon, authenticated;
 GRANT SELECT ON public.usuario_roles, public.socios, public.cuentas_socio,
   public.cuota_anual, public.membresias, public.renovaciones, public.auditoria
   TO authenticated;
-GRANT UPDATE ON public.socios, public.cuentas_socio TO authenticated;
+GRANT UPDATE (nombre) ON public.socios TO authenticated;
 GRANT INSERT (
-  id, socio_id, tipo, fecha_pago, monto_reportado, metodo, comprobante_path
+  id, socio_id, anio, fecha_pago, monto_reportado, metodo, comprobante_path
 ) ON public.renovaciones TO authenticated;
 GRANT SELECT ON public.renovaciones_pendientes_24h TO authenticated;
 
-REVOKE INSERT, UPDATE, DELETE ON public.auditoria FROM PUBLIC, anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON public.auditoria FROM PUBLIC, anon, authenticated, service_role;
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM anon, authenticated;
 REVOKE UPDATE, DELETE ON public.renovaciones FROM PUBLIC, anon, authenticated;
 REVOKE INSERT, UPDATE, DELETE ON public.usuario_roles FROM PUBLIC, anon, authenticated;
 REVOKE INSERT, UPDATE, DELETE ON public.cuota_anual FROM PUBLIC, anon, authenticated;
@@ -623,9 +725,9 @@ REVOKE INSERT, UPDATE, DELETE ON public.membresias FROM PUBLIC, anon, authentica
 -- ---------------------------------------------------------------------------
 -- Storage privado: comprobantes/{socio_id}/{renovacion_id}/archivo
 --
--- storage.* pertenece a supabase_storage_admin. Esta migración no hace
--- ALTER, GRANT ni REVOKE ahí: postgres no es el dueño y el apply se cae.
--- RLS ya viene activo. Las políticas sí se pueden crear.
+-- storage.objects pertenece a supabase_storage_admin. postgres no es el dueño,
+-- así que esta migración no toca la tabla ni sus privilegios.
+-- RLS ya viene activo. Aquí solo se inserta el bucket y se crean políticas.
 -- ---------------------------------------------------------------------------
 
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
@@ -659,16 +761,20 @@ CREATE POLICY comprobantes_socio_insert ON storage.objects
 FOR INSERT TO authenticated
 WITH CHECK (
   bucket_id = 'comprobantes'
-  AND (storage.foldername(name))[1] IN (
-    SELECT cs.socio_id::text FROM public.cuentas_socio cs WHERE cs.user_id = (SELECT auth.uid())
-  )
-  AND (storage.foldername(name))[2] IN (
-    SELECT r.id::text
-    FROM public.renovaciones r
-    JOIN public.cuentas_socio cs ON cs.socio_id = r.socio_id
-    WHERE cs.user_id = (SELECT auth.uid())
-  )
   AND lower(storage.extension(name)) IN ('jpg', 'jpeg', 'png', 'pdf')
+  AND (
+    metadata IS NULL
+    OR nullif(metadata->>'mimetype', '') IS NULL
+    OR lower(metadata->>'mimetype') IN ('image/jpeg', 'image/png', 'application/pdf')
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM public.renovaciones r
+    WHERE r.id::text = (storage.foldername(name))[2]
+      AND r.socio_id::text = (storage.foldername(name))[1]
+      AND r.estado = 'pendiente'
+      AND r.socio_id IN (SELECT private.socio_ids_propios())
+  )
 );
 
 CREATE POLICY comprobantes_socio_select ON storage.objects
@@ -685,24 +791,4 @@ USING (
   )
 );
 
-CREATE POLICY comprobantes_socio_update ON storage.objects
-FOR UPDATE TO authenticated
-USING (
-  bucket_id = 'comprobantes'
-  AND (storage.foldername(name))[1] IN (
-    SELECT cs.socio_id::text FROM public.cuentas_socio cs WHERE cs.user_id = (SELECT auth.uid())
-  )
-)
-WITH CHECK (
-  bucket_id = 'comprobantes'
-  AND (storage.foldername(name))[1] IN (
-    SELECT cs.socio_id::text FROM public.cuentas_socio cs WHERE cs.user_id = (SELECT auth.uid())
-  )
-  AND (storage.foldername(name))[2] IN (
-    SELECT r.id::text
-    FROM public.renovaciones r
-    JOIN public.cuentas_socio cs ON cs.socio_id = r.socio_id
-    WHERE cs.user_id = (SELECT auth.uid())
-  )
-  AND lower(storage.extension(name)) IN ('jpg', 'jpeg', 'png', 'pdf')
-);
+-- Sin política de UPDATE ni DELETE: un comprobante no se reescribe después de subirlo.
