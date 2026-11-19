@@ -80,6 +80,26 @@ function inRanges(h, mins, overnightOnly) {
   return false;
 }
 
+function overnightRangeActive(r) {
+  const now = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const yRaw = r.hours && r.hours[DAYS[(now.getDay() + 6) % 7]];
+  const yH = yRaw ? fixMidnight(yRaw) : null;
+  if (!yH || yH === 'Cerrado') return null;
+  for (const range of yH.split(',').map((s) => s.trim())) {
+    const parts = range.split('–').map((s) => s.trim());
+    if (parts.length < 2) continue;
+    const open = toMinsHM(parts[0]);
+    let close = toMinsHM(parts[1]);
+    if (open === null || close === null) continue;
+    if (close <= open) close += 24 * 60;
+    if (close <= 24 * 60) continue;
+    const virtualMins = mins + 24 * 60;
+    if (virtualMins >= open && virtualMins < close) return { closeLabel: parts[1] };
+  }
+  return null;
+}
+
 function isOpenNow(r) {
   const now = new Date();
   const mins = now.getHours() * 60 + now.getMinutes();
@@ -211,8 +231,21 @@ function to24(s) {
     })
     .replace(/\s*–\s*/g, '–');
 }
+function formatHM24(str) {
+  const m = toMinsHM(str);
+  if (m === null) return str;
+  const h = Math.floor(m / 60) % 24;
+  const mi = m % 60;
+  return `${String(h).padStart(2, '0')}:${String(mi).padStart(2, '0')}`;
+}
+
 function hoyHorario(r) {
+  const now = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
   const h = todayHours(r);
+  if (inRanges(h, mins, false) && h && h !== 'Cerrado') return 'Hoy ' + to24(h);
+  const overnight = overnightRangeActive(r);
+  if (overnight) return `Abierto hasta ${formatHM24(overnight.closeLabel)}`;
   if (!h) return 'Horario no disponible';
   if (h === 'Cerrado') return 'Hoy cerrado';
   return 'Hoy ' + to24(h);
