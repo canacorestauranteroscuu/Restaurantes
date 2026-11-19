@@ -34,7 +34,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Python dependencies for sync
-        run: pip install pillow
+        run: pip install pillow numpy
 
       - name: Run sync script
         env:

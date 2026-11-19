@@ -128,8 +128,13 @@
     if (box.bottom > innerHeight - 90) result.scrollIntoView({ block: 'center', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }
 
+  function plainShareName(name) {
+    // «naturalbalance.club» se queda como texto: WhatsApp no debe volverlo un enlace.
+    return String(name).replace(/\.(?=\w)/g, '\u200b.');
+  }
+
   function shareWinner(r) {
-    const text = `La Ruleta del Sabor me mandó a ${r.name}. ¡Vamos a consumir local! ${SITE_ORIGIN}/`;
+    const text = `La Ruleta del Sabor me mandó a ${plainShareName(r.name)}. ¡Vamos a consumir local! ${SITE_ORIGIN}/`;
     if (navigator.share) navigator.share({ title: 'Ruleta del Sabor', text }).catch(() => {});
     else window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   }

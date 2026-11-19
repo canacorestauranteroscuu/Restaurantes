@@ -76,6 +76,11 @@ assert.match(ruletaJs, /setHub\(slots\[index\]\)/);
 
 const dataJs = readFileSync(join(root, 'site/assets/restaurants-data.js'), 'utf8');
 assert.match(dataJs, /name: "naturalbalance\.club"/);
+assert.match(ruletaJs, /\$\('resName'\)\.textContent = r\.name/);
+assert.match(ruletaJs, /plainShareName/);
 assert.doesNotMatch(ruletaJs, /r\.web|<a[^>]*>\$\{.*web/);
+const directoryJs = readFileSync(join(root, 'site/assets/directory.js'), 'utf8');
+assert.match(directoryJs, /escapeHtml\(r\.name\)/);
+assert.doesNotMatch(directoryJs, /href=["']\$\{[^}]*\.web|naturalbalance\.club/);
 
 console.log('test_ruleta_spin.mjs: OK');

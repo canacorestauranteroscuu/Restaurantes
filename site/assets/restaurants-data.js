@@ -13,7 +13,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "Cerrado", Tuesday: "11:00 AM – 9:00 PM", Wednesday: "11:00 AM – 9:00 PM", Thursday: "11:00 AM – 9:00 PM", Friday: "11:00 AM – 9:00 PM", Saturday: "11:00 AM – 9:00 PM", Sunday: "8:00 AM – 8:00 PM" },
     locations: [],
-    logo: null,
+    logo: "/assets/logos/manual/27-y-salsas.webp?v=ffadda81",
   },
   {
     name: "Akari",
@@ -28,7 +28,7 @@ const restaurants = [
     rating: 4.1,
     hours: { Monday: "12:00 PM – 11:00 PM", Tuesday: "12:00 PM – 11:00 PM", Wednesday: "12:00 PM – 11:00 PM", Thursday: "12:00 PM – 11:00 PM", Friday: "12:00 PM – 11:00 PM", Saturday: "12:00 PM – 11:00 PM", Sunday: "12:00 PM – 11:00 PM" },
     locations: [{"address": "Av. Prol. Teófilo Borunda 10801, Labor de Terrazas, 31207 Chihuahua, Chih.", "phone": "614 430 3030", "rating": 4.1, "mapsUrl": "https://maps.google.com/?cid=3994584784737424869", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 11:00 PM", "Saturday": "12:00 PM – 11:00 PM", "Sunday": "12:00 PM – 11:00 PM"}}, {"address": "Av. Hacienda del Valle 7104-Int. 1, Cumbres Residencial, 31217 Chihuahua, Chih.", "phone": "614 423 3838", "rating": 3.7, "mapsUrl": "https://maps.google.com/?cid=14337921977301782673", "hours": {"Monday": "1:00 PM – 11:00 PM", "Tuesday": "1:00 PM – 11:00 PM", "Wednesday": "1:00 PM – 11:00 PM", "Thursday": "1:00 PM – 11:00 PM", "Friday": "1:00 PM – 12:00 PM", "Saturday": "1:00 PM – 12:00 PM", "Sunday": "1:00 PM – 11:00 PM"}}, {"address": "Blvrd Antonio Ortiz Mena 1804, Los Sicomoros, Campestre-Lomas, 31205 Chihuahua, Chih.", "phone": "614 437 0202", "rating": 4, "mapsUrl": "https://maps.google.com/?cid=14156079038633214818", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 12:00 PM", "Saturday": "12:00 PM – 12:00 PM", "Sunday": "12:00 PM – 11:00 PM"}}, {"address": "Perif. de la Juventud 3501, Plaza del Sol, 31206 Chihuahua, Chih.", "phone": "614 493 9898", "rating": 3.7, "mapsUrl": "https://maps.google.com/?cid=11676233146353143885", "hours": {"Monday": "12:00 PM – 9:30 PM", "Tuesday": "12:00 PM – 9:30 PM", "Wednesday": "12:00 PM – 9:30 PM", "Thursday": "12:00 PM – 9:30 PM", "Friday": "12:00 PM – 9:30 PM", "Saturday": "12:00 PM – 9:30 PM", "Sunday": "12:00 PM – 9:30 PM"}}, {"address": "Distrito Uno, Vía Lombardía 3000, Zona Sin Asignación de Nombre de Colonia, 31110 Chihuahua, Chih.", "phone": "614 425 6868", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=14166903280902801654", "hours": {"Monday": "1:00 PM – 12:00 PM", "Tuesday": "1:00 PM – 12:00 PM", "Wednesday": "1:00 PM – 12:00 PM", "Thursday": "1:00 PM – 12:00 PM", "Friday": "1:00 PM – 12:00 PM", "Saturday": "1:00 PM – 12:00 PM", "Sunday": "1:00 PM – 11:00 PM"}}],
-    logo: null,
+    logo: "/assets/logos/manual/akari.webp?v=50b941e2",
   },
   {
     name: "Asador Libanés",
@@ -43,7 +43,7 @@ const restaurants = [
     rating: 4.9,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 11:00 PM", Wednesday: "1:00 PM – 11:00 PM", Thursday: "1:00 PM – 12:00 PM", Friday: "1:00 PM – 12:00 PM", Saturday: "1:00 PM – 12:00 PM", Sunday: "1:00 PM – 10:00 PM" },
     locations: [],
-    logo: "/assets/logos/asador-libanes.webp",
+    logo: "/assets/logos/asador-libanes.webp?v=1ad7a7dc",
   },
   {
     name: "Aura Café",
@@ -58,7 +58,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "Cerrado", Tuesday: "4:00 PM – 10:00 PM", Wednesday: "4:00 PM – 10:00 PM", Thursday: "4:00 PM – 10:00 PM", Friday: "4:00 PM – 10:00 PM", Saturday: "4:00 PM – 10:00 PM", Sunday: "4:00 PM – 10:00 PM" },
     locations: [],
-    logo: "/assets/logos/aura-cafe.webp",
+    logo: "/assets/logos/aura-cafe.webp?v=fcf3d4e8",
   },
   {
     name: "Bar San Luis",
@@ -73,7 +73,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "12:00 PM – 1:30 AM", Tuesday: "12:00 PM – 1:30 AM", Wednesday: "12:00 PM – 1:30 AM", Thursday: "12:00 PM – 1:30 AM", Friday: "12:00 PM – 1:30 AM", Saturday: "12:00 PM – 1:30 AM", Sunday: "12:00 PM – 1:30 AM" },
     locations: [],
-    logo: "/assets/logos/bar-san-luis.webp",
+    logo: "/assets/logos/bar-san-luis.webp?v=0fe2e7ec",
   },
   {
     name: "BERLIN DOGOS SUPREMOS",
@@ -88,7 +88,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "Cerrado", Tuesday: "6:00 PM – 11:00 PM", Wednesday: "6:00 PM – 11:00 PM", Thursday: "6:00 PM – 11:00 PM", Friday: "6:00 PM – 11:30 PM", Saturday: "6:00 PM – 11:30 PM", Sunday: "5:00 PM – 10:00 PM" },
     locations: [{"address": "Av. Antonio de Deza Y Ulloa 4725, Cumbres III Etapa, Progreso, 31210 Chihuahua, Chih.", "phone": "614 529 8048", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=13735787023519532789", "hours": {"Monday": "Cerrado", "Tuesday": "6:00 PM – 11:00 PM", "Wednesday": "6:00 PM – 11:00 PM", "Thursday": "6:00 PM – 11:00 PM", "Friday": "6:00 PM – 11:30 PM", "Saturday": "6:00 PM – 11:30 PM", "Sunday": "5:00 PM – 10:00 PM"}}, {"address": "P.º de las Facultades 801-Int 10, Cafetales, 31125 Chihuahua, Chih.", "phone": "614 493 8638", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=11078265729325044299", "hours": {"Monday": "Cerrado", "Tuesday": "5:00 PM – 11:00 PM", "Wednesday": "5:00 PM – 11:00 PM", "Thursday": "5:00 PM – 11:00 PM", "Friday": "5:00 PM – 11:00 PM", "Saturday": "5:00 PM – 11:00 PM", "Sunday": "4:00 PM – 10:00 PM"}}],
-    logo: "/assets/logos/berlin-dogos-supremos.webp",
+    logo: "/assets/logos/berlin-dogos-supremos.webp?v=05e846c0",
   },
   {
     name: "Betty Cooker Comida Casera",
@@ -103,7 +103,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "8:00 AM – 5:00 PM", Tuesday: "8:00 AM – 5:00 PM", Wednesday: "8:00 AM – 5:00 PM", Thursday: "8:00 AM – 5:00 PM", Friday: "8:00 AM – 5:00 PM", Saturday: "10:00 AM – 1:30 PM", Sunday: "10:00 AM – 1:30 PM" },
     locations: [],
-    logo: "/assets/logos/betty-cooker-comida-casera.webp",
+    logo: "/assets/logos/betty-cooker-comida-casera.webp?v=1b72f7ae",
   },
   {
     name: "BOSTON´S PIZZA",
@@ -118,7 +118,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "12:00 PM – 12:00 PM", Tuesday: "12:00 PM – 12:00 PM", Wednesday: "12:00 PM – 12:00 PM", Thursday: "12:00 PM – 12:00 PM", Friday: "12:00 PM – 1:00 AM", Saturday: "12:00 PM – 1:00 AM", Sunday: "12:00 PM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/boston-s-pizza.webp",
+    logo: "/assets/logos/boston-s-pizza.webp?v=dbf0249c",
   },
   {
     name: "Café Cortez",
@@ -133,7 +133,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "9:00 AM – 10:45 PM", Tuesday: "9:00 AM – 10:45 PM", Wednesday: "9:00 AM – 10:45 PM", Thursday: "9:00 AM – 10:45 PM", Friday: "9:00 AM – 10:45 PM", Saturday: "10:00 AM – 10:45 PM", Sunday: "4:00 PM – 10:45 PM" },
     locations: [],
-    logo: "/assets/logos/cafe-cortez.webp",
+    logo: "/assets/logos/cafe-cortez.webp?v=59ef4596",
   },
   {
     name: "Carbon’s burger",
@@ -148,7 +148,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "12:00 PM – 11:00 PM", Tuesday: "12:00 PM – 11:00 PM", Wednesday: "12:00 PM – 11:00 PM", Thursday: "12:00 PM – 11:00 PM", Friday: "12:00 PM – 11:00 PM", Saturday: "12:00 PM – 11:00 PM", Sunday: "12:00 PM – 10:00 PM" },
     locations: [{"address": "Blvrd Antonio Ortiz Mena 3807, Mirador, Campestre-Lomas, 31250 Chihuahua, Chih.", "phone": "614 430 3430", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=7125525048787908957", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 11:00 PM", "Saturday": "12:00 PM – 11:00 PM", "Sunday": "12:00 PM – 10:00 PM"}}, {"address": "Av. de las Américas 1000, Panamericana, 31210 Chihuahua, Chih.", "phone": "614 489 1904", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=8147462086932023925", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 11:00 PM", "Saturday": "12:00 PM – 11:00 PM", "Sunday": "12:00 PM – 10:00 PM"}}, {"address": "Av. Tomás Valles Vivar 7515, Fraccionamiento La Cantera, 31216 Chihuahua, Chih.", "phone": "614 438 4344", "rating": 4.1, "mapsUrl": "https://maps.google.com/?cid=12626108123683055754", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 11:00 PM", "Saturday": "12:00 PM – 11:00 PM", "Sunday": "12:00 PM – 10:00 PM"}}, {"address": "plaza puerta norte, P.º de las Facultades E n, Los Huertos, 31125 Chihuahua, Chih.", "phone": "614 493 9355", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=3095042036435184322", "hours": {"Monday": "12:00 PM – 11:00 PM", "Tuesday": "12:00 PM – 11:00 PM", "Wednesday": "12:00 PM – 11:00 PM", "Thursday": "12:00 PM – 11:00 PM", "Friday": "12:00 PM – 11:00 PM", "Saturday": "12:00 PM – 11:00 PM", "Sunday": "12:00 PM – 10:00 PM"}}],
-    logo: "/assets/logos/carbon-s-burger.webp",
+    logo: "/assets/logos/carbon-s-burger.webp?v=8d023675",
   },
   {
     name: "Casa Cervecera Bolivar",
@@ -163,7 +163,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "4:00 PM – 11:30 PM", Tuesday: "4:00 PM – 11:30 PM", Wednesday: "12:00 PM – 1:30 AM", Thursday: "12:00 PM – 1:30 AM", Friday: "12:00 PM – 1:30 AM", Saturday: "12:00 PM – 1:30 AM", Sunday: "4:00 PM – 11:30 PM" },
     locations: [],
-    logo: "/assets/logos/casa-cervecera-bolivar.webp",
+    logo: "/assets/logos/casa-cervecera-bolivar.webp?v=102ff69c",
   },
   {
     name: "Charly’s and Daniels",
@@ -178,7 +178,7 @@ const restaurants = [
     rating: 4.1,
     hours: { Monday: "11:00 AM – 11:00 PM", Tuesday: "11:00 AM – 11:00 PM", Wednesday: "11:00 AM – 11:00 PM", Thursday: "11:00 AM – 11:00 PM", Friday: "11:00 AM – 11:00 PM", Saturday: "12:00 PM – 12:00 PM", Sunday: "12:00 PM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/charly-s-and-daniels.webp",
+    logo: "/assets/logos/charly-s-and-daniels.webp?v=3dced487",
   },
   {
     name: "Corazón Contento Food Park",
@@ -193,7 +193,7 @@ const restaurants = [
     rating: 4.7,
     hours: { Monday: "Cerrado", Tuesday: "Cerrado", Wednesday: "8:00–13:00, 18:00–23:00", Thursday: "8:00–13:00, 18:00–23:00", Friday: "8:00–13:00, 18:00–23:00", Saturday: "8:00–13:00, 18:00–23:00", Sunday: "8:00–13:00, 18:00–23:00" },
     locations: [],
-    logo: "/assets/logos/corazon-contento-food-park.webp",
+    logo: "/assets/logos/corazon-contento-food-park.webp?v=95bf6196",
   },
   {
     name: "Corinto Café",
@@ -208,7 +208,7 @@ const restaurants = [
     rating: 4.8,
     hours: { Monday: "10:00 AM – 11:00 PM", Tuesday: "10:00 AM – 11:00 PM", Wednesday: "10:00 AM – 11:00 PM", Thursday: "10:00 AM – 11:00 PM", Friday: "10:00 AM – 11:00 PM", Saturday: "10:00 AM – 11:00 PM", Sunday: "10:00 AM – 11:00 PM" },
     locations: [{"address": "C. Mariano Jiménez 2525, Centro, 31350 Chihuahua, Chih.", "phone": "614 554 2488", "rating": 4.8, "mapsUrl": "https://maps.google.com/?cid=2760763926616760503", "hours": {"Monday": "10:00 AM – 11:00 PM", "Tuesday": "10:00 AM – 11:00 PM", "Wednesday": "10:00 AM – 11:00 PM", "Thursday": "10:00 AM – 11:00 PM", "Friday": "10:00 AM – 11:00 PM", "Saturday": "10:00 AM – 11:00 PM", "Sunday": "10:00 AM – 11:00 PM"}}, {"address": "Av. Mirador 7108, Campestre Washington, Campestre-Lomas, 31217 Chihuahua, Chih.", "phone": null, "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=8125481601625992664", "hours": {"Monday": "9:00 AM – 11:00 PM", "Tuesday": "9:00 AM – 11:00 PM", "Wednesday": "9:00 AM – 11:00 PM", "Thursday": "9:00 AM – 11:00 PM", "Friday": "9:00 AM – 11:00 PM", "Saturday": "9:00 AM – 11:00 PM", "Sunday": "9:00 AM – 11:00 PM"}}, {"address": "C. Colegio San Marco 1828, Misión Universidad II, 31124 Chihuahua, Chih.", "phone": "614 216 1369", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=14288023990955733720", "hours": {"Monday": "9:00 AM – 11:00 PM", "Tuesday": "9:00 AM – 11:00 PM", "Wednesday": "9:00 AM – 11:00 PM", "Thursday": "9:00 AM – 11:00 PM", "Friday": "9:00 AM – 11:00 PM", "Saturday": "9:00 AM – 11:00 PM", "Sunday": "9:00 AM – 11:00 PM"}}],
-    logo: "/assets/logos/corinto-cafe.webp",
+    logo: "/assets/logos/corinto-cafe.webp?v=4a82a038",
   },
   {
     name: "Costa Langosta",
@@ -223,7 +223,7 @@ const restaurants = [
     rating: 4.7,
     hours: { Monday: "11:00 AM – 8:00 PM", Tuesday: "11:00 AM – 8:00 PM", Wednesday: "11:00 AM – 8:00 PM", Thursday: "11:00 AM – 8:00 PM", Friday: "11:00 AM – 8:00 PM", Saturday: "11:00 AM – 8:00 PM", Sunday: "11:00 AM – 8:00 PM" },
     locations: [{"address": "C. 27 Manuel Gómez Morín 1607B, Obrera, 31350 Chihuahua, Chih.", "phone": "614 415 4967", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=14772686191023793929", "hours": {"Monday": "11:00 AM – 8:00 PM", "Tuesday": "11:00 AM – 8:00 PM", "Wednesday": "11:00 AM – 8:00 PM", "Thursday": "11:00 AM – 8:00 PM", "Friday": "11:00 AM – 8:00 PM", "Saturday": "11:00 AM – 8:00 PM", "Sunday": "11:00 AM – 8:00 PM"}}, {"address": "Av. de la Cantera 10105, La Haciendita, 31216 Chihuahua, Chih.", "phone": "614 598 6551", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=17936717566505685743", "hours": {"Monday": "11:00 AM – 8:00 PM", "Tuesday": "11:00 AM – 8:00 PM", "Wednesday": "11:00 AM – 8:00 PM", "Thursday": "11:00 AM – 8:00 PM", "Friday": "11:00 AM – 8:00 PM", "Saturday": "11:00 AM – 8:00 PM", "Sunday": "11:00 AM – 8:00 PM"}}, {"address": "Av Fedor Dostoyevzki 1106, Alamedas III Etapa, Chihuahua 2000, 31136 Chihuahua, Chih.", "phone": "614 437 9914", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=775981243887866518", "hours": {"Monday": "11:00 AM – 8:00 PM", "Tuesday": "11:00 AM – 8:00 PM", "Wednesday": "11:00 AM – 8:00 PM", "Thursday": "11:00 AM – 8:00 PM", "Friday": "11:00 AM – 8:00 PM", "Saturday": "11:00 AM – 8:00 PM", "Sunday": "11:00 AM – 8:00 PM"}}],
-    logo: "/assets/logos/costa-langosta.webp",
+    logo: "/assets/logos/costa-langosta.webp?v=d788d579",
   },
   {
     name: "Deliciosa Mente",
@@ -238,7 +238,7 @@ const restaurants = [
     rating: null,
     hours: {},
     locations: [],
-    logo: "/assets/logos/deliciosa-mente.webp",
+    logo: "/assets/logos/manual/deliciosa-mente.webp?v=3a469b2d",
   },
   {
     name: "El gallito ingles",
@@ -253,7 +253,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "12:00 PM – 1:30 AM", Tuesday: "12:00 PM – 1:30 AM", Wednesday: "12:00 PM – 1:30 AM", Thursday: "12:00 PM – 1:30 AM", Friday: "12:00 PM – 1:30 AM", Saturday: "12:00 PM – 1:30 AM", Sunday: "12:00 PM – 1:30 AM" },
     locations: [],
-    logo: "/assets/logos/el-gallito-ingles.webp",
+    logo: "/assets/logos/manual/el-gallito-ingles.webp?v=c66f0475",
   },
   {
     name: "El Hojaldre",
@@ -268,7 +268,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "8:00 AM – 2:00 PM", Tuesday: "8:00 AM – 9:15 PM", Wednesday: "8:00 AM – 2:00 PM", Thursday: "4:00 AM – 10:00 PM", Friday: "8:00–14:00, 16:00–22:00", Saturday: "8:00–14:00, 16:00–22:00", Sunday: "8:00 AM – 2:00 PM" },
     locations: [],
-    logo: "/assets/logos/el-hojaldre.webp",
+    logo: "/assets/logos/el-hojaldre.webp?v=916c06ce",
   },
   {
     name: "El Huauzontle",
@@ -283,7 +283,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "8:00 AM – 4:00 PM", Tuesday: "8:00 AM – 4:00 PM", Wednesday: "8:00 AM – 4:00 PM", Thursday: "8:00 AM – 4:00 PM", Friday: "8:00 AM – 4:00 PM", Saturday: "8:00 AM – 4:00 PM", Sunday: "9:00 AM – 3:00 PM" },
     locations: [],
-    logo: "/assets/logos/el-huauzontle.webp",
+    logo: "/assets/logos/el-huauzontle.webp?v=8c915955",
   },
   {
     name: "El Norteñito Chihuahua",
@@ -298,7 +298,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "Cerrado", Tuesday: "8:00 AM – 9:00 PM", Wednesday: "8:00 AM – 9:00 PM", Thursday: "8:00 AM – 9:00 PM", Friday: "8:00 AM – 9:00 PM", Saturday: "8:00 AM – 9:00 PM", Sunday: "9:00 AM – 6:00 PM" },
     locations: [],
-    logo: "/assets/logos/el-nortenito-chihuahua.webp",
+    logo: "/assets/logos/manual/el-nortenito-chihuahua.webp?v=743f0223",
   },
   {
     name: "El Temorense",
@@ -313,7 +313,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "8:00 AM – 8:00 PM", Tuesday: "8:00 AM – 8:00 PM", Wednesday: "8:00 AM – 8:00 PM", Thursday: "8:00 AM – 8:00 PM", Friday: "8:00 AM – 8:00 PM", Saturday: "8:00 AM – 8:00 PM", Sunday: "8:00 AM – 8:00 PM" },
     locations: [],
-    logo: "/assets/logos/el-temorense.webp",
+    logo: "/assets/logos/el-temorense.webp?v=7242a720",
   },
   {
     name: "El Ware",
@@ -328,7 +328,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "8:00 AM – 8:00 PM", Tuesday: "8:00 AM – 8:00 PM", Wednesday: "8:00 AM – 8:00 PM", Thursday: "8:00 AM – 8:00 PM", Friday: "8:00 AM – 8:00 PM", Saturday: "8:00 AM – 8:00 PM", Sunday: "8:00 AM – 8:00 PM" },
     locations: [{"address": "C. 20 de Noviembre 3701, Obrera, 31350 Chihuahua, Chih.", "phone": "614 262 8831", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=10928950252302271497", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "8:00 AM – 8:00 PM"}}, {"address": "Av. Glandorf 2950, Parques de San Felipe, 31203 Chihuahua, Chih.", "phone": "614 424 9391", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=1825291599265776609", "hours": {"Monday": "7:30 AM – 8:00 PM", "Tuesday": "7:30 AM – 8:00 PM", "Wednesday": "7:30 AM – 8:00 PM", "Thursday": "7:30 AM – 8:00 PM", "Friday": "7:30 AM – 8:00 PM", "Saturday": "7:30 AM – 8:00 PM", "Sunday": "7:30 AM – 8:00 PM"}}, {"address": "Calle Tarahumaras, C. 24 de Junio 381, Quintas Quijote, 31134 Chihuahua, Chih.", "phone": "614 383 9994", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=1322965377682399604", "hours": {"Monday": "8:00 AM – 7:00 PM", "Tuesday": "8:00 AM – 7:00 PM", "Wednesday": "8:00 AM – 7:00 PM", "Thursday": "8:00 AM – 7:00 PM", "Friday": "8:00 AM – 7:00 PM", "Saturday": "8:00 AM – 7:00 PM", "Sunday": "8:00 AM – 7:00 PM"}}],
-    logo: null,
+    logo: "/assets/logos/manual/el-ware.webp?v=009bb8ed",
   },
   {
     name: "ENCUENTRO",
@@ -343,7 +343,7 @@ const restaurants = [
     rating: 4.8,
     hours: { Monday: "9:00 AM – 11:00 PM", Tuesday: "9:00 AM – 11:00 PM", Wednesday: "9:00 AM – 11:00 PM", Thursday: "9:00 AM – 2:00 AM", Friday: "9:00 AM – 2:00 AM", Saturday: "9:00 AM – 2:00 AM", Sunday: "9:00 AM – 11:00 PM" },
     locations: [],
-    logo: "/assets/logos/encuentro.webp",
+    logo: "/assets/logos/manual/encuentro.webp?v=1874535d",
   },
   {
     name: "Fonda Chilangos",
@@ -358,7 +358,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "8:00 AM – 7:30 PM", Tuesday: "8:00 AM – 7:30 PM", Wednesday: "8:00 AM – 7:30 PM", Thursday: "8:00 AM – 7:30 PM", Friday: "8:00 AM – 7:30 PM", Saturday: "9:00 AM – 7:30 PM", Sunday: "8:30 AM – 6:00 PM" },
     locations: [],
-    logo: "/assets/logos/fonda-chilangos.webp",
+    logo: "/assets/logos/manual/fonda-chilangos.webp?v=b3837f18",
   },
   {
     name: "Hakuna Bolas de Arroz",
@@ -373,7 +373,7 @@ const restaurants = [
     rating: 4,
     hours: { Monday: "10:00 AM – 10:45 PM", Tuesday: "10:00 AM – 10:45 PM", Wednesday: "10:00 AM – 10:45 PM", Thursday: "10:00 AM – 10:45 PM", Friday: "10:00 AM – 10:45 PM", Saturday: "10:00 AM – 10:45 PM", Sunday: "10:00 AM – 10:45 PM" },
     locations: [{"address": "Juan Mata Ortiz & Centenario 5321, Centenario 510, Burócrata Estatal, 31210 Chihuahua, Chih.", "phone": "614 688 6060", "rating": 4, "mapsUrl": "https://maps.google.com/?cid=2222676422806879514", "hours": {"Monday": "10:00 AM – 10:45 PM", "Tuesday": "10:00 AM – 10:45 PM", "Wednesday": "10:00 AM – 10:45 PM", "Thursday": "10:00 AM – 10:45 PM", "Friday": "10:00 AM – 10:45 PM", "Saturday": "10:00 AM – 10:45 PM", "Sunday": "10:00 AM – 10:45 PM"}}, {"address": "Av. Francisco Zarco 3204, Zarco, 31020 Chihuahua, Chih.", "phone": "614 227 9280", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=9722123450723079560", "hours": {"Monday": "10:00 AM – 10:30 PM", "Tuesday": "10:00 AM – 10:30 PM", "Wednesday": "10:00 AM – 10:30 PM", "Thursday": "10:00 AM – 10:30 PM", "Friday": "10:00 AM – 10:30 PM", "Saturday": "10:00 AM – 10:30 PM", "Sunday": "10:00 AM – 10:30 PM"}}, {"address": "Av. Venustiano Carranza 2409, Obrera, 31000 Chihuahua, Chih.", "phone": "614 391 1258", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=5093653454246567851", "hours": {"Monday": "10:00 AM – 10:30 PM", "Tuesday": "10:00 AM – 10:30 PM", "Wednesday": "10:00 AM – 10:30 PM", "Thursday": "10:00 AM – 10:30 PM", "Friday": "10:00 AM – 10:30 PM", "Saturday": "10:00 AM – 10:30 PM", "Sunday": "10:00 AM – 10:30 PM"}}, {"address": "Av. Nueva España 2300, Nueva España I y II, 31063 Chihuahua, Chih.", "phone": "614 688 8588", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=6994025788599276802", "hours": {"Monday": "10:00 AM – 11:00 PM", "Tuesday": "10:00 AM – 11:00 PM", "Wednesday": "10:00 AM – 11:00 PM", "Thursday": "10:00 AM – 11:00 PM", "Friday": "10:00 AM – 11:00 PM", "Saturday": "10:00 AM – 11:00 PM", "Sunday": "10:00 AM – 11:00 PM"}}, {"address": "Carretera Aldama 16100, 31313 Chihuahua, Chih.", "phone": "614 471 1313", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=16524038623112305996", "hours": {"Monday": "10:00 AM – 10:30 PM", "Tuesday": "10:00 AM – 10:30 PM", "Wednesday": "10:00 AM – 10:30 PM", "Thursday": "10:00 AM – 10:30 PM", "Friday": "10:00 AM – 10:30 PM", "Saturday": "10:00 AM – 10:30 PM", "Sunday": "10:00 AM – 10:30 PM"}}, {"address": "Circuito Universitario 15303, Quintas Sebastián, 31125 Chihuahua, Chih.", "phone": "614 493 9382", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=5820297279256314119", "hours": {"Monday": "10:00 AM – 10:30 PM", "Tuesday": "10:00 AM – 10:30 PM", "Wednesday": "10:00 AM – 10:30 PM", "Thursday": "10:00 AM – 10:30 PM", "Friday": "10:00 AM – 10:30 PM", "Saturday": "10:00 AM – 10:30 PM", "Sunday": "10:00 AM – 10:30 PM"}}],
-    logo: null,
+    logo: "/assets/logos/manual/hakuna-bolas-de-arroz.webp?v=e95e1edd",
   },
   {
     name: "Italianisimmo Pasta y Cafe",
@@ -388,7 +388,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 10:00 PM", Wednesday: "1:00 PM – 10:00 PM", Thursday: "1:00 PM – 10:00 PM", Friday: "1:00 PM – 10:00 PM", Saturday: "1:00 PM – 10:00 PM", Sunday: "1:00 PM – 8:00 PM" },
     locations: [],
-    logo: "/assets/logos/italianisimmo-pasta-y-cafe.webp",
+    logo: "/assets/logos/italianisimmo-pasta-y-cafe.webp?v=d0570593",
   },
   {
     name: "Kabuki Bistro",
@@ -403,7 +403,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 11:00 PM", Wednesday: "1:00 PM – 11:00 PM", Thursday: "1:00 PM – 12:00 PM", Friday: "1:00 PM – 12:00 PM", Saturday: "1:00 PM – 12:00 PM", Sunday: "1:00 PM – 10:00 PM" },
     locations: [],
-    logo: "/assets/logos/kabuki-bistro.webp",
+    logo: "/assets/logos/kabuki-bistro.webp?v=f67b57c4",
   },
   {
     name: "La Cabaña Smokehouse",
@@ -418,7 +418,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "1:00 PM – 9:00 PM", Tuesday: "1:00 PM – 9:00 PM", Wednesday: "1:00 PM – 9:00 PM", Thursday: "1:00 PM – 10:00 PM", Friday: "1:00 PM – 10:00 PM", Saturday: "1:00 PM – 10:00 PM", Sunday: "1:00 PM – 8:00 PM" },
     locations: [{"address": "Av División del Nte 5-A, San Felipe I Etapa, 31203 Chihuahua, Chih.", "phone": "614 423 7070", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=8764604138985187548", "hours": {"Monday": "1:00 PM – 9:00 PM", "Tuesday": "1:00 PM – 9:00 PM", "Wednesday": "1:00 PM – 9:00 PM", "Thursday": "1:00 PM – 10:00 PM", "Friday": "1:00 PM – 10:00 PM", "Saturday": "1:00 PM – 10:00 PM", "Sunday": "1:00 PM – 8:00 PM"}}, {"address": "Av de la Empresa 3102, Vistas del Sol, 31215 Chihuahua, Chih.", "phone": "614 430 0201", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=4096511135367672720", "hours": {"Monday": "1:00 PM – 9:00 PM", "Tuesday": "1:00 PM – 9:00 PM", "Wednesday": "1:00 PM – 9:00 PM", "Thursday": "1:00 PM – 10:00 PM", "Friday": "1:00 PM – 10:00 PM", "Saturday": "1:00 PM – 10:00 PM", "Sunday": "1:00 PM – 8:00 PM"}}, {"address": "Circuito Universitario 15504, Colonia Los, Cafetales, 31125 Chihuahua, Chih.", "phone": "614 493 9977", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=7279091489039866007", "hours": {"Monday": "1:00 PM – 9:00 PM", "Tuesday": "1:00 PM – 9:00 PM", "Wednesday": "1:00 PM – 9:00 PM", "Thursday": "1:00 PM – 10:00 PM", "Friday": "1:00 PM – 10:00 PM", "Saturday": "1:00 PM – 10:00 PM", "Sunday": "1:00 PM – 8:00 PM"}}],
-    logo: null,
+    logo: "/assets/logos/manual/la-cabana-smokehouse.webp?v=b87a3cdb",
   },
   {
     name: "La Tarima - Alitas & Burgers",
@@ -433,7 +433,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "1:00 PM – 9:00 AM", Tuesday: "1:00 PM – 9:00 PM", Wednesday: "1:00 PM – 9:00 PM", Thursday: "1:00 PM – 10:00 PM", Friday: "1:00 PM – 10:00 PM", Saturday: "1:00 PM – 9:00 PM", Sunday: "12:00 PM – 7:00 PM" },
     locations: [{"address": "Av. Prol. Teófilo Borunda 11811, 31220 Chihuahua, Chih.", "phone": "614 377 0099", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=17748010432710365868", "hours": {"Monday": "1:00 PM – 9:00 AM", "Tuesday": "1:00 PM – 9:00 PM", "Wednesday": "1:00 PM – 9:00 PM", "Thursday": "1:00 PM – 10:00 PM", "Friday": "1:00 PM – 10:00 PM", "Saturday": "1:00 PM – 9:00 PM", "Sunday": "12:00 PM – 7:00 PM"}}, {"address": "C. Juárez #4, Centro, 32910 Juan Aldama, Chih.", "phone": "614 451 2516", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=14551011188318681671", "hours": {"Monday": "1:00 PM – 9:00 PM", "Tuesday": "1:00 PM – 9:00 PM", "Wednesday": "1:00 PM – 9:00 PM", "Thursday": "1:00 PM – 9:00 PM", "Friday": "1:00 PM – 10:00 PM", "Saturday": "1:00 PM – 10:00 PM", "Sunday": "1:00 PM – 9:00 PM"}}],
-    logo: "/assets/logos/la-tarima-alitas-burgers.webp",
+    logo: "/assets/logos/la-tarima-alitas-burgers.webp?v=7bba3c84",
   },
   {
     name: "Las Brasas Parrilla Mexicana",
@@ -448,7 +448,7 @@ const restaurants = [
     rating: 2.9,
     hours: { Monday: "9:00 AM – 10:30 PM", Tuesday: "9:00 AM – 10:30 PM", Wednesday: "9:00 AM – 10:30 PM", Thursday: "9:00 AM – 10:30 PM", Friday: "9:00 AM – 10:30 PM", Saturday: "9:00 AM – 10:30 PM", Sunday: "9:00 AM – 10:30 PM" },
     locations: [],
-    logo: "/assets/logos/las-brasas-parrilla-mexicana.webp",
+    logo: "/assets/logos/manual/las-brasas-parrilla-mexicana.webp?v=c2ed9813",
   },
   {
     name: "Las Cazuelas De Falcón",
@@ -463,7 +463,7 @@ const restaurants = [
     rating: null,
     hours: {},
     locations: [],
-    logo: "/assets/logos/las-cazuelas-de-falcon.webp",
+    logo: "/assets/logos/las-cazuelas-de-falcon.webp?v=02bcfa5c",
   },
   {
     name: "Las Tortas de Tu Tío",
@@ -478,7 +478,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "6:00 PM – 12:00 PM", Tuesday: "6:00 PM – 12:00 PM", Wednesday: "6:00 PM – 12:00 PM", Thursday: "6:00 PM – 12:00 PM", Friday: "6:00 PM – 3:00 AM", Saturday: "6:00 PM – 3:00 AM", Sunday: "4:30 PM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/las-tortas-de-tu-tio.webp",
+    logo: "/assets/logos/las-tortas-de-tu-tio.webp?v=9acaafe8",
   },
   {
     name: "Lasañisima",
@@ -493,7 +493,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "Cerrado", Tuesday: "12:00 PM – 8:00 PM", Wednesday: "12:00 PM – 8:00 PM", Thursday: "12:00 PM – 8:00 PM", Friday: "12:00 PM – 8:00 PM", Saturday: "12:00 PM – 8:00 PM", Sunday: "12:00 PM – 6:00 PM" },
     locations: [],
-    logo: "/assets/logos/lasanisima.webp",
+    logo: "/assets/logos/manual/lasanisima.webp?v=574c0cd5",
   },
   {
     name: "Los Fenicios",
@@ -508,7 +508,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "1:00 PM – 8:00 PM", Tuesday: "Cerrado", Wednesday: "1:00 PM – 8:00 PM", Thursday: "1:00 PM – 8:00 PM", Friday: "1:00 PM – 8:00 PM", Saturday: "1:00 PM – 8:00 PM", Sunday: "1:00 PM – 6:00 PM" },
     locations: [],
-    logo: null,
+    logo: "/assets/logos/manual/los-fenicios.webp?v=eb658d6b",
   },
   {
     name: "Magic Rimbus",
@@ -523,7 +523,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "Cerrado", Tuesday: "2:00 PM – 10:00 PM", Wednesday: "2:00 PM – 10:00 PM", Thursday: "2:00 PM – 10:00 PM", Friday: "2:00 PM – 10:00 PM", Saturday: "2:00 PM – 10:00 PM", Sunday: "2:00 PM – 10:00 PM" },
     locations: [],
-    logo: "/assets/logos/magic-rimbus.webp",
+    logo: "/assets/logos/manual/magic-rimbus.webp?v=4dfb13d9",
   },
   {
     name: "Mamá Carola",
@@ -538,7 +538,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "8:00 AM – 9:30 PM", Tuesday: "8:00 AM – 9:30 PM", Wednesday: "8:00 AM – 9:30 PM", Thursday: "8:00 AM – 9:30 PM", Friday: "8:00 AM – 9:30 PM", Saturday: "8:00 AM – 9:30 PM", Sunday: "8:00 AM – 3:30 PM" },
     locations: [],
-    logo: "/assets/logos/mama-carola.webp",
+    logo: "/assets/logos/mama-carola.webp?v=9388eb3b",
   },
   {
     name: "Mariscos “La Buena Vida”",
@@ -553,7 +553,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "10:00 AM – 8:00 PM", Tuesday: "10:00 AM – 8:00 PM", Wednesday: "10:00 AM – 8:00 PM", Thursday: "10:00 AM – 8:00 PM", Friday: "10:00 AM – 8:00 PM", Saturday: "10:00 AM – 8:00 PM", Sunday: "10:00 AM – 8:00 PM" },
     locations: [{"address": "C. 12a. 4008, Santa Rosa, 31050 Chihuahua, Chih.", "phone": "614 416 1605", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=17645819428277109485", "hours": {"Monday": "10:00 AM – 8:00 PM", "Tuesday": "10:00 AM – 8:00 PM", "Wednesday": "10:00 AM – 8:00 PM", "Thursday": "10:00 AM – 8:00 PM", "Friday": "10:00 AM – 8:00 PM", "Saturday": "10:00 AM – 8:00 PM", "Sunday": "10:00 AM – 8:00 PM"}}, {"address": "Perif. de la Juventud 3501, Puerta de Hierro, 31410 Chihuahua, Chih.", "phone": "614 438 5296", "rating": 4.1, "mapsUrl": "https://maps.google.com/?cid=4253924689020267225", "hours": {"Monday": "11:00 AM – 8:45 PM", "Tuesday": "11:00 AM – 8:45 PM", "Wednesday": "11:00 AM – 8:45 PM", "Thursday": "11:00 AM – 8:45 PM", "Friday": "11:00 AM – 8:45 PM", "Saturday": "11:00 AM – 8:45 PM", "Sunday": "11:00 AM – 8:45 PM"}}],
-    logo: "/assets/logos/mariscos-la-buena-vida.webp",
+    logo: "/assets/logos/manual/mariscos-la-buena-vida.webp?v=2b505902",
   },
   {
     name: "Mariscos Dejate Kayy",
@@ -568,7 +568,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "12:00 PM – 7:00 PM", Tuesday: "Cerrado", Wednesday: "12:00 PM – 7:00 PM", Thursday: "12:00 PM – 7:00 PM", Friday: "12:00 PM – 8:00 PM", Saturday: "12:00 PM – 8:00 PM", Sunday: "12:00 PM – 8:00 PM" },
     locations: [],
-    logo: "/assets/logos/mariscos-dejate-kayy.webp",
+    logo: "/assets/logos/manual/mariscos-dejate-kayy.webp?v=1e9330ba",
   },
   {
     name: "Mariscos Jardín Issa",
@@ -583,7 +583,7 @@ const restaurants = [
     rating: 4.2,
     hours: { Monday: "12:00 PM – 7:00 PM", Tuesday: "Cerrado", Wednesday: "12:00 PM – 7:00 PM", Thursday: "12:00 PM – 7:00 PM", Friday: "12:00 PM – 7:00 PM", Saturday: "12:00 PM – 7:00 PM", Sunday: "12:00 PM – 7:00 PM" },
     locations: [],
-    logo: "/assets/logos/mariscos-jardin-issa.webp",
+    logo: "/assets/logos/mariscos-jardin-issa.webp?v=1c1b33be",
   },
   {
     name: "Mariscos La Iguana",
@@ -598,7 +598,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "11:00 AM – 9:00 PM", Tuesday: "Cerrado", Wednesday: "11:00 AM – 9:00 PM", Thursday: "11:00 AM – 9:00 PM", Friday: "11:00 AM – 9:00 PM", Saturday: "11:00 AM – 9:00 PM", Sunday: "11:00 AM – 9:00 PM" },
     locations: [],
-    logo: "/assets/logos/mariscos-la-iguana.webp",
+    logo: "/assets/logos/mariscos-la-iguana.webp?v=d1e131b4",
   },
   {
     name: "Mariscos La Jaiba Feliz",
@@ -613,7 +613,7 @@ const restaurants = [
     rating: 4.3,
     hours: { Monday: "10:00 AM – 6:00 PM", Tuesday: "10:00 AM – 6:00 PM", Wednesday: "10:00 AM – 6:00 PM", Thursday: "10:00 AM – 6:00 PM", Friday: "10:00 AM – 6:00 PM", Saturday: "10:00 AM – 6:00 PM", Sunday: "10:00 AM – 6:00 PM" },
     locations: [{"address": "en Soriana Juventud, Perif. de la Juventud 401-Local 17, Paseos de Chihuahua, 31125 Chihuahua, Chih.", "phone": "614 179 5854", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=10026813536650786594", "hours": {"Monday": "10:00 AM – 6:00 PM", "Tuesday": "10:00 AM – 6:00 PM", "Wednesday": "10:00 AM – 6:00 PM", "Thursday": "10:00 AM – 6:00 PM", "Friday": "10:00 AM – 6:00 PM", "Saturday": "10:00 AM – 6:00 PM", "Sunday": "10:00 AM – 6:00 PM"}}, {"address": "C. Portal de Ébano 17101, Los Arcos, 31137 Chihuahua, Chih.", "phone": "614 490 3998", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=17972593938723010437", "hours": {"Monday": "10:00 AM – 6:00 PM", "Tuesday": "10:00 AM – 6:00 PM", "Wednesday": "10:00 AM – 6:00 PM", "Thursday": "10:00 AM – 6:00 PM", "Friday": "10:00 AM – 6:00 PM", "Saturday": "10:00 AM – 6:00 PM", "Sunday": "10:00 AM – 6:00 PM"}}],
-    logo: "/assets/logos/mariscos-la-jaiba-feliz.webp",
+    logo: "/assets/logos/manual/mariscos-la-jaiba-feliz.webp?v=ccc6bf06",
   },
   {
     name: "Mayólica",
@@ -628,7 +628,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "Cerrado", Tuesday: "8:00 AM – 1:30 PM", Wednesday: "8:00 AM – 1:30 PM", Thursday: "8:00 AM – 1:30 PM", Friday: "8:00 AM – 1:30 PM", Saturday: "8:00 AM – 1:30 PM", Sunday: "8:00 AM – 1:30 PM" },
     locations: [],
-    logo: "/assets/logos/mayolica.webp",
+    logo: "/assets/logos/manual/mayolica.webp?v=2c8d1dd8",
   },
   {
     name: "Mozao Café",
@@ -643,7 +643,7 @@ const restaurants = [
     rating: 4.7,
     hours: { Monday: "8:00 AM – 10:30 PM", Tuesday: "8:00 AM – 10:30 PM", Wednesday: "8:00 AM – 10:30 PM", Thursday: "8:00 AM – 10:30 PM", Friday: "8:00 AM – 10:30 PM", Saturday: "8:00 AM – 10:30 PM", Sunday: "8:00 AM – 10:30 PM" },
     locations: [{"address": "Av. Antonio de Deza Y Ulloa 306, San Felipe I Etapa, 31203 Chihuahua, Chih.", "phone": "614 597 6730", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=16085052084211169635", "hours": {"Monday": "8:00 AM – 10:30 PM", "Tuesday": "8:00 AM – 10:30 PM", "Wednesday": "8:00 AM – 10:30 PM", "Thursday": "8:00 AM – 10:30 PM", "Friday": "8:00 AM – 10:30 PM", "Saturday": "8:00 AM – 10:30 PM", "Sunday": "8:00 AM – 10:30 PM"}}, {"address": "Av. Rio de Janeiro 6700, Puerta Barroca, 31215 Chihuahua, Chih.", "phone": "614 594 1847", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=13413266532764086010", "hours": {"Monday": "8:00 AM – 10:30 PM", "Tuesday": "8:00 AM – 10:30 PM", "Wednesday": "8:00 AM – 10:30 PM", "Thursday": "8:00 AM – 10:30 PM", "Friday": "8:00 AM – 10:30 PM", "Saturday": "8:00 AM – 10:30 PM", "Sunday": "8:00 AM – 10:30 PM"}}],
-    logo: "/assets/logos/mozao-cafe.webp",
+    logo: "/assets/logos/mozao-cafe.webp?v=b74afadf",
   },
   {
     name: "Naranja y Limón",
@@ -658,7 +658,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "7:30 AM – 5:00 PM", Tuesday: "7:30 AM – 5:00 PM", Wednesday: "7:30 AM – 5:00 PM", Thursday: "7:30 AM – 5:00 PM", Friday: "7:30 AM – 5:00 PM", Saturday: "8:00 AM – 4:00 PM", Sunday: "Cerrado" },
     locations: [{"address": "Altamirano 2512, Altavista, 31200 Chihuahua, Chih.", "phone": "614 413 0809", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=4727226005103450181", "hours": {"Monday": "7:30 AM – 5:00 PM", "Tuesday": "7:30 AM – 5:00 PM", "Wednesday": "7:30 AM – 5:00 PM", "Thursday": "7:30 AM – 5:00 PM", "Friday": "7:30 AM – 5:00 PM", "Saturday": "8:00 AM – 4:00 PM", "Sunday": "Cerrado"}}, {"address": "Av. Misión Del Bosque 9701, Misiones III Etapa, 31115 Chihuahua, Chih.", "phone": "614 426 0481", "rating": 3.2, "mapsUrl": "https://maps.google.com/?cid=2143723364339153088", "hours": {"Monday": "7:30 AM – 5:00 PM", "Tuesday": "7:30 AM – 5:00 PM", "Wednesday": "7:30 AM – 5:00 PM", "Thursday": "7:30 AM – 5:00 PM", "Friday": "7:30 AM – 5:00 PM", "Saturday": "8:00 AM – 4:00 PM", "Sunday": "Cerrado"}}],
-    logo: "/assets/logos/naranja-y-limon.webp",
+    logo: "/assets/logos/manual/naranja-y-limon.webp?v=0f89d916",
   },
   {
     name: "naturalbalance.club",
@@ -673,7 +673,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "8:00 AM – 5:00 PM", Tuesday: "8:00 AM – 5:00 PM", Wednesday: "8:00 AM – 5:00 PM", Thursday: "8:00 AM – 5:00 PM", Friday: "8:00 AM – 5:00 PM", Saturday: "8:00 AM – 4:30 PM", Sunday: "Cerrado" },
     locations: [],
-    logo: "/assets/logos/naturalbalance-club.webp",
+    logo: "/assets/logos/naturalbalance-club.webp?v=e9b8cd72",
   },
   {
     name: "New Sheridan",
@@ -688,7 +688,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "2:00 PM – 12:00 PM", Tuesday: "2:00 PM – 1:00 AM", Wednesday: "2:00 PM – 1:00 AM", Thursday: "1:00 PM – 1:30 AM", Friday: "1:00 PM – 1:30 AM", Saturday: "1:00 PM – 1:30 AM", Sunday: "2:00 PM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/new-sheridan.webp",
+    logo: "/assets/logos/new-sheridan.webp?v=6526c45a",
   },
   {
     name: "Nómada Paradero Gastronomico",
@@ -703,7 +703,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "Cerrado", Tuesday: "9:00 AM – 12:00 PM", Wednesday: "9:00 AM – 12:00 PM", Thursday: "9:00 AM – 12:00 PM", Friday: "9:00 AM – 2:00 AM", Saturday: "9:00 AM – 2:00 AM", Sunday: "9:00 AM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/nomada-paradero-gastronomico.webp",
+    logo: "/assets/logos/manual/nomada-paradero-gastronomico.webp?v=1fd90ebd",
   },
   {
     name: "Paradójico",
@@ -718,7 +718,7 @@ const restaurants = [
     rating: 5,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 11:00 PM", Wednesday: "1:00 PM – 11:00 PM", Thursday: "1:00 PM – 11:00 PM", Friday: "1:00 PM – 11:00 PM", Saturday: "1:00 PM – 11:00 PM", Sunday: "1:00 PM – 5:00 PM" },
     locations: [],
-    logo: "/assets/logos/paradojico.webp",
+    logo: "/assets/logos/paradojico.webp?v=a1b6ab6e",
   },
   {
     name: "Parador El Sueco",
@@ -733,7 +733,7 @@ const restaurants = [
     rating: 4.1,
     hours: { Monday: "6:00 AM – 12:00 PM", Tuesday: "6:00 AM – 12:00 PM", Wednesday: "6:00 AM – 12:00 PM", Thursday: "6:00 AM – 12:00 PM", Friday: "6:00 AM – 12:00 PM", Saturday: "6:00 AM – 12:00 PM", Sunday: "6:00 AM – 12:00 PM" },
     locations: [],
-    logo: "/assets/logos/parador-el-sueco.webp",
+    logo: "/assets/logos/parador-el-sueco.webp?v=e48845da",
   },
   {
     name: "Pasteleria Dulce Noviembre",
@@ -748,7 +748,7 @@ const restaurants = [
     rating: 3.8,
     hours: { Monday: "8:00 AM – 8:00 PM", Tuesday: "8:00 AM – 8:00 PM", Wednesday: "8:00 AM – 8:00 PM", Thursday: "8:00 AM – 8:00 PM", Friday: "8:00 AM – 8:00 PM", Saturday: "8:00 AM – 8:00 PM", Sunday: "11:00 AM – 6:00 PM" },
     locations: [{"address": "Chihuahua - Ojinaga 3006, 31313 Chihuahua, Chih.", "phone": "614 436 5151", "rating": 3.8, "mapsUrl": "https://maps.google.com/?cid=15185307904302424182", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Alamedas III Etapa, Chihuahua 2000, 31136 Chihuahua, Chih.", "phone": "614 441 4444", "rating": 3.7, "mapsUrl": "https://maps.google.com/?cid=6487227033483535483", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Av. de las Américas #403, Panamericana, 31210 Chihuahua, Chih.", "phone": "614 688 3902", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=5704243717197776717", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Mármol Viejo, Vialidad Ch-P 8812, Nueva España I y II, 31063 Chihuahua, Chih.", "phone": "614 389 7174", "rating": 4.1, "mapsUrl": "https://maps.google.com/?cid=3492046330911719139", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Av. Colón #305, Centro, 31000 Chihuahua, Chih.", "phone": "614 443 3624", "rating": 3.5, "mapsUrl": "https://maps.google.com/?cid=3922834651614652898", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "C. Colegio de San Idelfonso 1801, San Sebastian, 31124 Chihuahua, Chih.", "phone": "614 498 8636", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=6366239180096370244", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Av. de la Cantera 9124, Misiones I Etapa, 31115 Chihuahua, Chih.", "phone": "614 632 5842", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=13077815961095664920", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "11:00 AM – 6:00 PM"}}, {"address": "Av. Instituto Politécnico Nacional s/n-y, Quintas del Sol, Campestre-Lomas, 31214 Chihuahua, Chih.", "phone": "614 443 4154", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=12745692594650790472", "hours": {"Monday": "8:00 AM – 8:00 PM", "Tuesday": "8:00 AM – 8:00 PM", "Wednesday": "8:00 AM – 8:00 PM", "Thursday": "8:00 AM – 8:00 PM", "Friday": "8:00 AM – 8:00 PM", "Saturday": "8:00 AM – 8:00 PM", "Sunday": "10:00 AM – 6:00 PM"}}],
-    logo: "/assets/logos/pasteleria-dulce-noviembre.webp",
+    logo: "/assets/logos/pasteleria-dulce-noviembre.webp?v=a4dbd6b5",
   },
   {
     name: "Pinos Burger",
@@ -763,7 +763,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 7:30 PM", Wednesday: "1:00 PM – 7:30 PM", Thursday: "1:00 PM – 7:30 PM", Friday: "1:00 PM – 7:30 PM", Saturday: "1:00 PM – 7:30 PM", Sunday: "1:00 PM – 7:30 PM" },
     locations: [],
-    logo: "/assets/logos/pinos-burger.webp",
+    logo: "/assets/logos/manual/pinos-burger.webp?v=87c68465",
   },
   {
     name: "Pit-Tacos",
@@ -778,7 +778,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "8:00 AM – 10:00 PM", Tuesday: "8:00 AM – 10:00 PM", Wednesday: "8:00 AM – 10:00 PM", Thursday: "8:00 AM – 10:00 PM", Friday: "8:00 AM – 10:30 PM", Saturday: "8:00 AM – 10:00 PM", Sunday: "9:00 AM – 5:00 PM" },
     locations: [{"address": "Av Francisco Villa 6701, Panamericana, 31210 Chihuahua, Chih.", "phone": "614 587 1204", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=16608185220839563433", "hours": {"Monday": "8:00 AM – 10:00 PM", "Tuesday": "8:00 AM – 10:00 PM", "Wednesday": "8:00 AM – 10:00 PM", "Thursday": "8:00 AM – 10:00 PM", "Friday": "8:00 AM – 10:30 PM", "Saturday": "8:00 AM – 10:00 PM", "Sunday": "9:00 AM – 5:00 PM"}}, {"address": "Av. Instituto Politécnico Nacional 507, Guadalupe, 31410 Chihuahua, Chih.", "phone": "614 411 4600", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=2341581346368098091", "hours": {"Monday": "8:00 AM – 10:00 PM", "Tuesday": "8:00 AM – 10:00 PM", "Wednesday": "8:00 AM – 10:00 PM", "Thursday": "8:00 AM – 10:00 PM", "Friday": "8:00 AM – 10:30 PM", "Saturday": "8:00 AM – 10:00 PM", "Sunday": "9:00 AM – 5:00 PM"}}, {"address": "Avenida La Junta, Jesús, Av Professor Jesus Lujan 918, Industrial, 31304 Chihuahua, Chih.", "phone": "614 414 4623", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=9416724548394715072", "hours": {"Monday": "8:00 AM – 10:00 PM", "Tuesday": "8:00 AM – 10:00 PM", "Wednesday": "8:00 AM – 10:00 PM", "Thursday": "8:00 AM – 10:00 PM", "Friday": "8:00 AM – 10:00 PM", "Saturday": "8:00 AM – 10:00 PM", "Sunday": "8:00 AM – 4:00 PM"}}],
-    logo: "/assets/logos/pit-tacos.webp",
+    logo: "/assets/logos/manual/pit-tacos.webp?v=004af696",
   },
   {
     name: "Plebes Roll",
@@ -793,7 +793,7 @@ const restaurants = [
     rating: 4.3,
     hours: { Monday: "11:00 AM – 1:50 AM", Tuesday: "11:00 AM – 1:50 AM", Wednesday: "11:00 AM – 1:50 AM", Thursday: "11:00 AM – 1:50 AM", Friday: "11:00 AM – 1:50 AM", Saturday: "11:00 AM – 1:50 AM", Sunday: "11:00 AM – 1:50 AM" },
     locations: [{"address": "Av. de la Cantera 9120-local 201 y 203, Fraccionamiento Las Misiones, 31115 Chihuahua, Chih.", "phone": "614 281 2630", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=17470490228004746497", "hours": {"Monday": "11:00 AM – 1:50 AM", "Tuesday": "11:00 AM – 1:50 AM", "Wednesday": "11:00 AM – 1:50 AM", "Thursday": "11:00 AM – 1:50 AM", "Friday": "11:00 AM – 1:50 AM", "Saturday": "11:00 AM – 1:50 AM", "Sunday": "11:00 AM – 1:50 AM"}}, {"address": "Av. Homero 4802-int 306, plaza, campus city, 31124 Chihuahua, Chih.", "phone": "614 373 3718", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=8571341362589384115", "hours": {"Monday": "11:00 AM – 2:00 AM", "Tuesday": "11:00 AM – 2:00 AM", "Wednesday": "11:00 AM – 2:00 AM", "Thursday": "11:00 AM – 2:00 AM", "Friday": "11:00 AM – 2:00 AM", "Saturday": "11:00 AM – 2:00 AM", "Sunday": "11:00 AM – 2:00 AM"}}],
-    logo: null,
+    logo: "/assets/logos/manual/plebes-roll.webp?v=cf7fec4f",
   },
   {
     name: "Restaurante Puebla en Chihuahua",
@@ -808,7 +808,7 @@ const restaurants = [
     rating: 4.2,
     hours: { Monday: "8:00 AM – 6:00 PM", Tuesday: "8:00 AM – 6:00 PM", Wednesday: "8:00 AM – 6:00 PM", Thursday: "8:00 AM – 6:00 PM", Friday: "8:00 AM – 6:00 PM", Saturday: "8:00 AM – 6:00 PM", Sunday: "8:00 AM – 6:00 PM" },
     locations: [],
-    logo: "/assets/logos/restaurante-puebla-en-chihuahua.webp",
+    logo: "/assets/logos/manual/restaurante-puebla-en-chihuahua.webp?v=8b868867",
   },
   {
     name: "Ricos Tacos de la 24",
@@ -823,7 +823,7 @@ const restaurants = [
     rating: 4.7,
     hours: { Monday: "12:00 PM – 10:30 PM", Tuesday: "12:00 PM – 10:30 PM", Wednesday: "12:00 PM – 10:30 PM", Thursday: "12:00 PM – 10:30 PM", Friday: "12:00 PM – 10:30 PM", Saturday: "12:00 PM – 10:30 PM", Sunday: "12:00 PM – 10:00 PM" },
     locations: [{"address": "C. 24 1706, Mirador, Campestre-Lomas, 31205 Chihuahua, Chih.", "phone": "614 410 3882", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=3978036369128780509", "hours": {"Monday": "12:00 PM – 10:30 PM", "Tuesday": "12:00 PM – 10:30 PM", "Wednesday": "12:00 PM – 10:30 PM", "Thursday": "12:00 PM – 10:30 PM", "Friday": "12:00 PM – 10:30 PM", "Saturday": "12:00 PM – 10:30 PM", "Sunday": "12:00 PM – 10:00 PM"}}, {"address": "Perif. de la Juventud 7500-Interior 8, Colinas del Valle, Campestre-Lomas, 31217 Chihuahua, Chih.", "phone": "614 335 1162", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=17924995442413360625", "hours": {"Monday": "12:00 PM – 10:30 PM", "Tuesday": "12:00 PM – 10:30 PM", "Wednesday": "12:00 PM – 10:30 PM", "Thursday": "12:00 PM – 10:30 PM", "Friday": "12:00 PM – 10:30 PM", "Saturday": "12:00 PM – 10:30 PM", "Sunday": "12:00 PM – 10:30 PM"}}],
-    logo: "/assets/logos/ricos-tacos-de-la-24.webp",
+    logo: "/assets/logos/ricos-tacos-de-la-24.webp?v=e39d4b05",
   },
   {
     name: "Rosina",
@@ -838,7 +838,7 @@ const restaurants = [
     rating: 4.8,
     hours: { Monday: "Cerrado", Tuesday: "8:00 AM – 11:00 PM", Wednesday: "8:00 AM – 11:00 PM", Thursday: "8:00 AM – 11:00 PM", Friday: "8:00 AM – 11:00 PM", Saturday: "8:30 AM – 11:00 PM", Sunday: "8:30 AM – 5:30 PM" },
     locations: [],
-    logo: "/assets/logos/rosina.webp",
+    logo: "/assets/logos/rosina.webp?v=e670e194",
   },
   {
     name: "Señor Camarón",
@@ -853,7 +853,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "11:00 AM – 9:00 PM", Tuesday: "11:00 AM – 9:00 PM", Wednesday: "11:00 AM – 9:00 PM", Thursday: "11:00 AM – 9:00 PM", Friday: "11:00 AM – 9:00 PM", Saturday: "11:00 AM – 9:00 PM", Sunday: "11:00 AM – 9:00 PM" },
     locations: [{"address": "C. 20 de Noviembre 2510, Obrera, 31350 Chihuahua, Chih.", "phone": "614 412 0404", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=8028741971087323378", "hours": {"Monday": "11:00 AM – 9:00 PM", "Tuesday": "11:00 AM – 9:00 PM", "Wednesday": "11:00 AM – 9:00 PM", "Thursday": "11:00 AM – 9:00 PM", "Friday": "11:00 AM – 9:00 PM", "Saturday": "11:00 AM – 9:00 PM", "Sunday": "11:00 AM – 9:00 PM"}}, {"address": "Av Francisco Villa 2705, Zona Sin Asignación de Nombre de Colonia, 31110 Chihuahua, Chih.", "phone": "614 102 0743", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=8248165961727265", "hours": {"Monday": "11:30 AM – 8:30 PM", "Tuesday": "11:30 AM – 8:30 PM", "Wednesday": "11:30 AM – 8:30 PM", "Thursday": "11:30 AM – 8:30 PM", "Friday": "11:30 AM – 8:30 PM", "Saturday": "11:30 AM – 8:00 PM", "Sunday": "11:30 AM – 8:00 PM"}}],
-    logo: "/assets/logos/senor-camaron.webp",
+    logo: "/assets/logos/senor-camaron.webp?v=604ed7fb",
   },
   {
     name: "Smoke & Grill",
@@ -868,7 +868,7 @@ const restaurants = [
     rating: 5,
     hours: { Monday: "Cerrado", Tuesday: "Cerrado", Wednesday: "Cerrado", Thursday: "Cerrado", Friday: "Cerrado", Saturday: "6:00 PM – 11:00 PM", Sunday: "12:00 PM – 5:00 PM" },
     locations: [],
-    logo: "/assets/logos/smoke-grill.webp",
+    logo: "/assets/logos/manual/smoke-grill.webp?v=5a3578a5",
   },
   {
     name: "Sorrento",
@@ -883,7 +883,7 @@ const restaurants = [
     rating: 4.7,
     hours: { Monday: "Cerrado", Tuesday: "Cerrado", Wednesday: "6:00 PM – 11:30 PM", Thursday: "6:00 PM – 11:30 PM", Friday: "6:00 PM – 11:30 PM", Saturday: "6:00 PM – 11:30 PM", Sunday: "2:00 PM – 7:30 PM" },
     locations: [],
-    logo: "/assets/logos/sorrento.webp",
+    logo: "/assets/logos/sorrento.webp?v=a0b1f214",
   },
   {
     name: "Steak Blvd.",
@@ -898,7 +898,7 @@ const restaurants = [
     rating: 4.6,
     hours: { Monday: "6:00 PM – 11:45 PM", Tuesday: "6:00 PM – 11:45 PM", Wednesday: "7:30 PM – 11:45 PM", Thursday: "6:00 PM – 11:45 PM", Friday: "6:00 PM – 11:45 PM", Saturday: "6:00 PM – 11:45 PM", Sunday: "6:00 PM – 11:45 PM" },
     locations: [{"address": "Avenida Universidad 3100, Magisterial Universidad, 31203 Chihuahua, Chih.", "phone": "614 112 3646", "rating": 4.6, "mapsUrl": "https://maps.google.com/?cid=13106814071512969321", "hours": {"Monday": "6:00 PM – 11:45 PM", "Tuesday": "6:00 PM – 11:45 PM", "Wednesday": "7:30 PM – 11:45 PM", "Thursday": "6:00 PM – 11:45 PM", "Friday": "6:00 PM – 11:45 PM", "Saturday": "6:00 PM – 11:45 PM", "Sunday": "6:00 PM – 11:45 PM"}}, {"address": "Av. Prol. Teófilo Borunda 11403-02, labor de terrazas, 31207 Chihuahua, Chih.", "phone": "614 123 3348", "rating": 4.7, "mapsUrl": "https://maps.google.com/?cid=12216516977274352032", "hours": {"Monday": "12:30 PM – 10:00 PM", "Tuesday": "12:30 PM – 10:00 PM", "Wednesday": "12:30 PM – 10:00 PM", "Thursday": "12:30 PM – 10:00 PM", "Friday": "12:30 PM – 10:00 PM", "Saturday": "1:00 PM – 10:00 PM", "Sunday": "1:00 PM – 10:00 PM"}}],
-    logo: "/assets/logos/steak-blvd.webp",
+    logo: "/assets/logos/steak-blvd.webp?v=cd3246dd",
   },
   {
     name: "Sushiko",
@@ -913,7 +913,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "12:00 PM – 10:00 PM", Tuesday: "12:00 PM – 10:00 PM", Wednesday: "12:00 PM – 10:00 PM", Thursday: "12:00 PM – 10:00 PM", Friday: "12:00 PM – 10:00 PM", Saturday: "12:00 PM – 10:00 PM", Sunday: "12:00 PM – 10:00 PM" },
     locations: [],
-    logo: null,
+    logo: "/assets/logos/manual/sushiko.webp?v=6840ba7c",
   },
   {
     name: "Tacos Villa",
@@ -928,7 +928,7 @@ const restaurants = [
     rating: 4.5,
     hours: { Monday: "12:30 PM – 11:00 PM", Tuesday: "12:30 PM – 11:00 PM", Wednesday: "12:30 PM – 11:00 PM", Thursday: "12:30 PM – 11:00 PM", Friday: "12:30 PM – 11:00 PM", Saturday: "12:30 PM – 11:00 PM", Sunday: "12:30 PM – 11:00 PM" },
     locations: [],
-    logo: "/assets/logos/tacos-villa.webp",
+    logo: "/assets/logos/tacos-villa.webp?v=400def9b",
   },
   {
     name: "Tacotote",
@@ -943,7 +943,7 @@ const restaurants = [
     rating: 4.3,
     hours: { Monday: "11:00 AM – 11:00 PM", Tuesday: "11:00 AM – 11:00 PM", Wednesday: "11:00 AM – 11:00 PM", Thursday: "11:00 AM – 11:00 PM", Friday: "11:00 AM – 11:00 PM", Saturday: "11:00 AM – 11:00 PM", Sunday: "11:00 AM – 10:00 PM" },
     locations: [{"address": "Blvrd Antonio Ortiz Mena 2037, Las Águilas, Campestre-Lomas, 31214 Chihuahua, Chih.", "phone": "614 423 7196", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=5033901418561648784", "hours": {"Monday": "11:00 AM – 11:00 PM", "Tuesday": "11:00 AM – 11:00 PM", "Wednesday": "11:00 AM – 11:00 PM", "Thursday": "11:00 AM – 11:00 PM", "Friday": "11:00 AM – 11:00 PM", "Saturday": "11:00 AM – 11:00 PM", "Sunday": "11:00 AM – 10:00 PM"}}, {"address": "Av. de la Cantera 9100, Misiones I Etapa, 31115 Chihuahua, Chih.", "phone": "614 443 8087", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=13416650378521490680", "hours": {"Monday": "11:00 AM – 11:00 PM", "Tuesday": "11:00 AM – 11:00 PM", "Wednesday": "11:00 AM – 11:00 PM", "Thursday": "11:00 AM – 11:00 PM", "Friday": "11:00 AM – 11:00 PM", "Saturday": "11:00 AM – 11:00 PM", "Sunday": "11:00 AM – 10:00 PM"}}],
-    logo: "/assets/logos/tacotote.webp",
+    logo: "/assets/logos/tacotote.webp?v=7e0dc30b",
   },
   {
     name: "The hottie wings",
@@ -958,7 +958,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "11:00 AM – 6:30 PM", Tuesday: "11:00 AM – 6:30 PM", Wednesday: "12:00 PM – 7:30 PM", Thursday: "12:00 PM – 7:30 PM", Friday: "12:00 PM – 7:30 PM", Saturday: "12:00 PM – 7:30 PM", Sunday: "12:00 PM – 7:30 PM" },
     locations: [],
-    logo: "/assets/logos/the-hottie-wings.webp",
+    logo: "/assets/logos/manual/the-hottie-wings.webp?v=7cea1d8a",
   },
   {
     name: "Tortas Piolines",
@@ -973,7 +973,7 @@ const restaurants = [
     rating: 4.4,
     hours: { Monday: "10:00 AM – 11:00 PM", Tuesday: "10:00 AM – 11:00 PM", Wednesday: "10:00 AM – 11:00 PM", Thursday: "10:00 AM – 11:00 PM", Friday: "10:00 AM – 11:00 PM", Saturday: "10:00 AM – 11:00 PM", Sunday: "10:00 AM – 5:30 PM" },
     locations: [{"address": "Av. Glandorf 3701, Parques de San Felipe, 31203 Chihuahua, Chih.", "phone": "614 414 4551", "rating": 4.4, "mapsUrl": "https://maps.google.com/?cid=17568979103433629315", "hours": {"Monday": "10:00 AM – 11:00 PM", "Tuesday": "10:00 AM – 11:00 PM", "Wednesday": "10:00 AM – 11:00 PM", "Thursday": "10:00 AM – 11:00 PM", "Friday": "10:00 AM – 11:00 PM", "Saturday": "10:00 AM – 11:00 PM", "Sunday": "10:00 AM – 5:30 PM"}}, {"address": "Plaza Rayuela, Av. de la Cantera s/n, Panamericana, 31210 Chihuahua, Chih.", "phone": "614 426 1010", "rating": 4.2, "mapsUrl": "https://maps.google.com/?cid=3490900978967170018", "hours": {"Monday": "10:00 AM – 10:00 PM", "Tuesday": "10:00 AM – 10:00 PM", "Wednesday": "10:00 AM – 10:00 PM", "Thursday": "10:00 AM – 10:00 PM", "Friday": "10:00 AM – 10:00 PM", "Saturday": "10:00 AM – 10:00 PM", "Sunday": "10:00 AM – 10:00 PM"}}, {"address": "es incorrecta la direccion del mapa, Paseos Vista del Sol 6404, Vistas del Sol, 31215 Chihuahua, Chih.", "phone": "614 541 5885", "rating": 4.5, "mapsUrl": "https://maps.google.com/?cid=18183282504691269626", "hours": {"Monday": "10:00 AM – 11:00 PM", "Tuesday": "10:00 AM – 11:00 PM", "Wednesday": "10:00 AM – 11:00 PM", "Thursday": "10:00 AM – 11:00 PM", "Friday": "10:00 AM – 11:00 PM", "Saturday": "10:00 AM – 11:00 PM", "Sunday": "10:00 AM – 10:00 PM"}}, {"address": "Vialidad Chp, Av. Nueva España 8812, Mármol Viejo, 31063 Chihuahua, Chih.", "phone": "614 389 2291", "rating": 4.3, "mapsUrl": "https://maps.google.com/?cid=15083989450103977248", "hours": {"Monday": "10:00 AM – 10:00 PM", "Tuesday": "10:00 AM – 10:00 PM", "Wednesday": "10:00 AM – 10:00 PM", "Thursday": "10:00 AM – 10:00 PM", "Friday": "10:00 AM – 10:00 PM", "Saturday": "10:00 AM – 10:00 PM", "Sunday": "10:00 AM – 10:00 PM"}}],
-    logo: "/assets/logos/tortas-piolines.webp",
+    logo: "/assets/logos/manual/tortas-piolines.webp?v=42b6ae3b",
   },
   {
     name: "Woko Loco",
@@ -988,7 +988,7 @@ const restaurants = [
     rating: 4,
     hours: { Monday: "Cerrado", Tuesday: "1:00 PM – 10:00 PM", Wednesday: "1:00 PM – 10:00 PM", Thursday: "1:00 PM – 10:00 PM", Friday: "1:00 PM – 10:00 PM", Saturday: "1:00 PM – 10:00 PM", Sunday: "1:00 PM – 10:00 PM" },
     locations: [],
-    logo: "/assets/logos/woko-loco.webp",
+    logo: "/assets/logos/manual/woko-loco.webp?v=0f9b1ed9",
   },
   {
     name: "Yakiyang",
@@ -1003,6 +1003,6 @@ const restaurants = [
     rating: 3.4,
     hours: { Monday: "11:00 AM – 6:00 PM", Tuesday: "11:00 AM – 6:00 PM", Wednesday: "11:00 AM – 6:00 PM", Thursday: "11:00 AM – 6:00 PM", Friday: "11:00 AM – 6:00 PM", Saturday: "11:00 AM – 6:00 PM", Sunday: "11:00 AM – 6:00 PM" },
     locations: [],
-    logo: null,
+    logo: "/assets/logos/manual/yakiyang.webp?v=21a2de06",
   }
 ].sort((a,b) => a.name.localeCompare(b.name, 'es'));

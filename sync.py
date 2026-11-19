@@ -409,6 +409,24 @@ def resolve_location(place_id, cache, stats):
     return location
 
 
+def load_existing_logos(path):
+    """Lee name → logo del JS actual. null queda como None."""
+    try:
+        with open(path, encoding="utf-8") as handle:
+            text = handle.read()
+    except OSError:
+        return {}
+    logos = {}
+    for block in text.split("\n  {"):
+        name_m = re.search(r'name:\s*"((?:\\.|[^"\\])*)"', block)
+        logo_m = re.search(r'logo:\s*(null|"((?:\\.|[^"\\])*)")', block)
+        if not name_m or not logo_m:
+            continue
+        name = name_m.group(1).replace('\\"', '"')
+        logos[name] = None if logo_m.group(1) == "null" else logo_m.group(2).replace('\\"', '"')
+    return logos
+
+
 def main():
     if FORCE_PLACES_REFRESH:
         print("⚡ FORCE_PLACES_REFRESH enabled — refetching all Place IDs from Google")
@@ -422,6 +440,7 @@ def main():
 
     all_entries = []
     active_place_ids = set()
+    existing_logos = load_existing_logos(SITE_DATA_FILE)
 
     notion_hdrs = {"Authorization": f"Bearer {NOTION_TOKEN}"} if NOTION_TOKEN else {}
 
@@ -444,7 +463,8 @@ def main():
             print(f"   Logo: {src.get('source')} → {logo_path or 'iniciales'}")
         else:
             notion_data.pop("page", None)
-            notion_data["logo"] = None
+            # SKIP_LOGOS no borra los logos que ya están en el directorio.
+            notion_data["logo"] = existing_logos.get(notion_data["name"])
 
         if notion_data["place_ids"]:
             locations = []
