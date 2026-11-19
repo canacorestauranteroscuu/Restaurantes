@@ -1,5 +1,21 @@
 import { formatFecha, formatMxn, hoyChihuahua, anioSugerido, aniosPermitidos } from './money.mjs';
 
+export function captureDecideDrafts(root, previous = {}) {
+  const next = { ...previous };
+  if (!root || typeof root.querySelectorAll !== 'function') return next;
+  for (const form of root.querySelectorAll('form.decide-form')) {
+    const id = form.dataset?.id;
+    if (!id) continue;
+    const fields = form.elements || {};
+    next[id] = {
+      fecha: fields.fecha?.value ?? '',
+      override: fields.override?.value ?? '',
+      motivo: fields.motivo?.value ?? '',
+    };
+  }
+  return next;
+}
+
 export function escapeHtml(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -153,14 +169,18 @@ export function renderAdmin(state) {
         ? '<p class="portal-alert">Usted es socio de esta ficha. No puede aprobar ni rechazar este pago; corresponde al otro firmante.</p>'
         : '';
       const tarde = p.horas24 ? '<p class="portal-chip portal-chip-late">Lleva más de 24 horas</p>' : '';
-      const link = p.comprobanteUrl
-        ? `<p><a href="${escapeHtml(p.comprobanteUrl)}" rel="noopener">Descargar comprobante</a></p>`
+      const link = p.path
+        ? `<p><button type="button" class="portal-textbtn" data-comprobante-path="${escapeHtml(p.path)}">Descargar comprobante</button></p>`
         : '<p>Sin archivo de comprobante.</p>';
       const esperado = p.esperadoServidor == null ? 'El servidor no dio una cuota.' : formatMxn(p.esperadoServidor);
+      const draft = (state.drafts || {})[p.id];
+      const fechaValor = draft ? draft.fecha : p.fecha;
+      const overrideValor = draft ? draft.override : '';
+      const motivoValor = draft ? draft.motivo : '';
       const acciones = lectura || p.esPropio ? '' : `<form class="portal-form decide-form" data-id="${escapeHtml(p.id)}" data-fecha="${escapeHtml(p.fecha)}" data-reportado="${escapeHtml(p.reportado)}" data-esperado="${escapeHtml(p.esperadoServidor ?? '')}">
-          <label>Corregir fecha <input type="date" name="fecha" min="2026-01-01" max="${escapeHtml(state.hoy)}" value="${escapeHtml(p.fecha)}"></label>
-          <label>Monto distinto, si hace falta <input name="override" inputmode="decimal" placeholder="dejar la cuota del servidor"></label>
-          <label>Motivo <textarea name="motivo" rows="2" placeholder="Hace falta si el monto o la fecha cambian la cuota, y siempre para rechazar."></textarea></label>
+          <label>Corregir fecha <input type="date" name="fecha" min="2026-01-01" max="${escapeHtml(state.hoy)}" value="${escapeHtml(fechaValor)}"></label>
+          <label>Monto distinto, si hace falta <input name="override" inputmode="decimal" placeholder="dejar la cuota del servidor" value="${escapeHtml(overrideValor)}"></label>
+          <label>Motivo <textarea name="motivo" rows="2" placeholder="Hace falta si el monto o la fecha cambian la cuota, y siempre para rechazar.">${escapeHtml(motivoValor)}</textarea></label>
           <div class="portal-actions">
             <button class="btn btn-primary" type="submit" name="decision" value="aprobar">Aprobar</button>
             <button class="btn btn-ghost" type="submit" name="decision" value="rechazar">Rechazar</button>
@@ -202,6 +222,13 @@ export function renderProfile() {
 export function renderPortal(state) {
   if (state.screen === 'loading') {
     return '<section class="portal-card"><p role="status">Abriendo su sesión…</p></section>';
+  }
+  if (state.screen === 'load-error') {
+    return `<section class="portal-card">
+      <h1>No se pudo abrir el portal</h1>
+      ${alert(state.error || 'No pudimos cargar su información. Si ya envió un aviso o una decisión, no lo repita.')}
+      <button type="button" class="btn btn-primary" id="retry-home" ${state.busy ? 'disabled' : ''}>Reintentar</button>
+    </section>`;
   }
   if (state.screen === 'code') return renderCode(state);
   if (state.screen !== 'app') return renderLogin(state);

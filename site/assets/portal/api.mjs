@@ -159,7 +159,29 @@ export function createPortalApi(client, deps = {}) {
       return { ok: true };
     },
 
+    async comprobanteFirmado(path) {
+      if (!path) return fail('No hay archivo de comprobante.');
+      try {
+        const signed = await client.storage.from('comprobantes').createSignedUrl(path, SIGNED_URL_SECONDS, { download: true });
+        if (signed.error || !signed.data?.signedUrl) return fail('No pudimos preparar la descarga. Intente de nuevo.');
+        const url = safeDownloadUrl(signed.data.signedUrl, allowedOrigin);
+        if (!url) return fail('No pudimos preparar la descarga. Intente de nuevo.');
+        return { ok: true, url };
+      } catch {
+        return fail('No pudimos preparar la descarga. Intente de nuevo.');
+      }
+    },
+
     async loadHome() {
+      try {
+        return await loadHomeInner();
+      } catch {
+        return { ok: false, message: 'No pudimos cargar su información.' };
+      }
+    },
+  };
+
+  async function loadHomeInner() {
       const userRes = await client.auth.getUser();
       if (userRes.error || !userRes.data?.user) return { ok: false, signedOut: true };
       const user = userRes.data.user;
@@ -203,13 +225,6 @@ export function createPortalApi(client, deps = {}) {
             p_anio: item.anio,
           });
           item.esperadoServidor = preview.error ? null : Number(preview.data);
-          item.comprobanteUrl = '';
-          if (item.path) {
-            const signed = await client.storage.from('comprobantes').createSignedUrl(item.path, SIGNED_URL_SECONDS, { download: true });
-            if (!signed.error && signed.data?.signedUrl) {
-              item.comprobanteUrl = safeDownloadUrl(signed.data.signedUrl, allowedOrigin);
-            }
-          }
           pendientes.push(item);
         }
       }
@@ -225,8 +240,7 @@ export function createPortalApi(client, deps = {}) {
         puedeAprobar,
         pendientes,
       };
-    },
-  };
+  }
 }
 
 export function safeDownloadUrl(url, allowedOrigin) {

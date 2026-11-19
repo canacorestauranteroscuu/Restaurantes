@@ -17,7 +17,7 @@ import {
   validateFechaPago,
   validatePassword,
 } from '../site/assets/portal/validate.mjs';
-import { escapeHtml, renderPortal } from '../site/assets/portal/view.mjs';
+import { captureDecideDrafts, escapeHtml, renderPortal } from '../site/assets/portal/view.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SOCIO = '11111111-1111-4111-8111-111111111111';
@@ -281,7 +281,8 @@ test('la cola marca el pago propio y solo abre https del proyecto', async () => 
       from() {
         return {
           createSignedUrl(path, seconds, options) {
-            assert.equal(seconds > 0, true);
+            signed += 1;
+            assert.equal(seconds, 120);
             assert.equal(options.download, true);
             return Promise.resolve({
               data: { signedUrl: `${ORIGIN}/storage/v1/object/sign/${path}?token=abc` },
@@ -292,11 +293,21 @@ test('la cola marca el pago propio y solo abre https del proyecto', async () => 
       },
     },
   };
-  const home = await createPortalApi(client, { allowedOrigin: ORIGIN }).loadHome();
+  let signed = 0;
+  const api = createPortalApi(client, { allowedOrigin: ORIGIN });
+  const home = await api.loadHome();
+  assert.equal(signed, 0);
   assert.equal(home.puedeAprobar, true);
   assert.equal(home.pendientes[0].esPropio, true);
   assert.equal(home.pendientes[0].horas24, true);
-  assert.equal(home.pendientes[0].comprobanteUrl.startsWith(`${ORIGIN}/`), true);
+  assert.equal(home.pendientes[0].comprobanteUrl, undefined);
+  const file = await api.comprobanteFirmado(home.pendientes[0].path);
+  assert.equal(signed, 1);
+  assert.equal(file.ok, true);
+  assert.equal(file.url.startsWith(`${ORIGIN}/`), true);
+  const again = await api.comprobanteFirmado(home.pendientes[0].path);
+  assert.equal(signed, 2);
+  assert.equal(again.ok, true);
   assert.equal(safeDownloadUrl('javascript:alert(1)', ORIGIN), '');
   assert.equal(safeDownloadUrl('http://lynbusuqmexsehpvaqev.supabase.co/a', ORIGIN), '');
   assert.equal(safeDownloadUrl('https://otro.supabase.co/a', ORIGIN), '');
@@ -339,12 +350,14 @@ test('las pantallas escapan el texto y respetan quien puede decidir', () => {
     pendientes: [{
       id: 'p1', socioId: SOCIO, socioNombre: 'Fonda del Puente', esSocioBase: true,
       esPropio: true, horas24: true, anio: 2027, fecha: '2026-11-01', reportado: 1200,
-      esperadoServidor: 1200, comprobanteUrl: `${ORIGIN}/storage/v1/object/sign/a?token=1`,
+      esperadoServidor: 1200, path: `${SOCIO}/a.pdf`,
     }],
   });
   assert.match(propio, /otro firmante/);
   assert.match(propio, /Lleva más de 24 horas/);
   assert.match(propio, /Descargar comprobante/);
+  assert.match(propio, /data-comprobante-path="/);
+  assert.doesNotMatch(propio, /<a href=/);
   assert.doesNotMatch(propio, /value="aprobar"/);
 
   const lectura = renderPortal({
@@ -365,6 +378,72 @@ test('las pantallas escapan el texto y respetan quien puede decidir', () => {
   assert.doesNotMatch(lectura, /value="aprobar"/);
   assert.match(renderPortal({ screen: 'login' }), /Enviar código/);
   assert.match(renderPortal({ screen: 'code', email: 'a@example.test', secondsLeft: 30 }), /Reenviar código/);
+  const fallo = renderPortal({ screen: 'load-error', error: 'No pudimos cargar su información.', busy: false });
+  assert.match(fallo, /Reintentar/);
+  assert.match(fallo, /No pudimos cargar su información/);
+  assert.doesNotMatch(fallo, /Abriendo su sesión/);
+  assert.doesNotMatch(fallo, /disabled/);
+});
+
+test('un error al cargar no se propaga y el comprobante se firma al pedirlo', async () => {
+  const client = {
+    auth: { getUser: async () => ({ data: { user: { id: 'user-1', email: 'a@example.test' } }, error: null }) },
+    from() {
+      const q = {
+        select() { return q; },
+        eq() { return q; },
+        in() { return q; },
+        order() { return q; },
+        then(resolve, reject) {
+          return Promise.resolve({ data: null, error: { message: 'permission denied' } }).then(resolve, reject);
+        },
+      };
+      return q;
+    },
+    storage: { from() { return { createSignedUrl() { throw new Error('no debía firmarse'); } }; } },
+  };
+  const home = await createPortalApi(client, { allowedOrigin: ORIGIN }).loadHome();
+  assert.equal(home.ok, false);
+  assert.match(home.message, /No pudimos cargar/);
+});
+
+test('la corrección del tesorero sobrevive al redibujado', () => {
+  const root = {
+    querySelectorAll(sel) {
+      assert.equal(sel, 'form.decide-form');
+      return [{
+        dataset: { id: 'p2' },
+        elements: {
+          fecha: { value: '2026-10-20' },
+          override: { value: '900' },
+          motivo: { value: 'Cuota de octubre' },
+        },
+      }];
+    },
+  };
+  const drafts = captureDecideDrafts(root, {});
+  assert.deepEqual(drafts.p2, { fecha: '2026-10-20', override: '900', motivo: 'Cuota de octubre' });
+  const html = renderPortal({
+    screen: 'app',
+    userEmail: 'tesorero@example.test',
+    roles: ['tesorero'],
+    socios: [],
+    hoy: '2026-11-19',
+    staff: true,
+    puedeAprobar: true,
+    adminError: 'Ese cambio de monto necesita un motivo.',
+    drafts,
+    pendientes: [{
+      id: 'p2', socioId: OTHER, socioNombre: 'Cocina Norte', esSocioBase: false,
+      esPropio: false, horas24: false, anio: 2027, fecha: '2026-11-02', reportado: 1200,
+      esperadoServidor: 1200, path: `${OTHER}/b.pdf`,
+    }],
+  });
+  assert.match(html, /data-fecha="2026-11-02"/);
+  assert.match(html, /value="2026-10-20"/);
+  assert.match(html, /value="900"/);
+  assert.match(html, /Cuota de octubre/);
+  assert.match(html, /necesita un motivo/);
 });
 
 test('el repo no guarda la service role ni abre otros origenes', () => {

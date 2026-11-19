@@ -3,7 +3,7 @@ import { createPortalApi } from './api.mjs';
 import { anioSugerido, aniosPermitidos, hoyChihuahua, montoEsperado, tipoMembresia } from './money.mjs';
 import { RESEND_SECONDS, parseMonto } from './validate.mjs';
 import { motivoNecesario } from './errors.mjs';
-import { renderPortal, textoEsperado } from './view.mjs';
+import { captureDecideDrafts, renderPortal, textoEsperado } from './view.mjs';
 
 const root = document.getElementById('portal-root');
 const hoy = () => hoyChihuahua();
@@ -15,6 +15,7 @@ const state = {
   secondsLeft: 0,
   error: '',
   hoy: hoy(),
+  drafts: {},
 };
 
 let timer = null;
@@ -31,8 +32,17 @@ const client = globalThis.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHAB
 
 const api = createPortalApi(client, { allowedOrigin: new URL(SUPABASE_URL).origin });
 
+const LOAD_ERROR = 'No pudimos cargar su información. Si ya envió un aviso o una decisión, no lo repita.';
+
 function paint() {
+  state.drafts = captureDecideDrafts(root, state.drafts || {});
   root.innerHTML = renderPortal(state);
+}
+
+function showLoadError(message = LOAD_ERROR) {
+  state.screen = 'load-error';
+  state.error = message;
+  state.busy = false;
 }
 
 function stopTimer() {
@@ -83,23 +93,39 @@ function applyHome(data) {
   refreshPreview();
 }
 
-async function boot() {
-  paint();
-  const { data } = await client.auth.getSession();
-  if (!data.session) {
-    state.screen = 'login';
-    state.busy = false;
-    paint();
-    return;
-  }
+async function reloadHome() {
   const loaded = await api.loadHome();
   if (!loaded.ok) {
-    state.screen = 'login';
-    state.busy = false;
-    paint();
-    return;
+    if (loaded.signedOut) {
+      state.screen = 'login';
+      state.error = '';
+      return false;
+    }
+    showLoadError(loaded.message || LOAD_ERROR);
+    return false;
   }
   applyHome(loaded);
+  return true;
+}
+
+async function boot() {
+  state.screen = 'loading';
+  state.busy = true;
+  state.error = '';
+  paint();
+  try {
+    const { data } = await client.auth.getSession();
+    if (!data?.session) {
+      state.screen = 'login';
+      return;
+    }
+    await reloadHome();
+  } catch {
+    showLoadError('No pudimos abrir su sesión. Intente de nuevo.');
+  } finally {
+    state.busy = false;
+    if (state.screen !== 'app') paint();
+  }
 }
 
 function socioById(id) {
@@ -180,15 +206,14 @@ root.addEventListener('submit', async (event) => {
       return;
     }
     stopTimer();
-    const loaded = await api.loadHome();
-    if (!loaded.ok) {
+    try {
+      await reloadHome();
+    } catch {
+      showLoadError();
+    } finally {
       state.busy = false;
-      state.screen = 'login';
-      state.error = 'Entró, pero no pudimos abrir su ficha. Intente de nuevo.';
-      paint();
-      return;
+      if (state.screen !== 'app') paint();
     }
-    applyHome(loaded);
     return;
   }
   if (form.id === 'pago-form') {
@@ -205,28 +230,31 @@ root.addEventListener('submit', async (event) => {
     state.socioId = data.get('socio');
     const file = form.querySelector('#comprobante').files[0];
     paint();
-    const result = await api.reportarPago({
-      socioId: data.get('socio'),
-      fecha,
-      anio,
-      monto: data.get('monto'),
-      metodo: data.get('metodo'),
-      file,
-      hoy: hoy(),
-    });
-    if (!result.ok) {
+    try {
+      const result = await api.reportarPago({
+        socioId: data.get('socio'),
+        fecha,
+        anio,
+        monto: data.get('monto'),
+        metodo: data.get('metodo'),
+        file,
+        hoy: hoy(),
+      });
+      if (!result.ok) {
+        state.pagoError = result.message;
+        state.fecha = fecha;
+        state.anio = anio;
+        return;
+      }
+      const opened = await reloadHome();
+      if (opened) state.pagoNote = 'Recibimos su aviso. Queda pendiente hasta que la Sección lo revise.';
+    } catch {
+      showLoadError();
+    } finally {
       state.busy = false;
-      state.pagoError = result.message;
-      state.fecha = fecha;
-      state.anio = anio;
       paint();
-      return;
+      if (state.screen === 'app') refreshPreview();
     }
-    const loaded = await api.loadHome();
-    if (loaded.ok) applyHome(loaded);
-    state.pagoNote = 'Recibimos su aviso. Queda pendiente hasta que la Sección lo revise.';
-    state.busy = false;
-    paint();
     return;
   }
   if (form.id === 'password-form') {
@@ -245,60 +273,82 @@ root.addEventListener('submit', async (event) => {
     const motivo = String(data.get('motivo') || '').trim();
     const reportado = Number(form.dataset.reportado);
     const esperado = form.dataset.esperado === '' ? null : Number(form.dataset.esperado);
-    let esperadoNuevo = esperado;
-    if (fechaNueva && fechaNueva !== form.dataset.fecha) {
-      const preview = await api.previewMonto(
-        state.pendientes.find((p) => p.id === form.dataset.id)?.socioId,
+    try {
+      let esperadoNuevo = esperado;
+      if (fechaNueva && fechaNueva !== form.dataset.fecha) {
+        const preview = await api.previewMonto(
+          state.pendientes.find((p) => p.id === form.dataset.id)?.socioId,
+          fechaNueva,
+          state.pendientes.find((p) => p.id === form.dataset.id)?.anio
+        );
+        if (preview.ok) esperadoNuevo = preview.monto;
+      }
+      const override = overrideRaw ? parseMonto(overrideRaw) : null;
+      if (override && !override.ok) {
+        state.adminError = override.error;
+        return;
+      }
+      if (decision === 'aprobar' && motivoNecesario({
+        reportado,
+        esperado,
+        fechaOriginal: form.dataset.fecha,
         fechaNueva,
-        state.pendientes.find((p) => p.id === form.dataset.id)?.anio
-      );
-      if (preview.ok) esperadoNuevo = preview.monto;
-    }
-    const override = overrideRaw ? parseMonto(overrideRaw) : null;
-    if (override && !override.ok) {
-      state.adminError = override.error;
-      paint();
-      return;
-    }
-    if (decision === 'aprobar' && motivoNecesario({
-      reportado,
-      esperado,
-      fechaOriginal: form.dataset.fecha,
-      fechaNueva,
-      override: override ? override.value : '',
-      esperadoNuevo,
-    }) && !motivo) {
-      state.adminError = 'Ese cambio de monto necesita un motivo.';
-      paint();
-      return;
-    }
-    state.busy = true;
-    state.adminError = '';
-    const result = decision === 'rechazar'
-      ? await api.rechazar({ id: form.dataset.id, motivo })
-      : await api.aprobar({
-        id: form.dataset.id,
-        fecha: fechaNueva && fechaNueva !== form.dataset.fecha ? fechaNueva : null,
-        override: override ? override.value : null,
-        motivo,
-      });
-    if (!result.ok) {
+        override: override ? override.value : '',
+        esperadoNuevo,
+      }) && !motivo) {
+        state.adminError = 'Ese cambio de monto necesita un motivo.';
+        return;
+      }
+      state.busy = true;
+      state.adminError = '';
+      const result = decision === 'rechazar'
+        ? await api.rechazar({ id: form.dataset.id, motivo })
+        : await api.aprobar({
+          id: form.dataset.id,
+          fecha: fechaNueva && fechaNueva !== form.dataset.fecha ? fechaNueva : null,
+          override: override ? override.value : null,
+          motivo,
+        });
+      if (!result.ok) {
+        state.adminError = result.message;
+        return;
+      }
+      const opened = await reloadHome();
+      if (opened) state.adminNote = decision === 'rechazar' ? 'El pago quedó rechazado.' : 'El pago quedó aprobado.';
+    } catch {
+      showLoadError();
+    } finally {
       state.busy = false;
-      state.adminError = result.message;
       paint();
-      return;
     }
-    const loaded = await api.loadHome();
-    if (loaded.ok) applyHome(loaded);
-    state.adminNote = decision === 'rechazar' ? 'El pago quedó rechazado.' : 'El pago quedó aprobado.';
-    state.busy = false;
-    paint();
   }
 });
 
 root.addEventListener('click', async (event) => {
   const btn = event.target.closest('button');
   if (!btn) return;
+  if (btn.id === 'retry-home') {
+    boot();
+    return;
+  }
+  if (btn.dataset.comprobantePath) {
+    btn.disabled = true;
+    try {
+      const result = await api.comprobanteFirmado(btn.dataset.comprobantePath);
+      if (!result.ok) {
+        state.adminError = result.message;
+        paint();
+        return;
+      }
+      window.open(result.url, '_blank', 'noopener');
+    } catch {
+      state.adminError = 'No pudimos preparar la descarga. Intente de nuevo.';
+      paint();
+    } finally {
+      if (btn.isConnected) btn.disabled = false;
+    }
+    return;
+  }
   if (btn.id === 'change-email') {
     stopTimer();
     state.screen = 'login';

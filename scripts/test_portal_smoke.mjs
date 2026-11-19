@@ -76,7 +76,7 @@ const server = createServer((req, res) => {
 const port = await listen(server);
 const base = `http://127.0.0.1:${port}`;
 const browser = await chromium.launch();
-const mode = { role: 'socio', otp: 'ok' };
+const mode = { role: 'socio', otp: 'ok', failHome: 0, lastApprove: null };
 const seen = [];
 let uploads = [];
 
@@ -137,6 +137,10 @@ async function installApi(page) {
       });
     }
     if (path.includes('/rest/v1/usuario_roles')) {
+      if (mode.failHome) {
+        mode.failHome -= 1;
+        return json(route, { message: 'permission denied', code: '42501' }, 500);
+      }
       const roles = {
         socio: ['socio'],
         tesorero: ['tesorero', 'socio'],
@@ -224,6 +228,7 @@ async function installApi(page) {
     }
     if (path.includes('/rpc/calcular_monto_esperado')) return json(route, 1200);
     if (path.includes('/rpc/aprobar_renovacion')) {
+      mode.lastApprove = body;
       if (!body.p_motivo) {
         return json(route, { message: 'la diferencia de monto requiere motivo', code: 'P0001' }, 400);
       }
@@ -332,13 +337,25 @@ test('recorrido del portal', { timeout: 90000 }, async () => {
   await page.getByText('Lleva más de 24 horas').waitFor();
   await page.getByText('Cocina Norte').waitFor();
   assert.equal(await page.locator('button[value="aprobar"]').count(), 1);
+  assert.equal(seen.filter((line) => line.includes('/object/sign/')).length, 0);
   await page.screenshot({ path: join(shotDir, 'portal_admin_cola.png'), fullPage: true });
+  const signed = page.waitForResponse((res) => res.url().includes('/object/sign/'));
+  await page.getByRole('button', { name: 'Descargar comprobante' }).first().click();
+  await signed;
+  const decide = page.locator('form.decide-form');
+  await decide.locator('input[name="fecha"]').fill('2026-10-20');
+  await decide.locator('input[name="override"]').fill('900');
   await page.locator('button[value="aprobar"]').click();
   await page.getByText('necesita un motivo').waitFor();
+  assert.equal(await decide.locator('input[name="fecha"]').inputValue(), '2026-10-20');
+  assert.equal(await decide.locator('input[name="override"]').inputValue(), '900');
   await page.screenshot({ path: join(shotDir, 'portal_admin_motivo.png'), fullPage: true });
-  await page.locator('textarea[name="motivo"]').fill('El comprobante coincide con la cuota.');
+  await decide.locator('textarea[name="motivo"]').fill('El comprobante coincide con la cuota.');
   await page.locator('button[value="aprobar"]').click();
   await page.getByText('quedó aprobado').waitFor();
+  assert.equal(mode.lastApprove.p_fecha_pago, '2026-10-20');
+  assert.equal(mode.lastApprove.p_monto_override, 900);
+  assert.match(mode.lastApprove.p_motivo, /comprobante/);
 
   mode.role = 'lectura';
   await setSession(page, 'consulta@example.test');
@@ -351,6 +368,14 @@ test('recorrido del portal', { timeout: 90000 }, async () => {
   await page.locator('#password').fill('Abcdefghij1!');
   await page.getByRole('button', { name: 'Guardar contraseña' }).click();
   await page.getByText('La próxima vez también puede entrar').waitFor();
+
+  mode.failHome = 1;
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Reintentar' }).waitFor();
+  assert.equal(await page.getByText('Abriendo su sesión').count(), 0);
+  assert.equal(await page.locator('#retry-home').isDisabled(), false);
+  await page.getByRole('button', { name: 'Reintentar' }).click();
+  await page.getByText('puede consultar').waitFor();
 
   await context.close();
 });
