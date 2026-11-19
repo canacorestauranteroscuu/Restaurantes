@@ -99,12 +99,12 @@ function mountSiteFooter() {
   const els = document.querySelectorAll('.reveal');
   if (!els.length) return;
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let fired = false;
+  let revealedAny = false;
   const io = new IntersectionObserver(
     (entries) => {
-      fired = true;
       entries.forEach((e) => {
         if (e.isIntersecting) {
+          revealedAny = true;
           e.target.classList.add('is-visible');
           io.unobserve(e.target);
         }
@@ -115,6 +115,6 @@ function mountSiteFooter() {
   document.documentElement.classList.add('js-reveal-ready');
   els.forEach((el) => io.observe(el));
   setTimeout(() => {
-    if (!fired) els.forEach((el) => el.classList.add('is-visible'));
+    if (!revealedAny) els.forEach((el) => el.classList.add('is-visible'));
   }, 1500);
 })();

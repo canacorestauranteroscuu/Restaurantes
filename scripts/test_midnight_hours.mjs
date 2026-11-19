@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Prueba fixMidnight / todayHours (medianoche «12:00 PM» tras apertura PM).
+ * Prueba fixMidnight, inRanges overnight y conteos «Abierto ahora».
  * Ejecutar: node scripts/test_midnight_hours.mjs
  */
 import assert from 'node:assert/strict';
@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const THU = 4;
 
 function fixMidnight(h) {
   return h.replace(/(\d{1,2}:\d{2}\s*PM)\s*–\s*12:00\s*PM/gi, (m, open) => `${open} – 12:00 AM`);
@@ -27,7 +29,7 @@ for (const [input, expected] of cases) {
   assert.equal(fixMidnight(input), expected, `fixMidnight(${input})`);
 }
 
-function toMins(str) {
+function toMinsHM(str) {
   const ampm = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
   if (ampm) {
     let hr = parseInt(ampm[1], 10);
@@ -38,68 +40,103 @@ function toMins(str) {
     return hr * 60 + mn;
   }
   const mil = str.match(/(\d+):(\d+)/);
-  if (mil) return parseInt(mil[1], 10) * 60 + parseInt(mil[2], 10);
-  return null;
+  return mil ? parseInt(mil[1], 10) * 60 + parseInt(mil[2], 10) : null;
 }
 
-function isOpenAt(hoursStr, nowMins) {
-  if (!hoursStr || hoursStr === 'Cerrado') return false;
-  const ranges = hoursStr.split(',').map((s) => s.trim());
-  for (const range of ranges) {
+function inRanges(h, mins, overnightOnly) {
+  if (!h || h === 'Cerrado') return false;
+  for (const range of h.split(',').map((s) => s.trim())) {
     const parts = range.split('–').map((s) => s.trim());
     if (parts.length < 2) continue;
-    const open = toMins(parts[0]);
-    let close = toMins(parts[1]);
+    const open = toMinsHM(parts[0]);
+    let close = toMinsHM(parts[1]);
     if (open === null || close === null) continue;
-    if (close < open) close += 24 * 60;
-    if (nowMins >= open && nowMins < close) return true;
+    if (close <= open) close += 24 * 60;
+    if (overnightOnly && close <= 24 * 60) continue;
+    if (mins >= open && mins < close) return true;
   }
   return false;
 }
 
-const bad = '6:00 PM – 12:00 PM';
-const good = fixMidnight(bad);
-assert.equal(good, '6:00 PM – 12:00 AM');
-const ninePm = 21 * 60;
-const eightAm = 8 * 60;
-assert.equal(isOpenAt(bad, ninePm), true, 'jueves 21:00: abierto con horario mal escrito');
-assert.equal(isOpenAt(good, ninePm), true, 'jueves 21:00: abierto tras fix');
-assert.equal(isOpenAt(bad, eightAm), false, 'jueves 08:00: cerrado (medianoche mal no abre de madrugada)');
-assert.equal(isOpenAt(good, eightAm), false, 'jueves 08:00: cerrado tras fix');
+function todayHoursFor(r, dayIndex) {
+  const h = r.hours && r.hours[DAYS[dayIndex]];
+  return h ? fixMidnight(h) : null;
+}
 
-const dataSrc = readFileSync(join(root, 'site/assets/restaurants-data.js'), 'utf8');
-let fixedCount = 0;
-for (const m of dataSrc.matchAll(/PM\s*[–-]\s*12:00\s*PM/gi)) fixedCount++;
-assert.ok(fixedCount >= 20, `se esperaban muchos rangos PM–12:00 PM en el JSON (got ${fixedCount})`);
-
-// Conteo documentado para QA (jueves 08:00 simulado)
-function countOpenThursday(useFix) {
-  const sandbox = { restaurants: [] };
-  vm.createContext(sandbox);
-  vm.runInNewContext(
-    readFileSync(join(root, 'site/assets/restaurants-data.js'), 'utf8') + ';this.restaurants=restaurants',
-    sandbox
+function isOpenNowAt(r, dayIndex, hour, minute) {
+  const mins = hour * 60 + minute;
+  const yRaw = r.hours && r.hours[DAYS[(dayIndex + 6) % 7]];
+  return (
+    inRanges(todayHoursFor(r, dayIndex), mins, false) ||
+    inRanges(yRaw ? fixMidnight(yRaw) : null, mins + 24 * 60, true)
   );
+}
+
+/** Lógica anterior (solo horario de hoy, sin tramo overnight de ayer) */
+function isOpenLegacyAt(r, dayIndex, hour, minute) {
+  const h = todayHoursFor(r, dayIndex);
+  if (!h || h === 'Cerrado') return false;
+  return inRanges(h, hour * 60 + minute, false);
+}
+
+const sandbox = { restaurants: [] };
+vm.createContext(sandbox);
+vm.runInNewContext(
+  readFileSync(join(root, 'site/assets/restaurants-data.js'), 'utf8') + ';this.restaurants=restaurants',
+  sandbox
+);
+const restaurants = sandbox.restaurants;
+
+function countAt(dayIndex, hour, minute, fn) {
   let n = 0;
-  for (const r of sandbox.restaurants) {
-    let h = r.hours && r.hours.Thursday;
-    if (!h) continue;
-    if (useFix) h = fixMidnight(h);
-    if (isOpenAt(h, eightAm)) n++;
-  }
+  for (const r of restaurants) if (fn(r, dayIndex, hour, minute)) n++;
   return n;
 }
-const before8 = countOpenThursday(false);
-const after8 = countOpenThursday(true);
+
+const legacy0010 = countAt(THU, 0, 10, isOpenLegacyAt);
+const open0010 = countAt(THU, 0, 10, isOpenNowAt);
+const legacy0230 = countAt(THU, 2, 30, isOpenLegacyAt);
+const open0230 = countAt(THU, 2, 30, isOpenNowAt);
+
+assert.equal(legacy0010, 0, 'jueves 00:10 legacy: ninguno abierto sin overnight');
+assert.equal(open0010, 5, 'jueves 00:10 con overnight de ayer');
+assert.equal(countAt(THU, 1, 0, isOpenLegacyAt), 0);
+assert.equal(countAt(THU, 1, 0, isOpenNowAt), 4, 'jueves 01:00 overnight');
+assert.equal(open0230, legacy0230, 'jueves 02:30: mismos (tramos 01:30 ya cerraron)');
+assert.ok(open0010 > legacy0010, '00:10 debe ganar lugares que cruzan medianoche');
+
+for (const [h, m, label] of [
+  [9, 0, '09:00'],
+  [13, 0, '13:00'],
+  [21, 0, '21:00'],
+  [8, 0, '08:00'],
+]) {
+  const leg = countAt(THU, h, m, isOpenLegacyAt);
+  const neu = countAt(THU, h, m, isOpenNowAt);
+  assert.equal(neu, leg, `jueves ${label}: conteo nuevo = legacy (${neu} vs ${leg})`);
+}
+
+const dataSrc = readFileSync(join(root, 'site/assets/restaurants-data.js'), 'utf8');
+const fixedCount = [...dataSrc.matchAll(/PM\s*[–-]\s*12:00\s*PM/gi)].length;
+assert.ok(fixedCount >= 20, `rangos PM–12:00 PM en JSON (got ${fixedCount})`);
 
 console.log(
-  'test_midnight_hours.mjs: OK (' +
-    cases.length +
-    ' casos, ' +
-    fixedCount +
-    ' rangos PM–12:00 PM en JSON; jueves 08:00 Chihuahua sim.: ' +
-    before8 +
-    ' → ' +
-    after8 +
-    ' abiertos)'
+  JSON.stringify(
+    {
+      ok: true,
+      fixMidnightCases: cases.length,
+      pmMidnightRanges: fixedCount,
+      thursday: {
+        '00:10': { legacy: legacy0010, withOvernight: open0010 },
+        '01:00': { legacy: 0, withOvernight: 4 },
+        '02:30': { legacy: legacy0230, withOvernight: open0230 },
+        '08:00': countAt(THU, 8, 0, isOpenNowAt),
+        '09:00': countAt(THU, 9, 0, isOpenNowAt),
+        '13:00': countAt(THU, 13, 0, isOpenNowAt),
+        '21:00': countAt(THU, 21, 0, isOpenNowAt),
+      },
+    },
+    null,
+    2
+  )
 );

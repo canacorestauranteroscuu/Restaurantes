@@ -73,7 +73,8 @@
     const items = filterRestaurants({ category: 'all', query: q(), openOnly: false }).slice(0, 6);
     listPreview.innerHTML = items.map((r) => {
       const st = statusText(r);
-      return `<a class="rest-card${lastWinner && lastWinner.name === r.name ? ' is-highlight' : ''}" href="/restaurantes/#${slugify(r.name)}">
+      const rid = 'r-' + slugify(r.name);
+      return `<a class="rest-card${lastWinner && lastWinner.name === r.name ? ' is-highlight' : ''}" href="/restaurantes/#${rid}">
         ${logoTile(r, 'sm')}
         <span class="rest-info">
           <span class="rest-name">${escapeHtml(r.name)}</span>

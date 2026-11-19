@@ -80,6 +80,19 @@ def write_sources_md(sources: dict) -> None:
     md_path.write_text("\n".join(lines), encoding="utf-8")
 
 
+NOTION_API_HOST = "api.notion.com"
+
+
+def notion_only_headers(url: str, notion_headers: dict | None) -> dict | None:
+    """Bearer de Notion solo a api.notion.com; nunca a S3, CDN ni sitios web."""
+    if not notion_headers:
+        return None
+    host = urllib.parse.urlparse(url).netloc.lower().split(":", 1)[0]
+    if host == NOTION_API_HOST:
+        return dict(notion_headers)
+    return None
+
+
 def http_get(url: str, headers: dict | None = None, timeout=20) -> bytes:
     hdrs = {"User-Agent": USER_AGENT}
     if headers:
@@ -187,8 +200,8 @@ def standardize_logo(raw: bytes) -> bytes:
     if raw[:15].lower().startswith(b"<!doctype") or raw[:5].lower().startswith(b"<html"):
         raise ValueError("response is HTML, not an image")
     im = Image.open(io.BytesIO(raw))
-    im = im.convert("RGBA")
     im = ImageOps.exif_transpose(im)
+    im = im.convert("RGBA")
 
     size = LOGO_SIZE
     canvas = Image.new("RGBA", (size, size), (255, 255, 255, 255))
@@ -263,7 +276,7 @@ def resolve_logo_for_entry(
             detail = "Logo en Notion es PDF (omitido)"
             continue
         try:
-            raw = http_get(url, headers=hdrs)
+            raw = http_get(url, headers=notion_only_headers(url, hdrs))
             save_logo(slug, raw)
             record = {
                 "slug": slug,

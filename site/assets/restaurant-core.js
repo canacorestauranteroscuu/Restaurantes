@@ -51,45 +51,50 @@ function todayHours(r) {
   return h ? fixMidnight(h) : null;
 }
 
-function isOpenNow(r) {
-  const h = todayHours(r);
-  if (!h || h === 'Cerrado') return false;
-
-  function toMins(str) {
-    const ampm = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
-    if (ampm) {
-      let hr = parseInt(ampm[1], 10);
-      const mn = parseInt(ampm[2], 10);
-      const ap = ampm[3].toUpperCase();
-      if (ap === 'PM' && hr !== 12) hr += 12;
-      if (ap === 'AM' && hr === 12) hr = 0;
-      return hr * 60 + mn;
-    }
-    const mil = str.match(/(\d+):(\d+)/);
-    if (mil) return parseInt(mil[1], 10) * 60 + parseInt(mil[2], 10);
-    return null;
+function toMinsHM(str) {
+  const ampm = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (ampm) {
+    let hr = parseInt(ampm[1], 10);
+    const mn = parseInt(ampm[2], 10);
+    const ap = ampm[3].toUpperCase();
+    if (ap === 'PM' && hr !== 12) hr += 12;
+    if (ap === 'AM' && hr === 12) hr = 0;
+    return hr * 60 + mn;
   }
+  const mil = str.match(/(\d+):(\d+)/);
+  return mil ? parseInt(mil[1], 10) * 60 + parseInt(mil[2], 10) : null;
+}
 
-  const now = new Date();
-  const nowMins = now.getHours() * 60 + now.getMinutes();
-  const ranges = h.split(',').map((s) => s.trim());
-  for (const range of ranges) {
+function inRanges(h, mins, overnightOnly) {
+  if (!h || h === 'Cerrado') return false;
+  for (const range of h.split(',').map((s) => s.trim())) {
     const parts = range.split('–').map((s) => s.trim());
     if (parts.length < 2) continue;
-    const open = toMins(parts[0]);
-    let close = toMins(parts[1]);
+    const open = toMinsHM(parts[0]);
+    let close = toMinsHM(parts[1]);
     if (open === null || close === null) continue;
-    if (close < open) close += 24 * 60;
-    if (nowMins >= open && nowMins < close) return true;
+    if (close <= open) close += 24 * 60;
+    if (overnightOnly && close <= 24 * 60) continue;
+    if (mins >= open && mins < close) return true;
   }
   return false;
+}
+
+function isOpenNow(r) {
+  const now = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const yRaw = r.hours && r.hours[DAYS[(now.getDay() + 6) % 7]];
+  return (
+    inRanges(todayHours(r), mins, false) ||
+    inRanges(yRaw ? fixMidnight(yRaw) : null, mins + 24 * 60, true)
+  );
 }
 
 function statusText(r) {
   const h = todayHours(r);
   if (!h) return { cls: 'st-unknown', text: 'Horario no disponible' };
-  if (h === 'Cerrado') return { cls: 'st-closed', text: 'Cerrado hoy' };
   if (isOpenNow(r)) return { cls: 'st-open', text: 'Abierto ahora' };
+  if (h === 'Cerrado') return { cls: 'st-closed', text: 'Cerrado hoy' };
   return { cls: 'st-closed', text: 'Cerrado ahora' };
 }
 

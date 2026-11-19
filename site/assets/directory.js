@@ -21,7 +21,7 @@
         : items
             .map((r) => {
               const st = statusText(r);
-              const id = slugify(r.name);
+              const id = 'r-' + slugify(r.name);
               return `<article class="rest-card" id="${id}" data-name="${escapeHtml(r.name)}">
           ${logoTile(r, 'sm')}
           <span class="rest-info">
@@ -47,7 +47,9 @@
   render();
 
   if (location.hash) {
-    const el = document.querySelector(location.hash);
+    const raw = decodeURIComponent(location.hash.slice(1));
+    const id = raw.startsWith('r-') ? raw : 'r-' + raw;
+    const el = document.getElementById(id);
     el?.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }
 })();
