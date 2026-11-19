@@ -2,6 +2,7 @@
 """Download, normalize, and record restaurant logos (Notion + web fallback)."""
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import os
@@ -11,18 +12,24 @@ import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections import deque
 from html.parser import HTMLParser
 from pathlib import Path
 
 try:
-    from PIL import Image, ImageChops, ImageDraw, ImageOps
+    import numpy as np
+    from PIL import Image, ImageDraw, ImageFilter, ImageOps
 except ImportError:
-    Image = ImageChops = None
+    Image = ImageDraw = ImageFilter = ImageOps = None
+    np = None
 
 LOGO_DIR = Path(os.environ.get("LOGO_DIR", "site/assets/logos"))
 SOURCES_JSON = LOGO_DIR / "sources.json"
 LOGO_SIZE = int(os.environ.get("LOGO_SIZE", "512"))
+LOGO_MARGIN = 0.03
+MANUAL_DIRNAME = "manual"  # site/assets/logos/manual/<slug>.webp — el sync nunca escribe aquí
 USER_AGENT = "CANACO-LogoSync/1.0 (+https://sercanaco.com)"
+WHITE = np.array([255.0, 255.0, 255.0]) if np is not None else None
 
 
 def slugify(name: str) -> str:
@@ -192,51 +199,198 @@ def extract_notion_logo_urls(page: dict) -> list[str]:
     return urls
 
 
-def _content_bbox(rgba):
-    """Bounding box of visible content (alpha-first, else border-color diff for opaque)."""
-    alpha = rgba.getchannel("A")
-    if alpha.getextrema()[0] < 250:
-        box = alpha.point(lambda a: 255 if a > 8 else 0).getbbox()
-        if box:
-            return box
-    w, h = rgba.size
-    px = [rgba.getpixel((x, y)) for x in range(0, w, max(1, w // 32)) for y in (0, h - 1)] + [
-        rgba.getpixel((x, y)) for y in range(0, h, max(1, h // 32)) for x in (0, w - 1)
-    ]
-    bg = tuple(sorted(c[i] for c in px)[len(px) // 2] for i in range(3))
-    rgb = Image.new("RGB", rgba.size, bg)
-    rgb.paste(rgba, (0, 0), rgba)
-    diff = ImageChops.difference(rgb, Image.new("RGB", rgba.size, bg)).convert("L")
-    return diff.point(lambda v: 255 if v > 14 else 0).getbbox()
-
-
-def standardize_logo(raw: bytes) -> bytes:
-    if Image is None:
-        raise RuntimeError("Pillow is required for logo processing")
-    if len(raw) < 200:
-        raise ValueError("response too small to be an image")
-    if raw[:15].lower().startswith(b"<!doctype") or raw[:5].lower().startswith(b"<html"):
-        raise ValueError("response is HTML, not an image")
-    im = Image.open(io.BytesIO(raw))
+def _flatten_white(im: Image.Image) -> np.ndarray:
+    """RGBA/P/LA → RGB float sobre blanco (la transparencia se vuelve blanco)."""
     im = ImageOps.exif_transpose(im).convert("RGBA")
-    box = _content_bbox(im)
+    bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
+    bg.alpha_composite(im)
+    return np.asarray(bg.convert("RGB"), dtype=np.float32)
+
+
+def _dist(a: np.ndarray, c) -> np.ndarray:
+    return np.sqrt(((a - np.asarray(c, dtype=np.float32)) ** 2).sum(-1))
+
+
+def _edge_background(rgb: np.ndarray):
+    """Fondo sólido del borde, o None."""
+    edge = np.concatenate([rgb[0], rgb[-1], rgb[:, 0], rgb[:, -1]])
+    nonwhite = edge[_dist(edge, WHITE) > 40]
+    if len(nonwhite) >= 0.5 * len(edge):
+        med = np.median(nonwhite, axis=0)
+        if (_dist(nonwhite, med) < 30).mean() >= 0.85:
+            return med
+        return None
+    med = np.median(edge, axis=0)
+    if (_dist(edge, med) < 30).mean() >= 0.85 and 6 < _dist(med[None], WHITE)[0] <= 40:
+        return med
+    return None
+
+
+def _flood_from_edges(close: np.ndarray) -> np.ndarray:
+    """Máscara de píxeles conectados al borde (BFS 4-vecinos)."""
+    h, w = close.shape
+    seen = np.zeros_like(close, dtype=bool)
+    q = deque()
+    for x in range(w):
+        for y in (0, h - 1):
+            if close[y, x] and not seen[y, x]:
+                seen[y, x] = True
+                q.append((y, x))
+    for y in range(h):
+        for x in (0, w - 1):
+            if close[y, x] and not seen[y, x]:
+                seen[y, x] = True
+                q.append((y, x))
+    while q:
+        y, x = q.popleft()
+        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= ny < h and 0 <= nx < w and close[ny, nx] and not seen[ny, nx]:
+                seen[ny, nx] = True
+                q.append((ny, nx))
+    return seen
+
+
+def _enclosed_mask(close: np.ndarray) -> np.ndarray:
+    """Componentes de `close` que no tocan el borde: huecos dentro de la marca."""
+    h, w = close.shape
+    seen = np.zeros_like(close, dtype=bool)
+    holes = np.zeros_like(close, dtype=bool)
+    for y in range(h):
+        for x in range(w):
+            if not close[y, x] or seen[y, x]:
+                continue
+            q = deque([(y, x)])
+            seen[y, x] = True
+            comp = [(y, x)]
+            touches = y in (0, h - 1) or x in (0, w - 1)
+            while q:
+                cy, cx = q.popleft()
+                for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                    if 0 <= ny < h and 0 <= nx < w and close[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        if ny in (0, h - 1) or nx in (0, w - 1):
+                            touches = True
+                        q.append((ny, nx))
+                        comp.append((ny, nx))
+            if not touches:
+                for cy, cx in comp:
+                    holes[cy, cx] = True
+    return holes
+
+
+def _key_to_white(rgb: np.ndarray, bg, tol_in=36.0, tol_out=110.0) -> np.ndarray:
+    """Quita el fondo, incluido el que queda encerrado en letras (O, A, P, D, 8).
+
+    El borde suave sigue saliendo solo del fondo conectado al borde. Un hueco se
+    borra únicamente si sus píxeles coinciden con el color de fondo (distancia
+    ≤ tol_in): un color distinto de la marca, aunque esté adentro, se queda.
+    """
+    d = _dist(rgb, bg)
+    edge = _flood_from_edges(d < tol_out)
+    holes = _enclosed_mask(d <= tol_in)
+    region = edge | holes
+    a = np.clip((d - tol_in) / (tol_out - tol_in), 0, 1)
+    a[~region] = 1.0
+    a = np.asarray(
+        Image.fromarray((a * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.6)),
+        dtype=np.float32,
+    )[..., None] / 255.0
+    safe = np.maximum(a, 1e-3)
+    fg = np.clip((rgb - (1 - safe) * np.asarray(bg)) / safe, 0, 255)
+    return fg * a + WHITE * (1 - a)
+
+
+def _mark_is_light(rgb: np.ndarray, bg) -> bool:
+    fgmask = _dist(rgb, bg) >= 60
+    if fgmask.mean() < 0.01:
+        return True
+    lum = rgb[fgmask] @ np.array([0.299, 0.587, 0.114], dtype=np.float32)
+    return (lum > 200).mean() > 0.35
+
+
+def _badge(rgb: np.ndarray, radius=0.12) -> np.ndarray:
+    h, w, _ = rgb.shape
+    m = Image.new("L", (w * 4, h * 4), 0)
+    ImageDraw.Draw(m).rounded_rectangle(
+        (0, 0, w * 4 - 1, h * 4 - 1),
+        radius=int(min(w, h) * 4 * radius),
+        fill=255,
+    )
+    a = np.asarray(m.resize((w, h), Image.Resampling.LANCZOS), dtype=np.float32)[..., None] / 255.0
+    return rgb * a + WHITE * (1 - a)
+
+
+def _content_bbox(rgb: np.ndarray, tol=28.0):
+    ink = _dist(rgb, WHITE) > tol
+    ys, xs = np.nonzero(ink)
+    if len(xs) == 0:
+        return None
+    return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+
+
+def _finish(rgb: np.ndarray, size=LOGO_SIZE, margin=LOGO_MARGIN) -> bytes:
+    box = _content_bbox(rgb)
+    im = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
     if box:
         im = im.crop(box)
-    size = LOGO_SIZE
-    margin = 0.04
-    inner = int(size * (1 - 2 * margin))
-    thumb = ImageOps.contain(im, (inner, inner), Image.Resampling.LANCZOS)
-    canvas = Image.new("RGBA", (size, size), (255, 255, 255, 255))
-    canvas.paste(thumb, ((size - thumb.width) // 2, (size - thumb.height) // 2), thumb)
+    inner = int(round(size * (1 - 2 * margin)))
+    scale = inner / max(im.width, im.height)
+    im = ImageOps.contain(im, (inner, inner), Image.Resampling.LANCZOS)
+    if scale > 1.2:
+        im = im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60, threshold=2))
+    canvas = Image.new("RGB", (size, size), (255, 255, 255))
+    canvas.paste(im, ((size - im.width) // 2, (size - im.height) // 2))
     buf = io.BytesIO()
-    canvas.convert("RGB").save(buf, format="WEBP", quality=86, method=6)
+    canvas.save(buf, format="WEBP", quality=90, method=6)
     return buf.getvalue()
 
 
+def standardize_logo(raw: bytes) -> bytes:
+    """Transparencia a blanco, fondo sólido a blanco o placa redondeada, 512 px."""
+    if Image is None or np is None:
+        raise RuntimeError("Pillow y numpy hacen falta para procesar logos")
+    if len(raw) < 200:
+        raise ValueError("response too small to be an image")
+    head = raw[:15].lower()
+    if head.startswith(b"<!doctype") or head.startswith(b"<html"):
+        raise ValueError("response is HTML, not an image")
+    rgb = _flatten_white(Image.open(io.BytesIO(raw)))
+    box = _content_bbox(rgb)
+    if box:
+        rgb = rgb[box[1]:box[3], box[0]:box[2]]
+    bg = _edge_background(rgb)
+    if bg is not None:
+        if _dist(bg[None], WHITE)[0] <= 40:
+            rgb = _key_to_white(rgb, bg, tol_in=22, tol_out=55)
+        elif _mark_is_light(rgb, bg):
+            rgb = _badge(rgb)
+        else:
+            rgb = _key_to_white(rgb, bg)
+    return _finish(rgb)
+
+
+def manual_logo(slug: str, logo_dir=None):
+    """El archivo en manual/ gana. El sync no lo escribe."""
+    root = Path(logo_dir) if logo_dir is not None else LOGO_DIR
+    path = root / MANUAL_DIRNAME / f"{slug}.webp"
+    return path if path.is_file() else None
+
+
+def versioned(public_path: str, file_path) -> str:
+    """Agrega ?v=<sha256 de 8> para que la caché immutable no sirva el archivo viejo."""
+    digest = hashlib.sha256(Path(file_path).read_bytes()).hexdigest()[:8]
+    return f"{public_path}?v={digest}"
+
+
 def save_logo(slug: str, raw: bytes) -> Path:
+    if not slug or slug in {".", "..", MANUAL_DIRNAME} or "/" in slug or "\\" in slug:
+        raise ValueError("el sync no escribe en logos/manual")
     LOGO_DIR.mkdir(parents=True, exist_ok=True)
+    path = (LOGO_DIR / f"{slug}.webp").resolve()
+    manual = (LOGO_DIR / MANUAL_DIRNAME).resolve()
+    if path == manual or manual in path.parents:
+        raise ValueError("el sync no escribe en logos/manual")
     data = standardize_logo(raw)
-    path = LOGO_DIR / f"{slug}.webp"
     path.write_bytes(data)
     return path
 
@@ -280,13 +434,20 @@ def resolve_logo_for_entry(
     detail = ""
     hdrs = notion_headers or {}
 
+    manual = manual_logo(slug, LOGO_DIR)
+    if manual:
+        record = {"slug": slug, "source": "manual", "detail": str(manual)}
+        sources[name] = record
+        save_sources(sources)
+        return versioned(f"/assets/logos/{MANUAL_DIRNAME}/{slug}.webp", manual), record
+
     for url in extract_notion_logo_urls(page or {}):
         if url.lower().split("?")[0].endswith(".pdf"):
             detail = "Logo en Notion es PDF (omitido)"
             continue
         try:
             raw = http_get(url, headers=notion_only_headers(url, hdrs))
-            save_logo(slug, raw)
+            path = save_logo(slug, raw)
             record = {
                 "slug": slug,
                 "source": "notion",
@@ -294,7 +455,7 @@ def resolve_logo_for_entry(
             }
             sources[name] = record
             save_sources(sources)
-            return f"/assets/logos/{slug}.webp", record
+            return versioned(f"/assets/logos/{slug}.webp", path), record
         except Exception as e:
             detail = f"Notion download failed: {e}"
             print(f"  ⚠️  Notion logo {name}: {e}", file=sys.stderr)
@@ -304,11 +465,11 @@ def resolve_logo_for_entry(
             raw = http_get(url)
             if len(raw) < 500:
                 continue
-            save_logo(slug, raw)
+            path = save_logo(slug, raw)
             record = {"slug": slug, "source": "web", "detail": url}
             sources[name] = record
             save_sources(sources)
-            return f"/assets/logos/{slug}.webp", record
+            return versioned(f"/assets/logos/{slug}.webp", path), record
         except Exception as e:
             detail = f"Web failed ({url}): {e}"
             continue

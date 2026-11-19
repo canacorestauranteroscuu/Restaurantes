@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install Python deps
-        run: pip install pillow
+        run: pip install pillow numpy
       - name: Run tests
         run: |
           bash scripts/check_gh_pages_root_redirects.sh
@@ -23,4 +23,6 @@ jobs:
           node scripts/test_category_filters.mjs
           python3 scripts/test_logo_utils_auth.py
           python3 scripts/test_logo_standardize.py
+          python3 scripts/test_logo_standardize_v2.py
+          python3 scripts/test_logo_version.py
           node --test scripts/test_portal.mjs

@@ -783,3 +783,18 @@ body.has-sticky { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 .section-home-cta { padding-top: clamp(1.25rem, 0.75rem + 1.5vw, 2rem); }
 .section-home-cta .cta-duo { margin-top: 0; }
 .home-dir-more { margin: 0.75rem 0 0; text-align: center; }
+
+/* ── Logos v2 (pase Muriel #3): área de logo más grande — pegar al FINAL de site.css ── */
+.logo-tile { --s: 80px; border-radius: 10px; padding: 3px; background: #fff; box-shadow: inset 0 0 0 1px var(--border); }
+.logo-tile img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.logo-tile--lg { --s: clamp(128px, 33vw, 160px); border-radius: 10px; padding: 4px; }
+.logo-tile--mono { padding: 0; box-shadow: none; background: var(--canaco-blue); color: #fff; }
+.logo-tile--mono.alt { background: var(--terracotta); }
+/* Centro de la ruleta: lo más grande que cabe; el cuadrado del logo (70.7 % del círculo) no toca la orilla */
+.ruleta-hub { inset: 11%; }
+.ruleta-hub .logo-tile { width: 100%; height: 100%; padding: 15%; border-radius: 50%; box-shadow: none; background: #fff; }
+.ruleta-hub .logo-tile--mono { padding: 0; background: var(--canaco-blue); color: #fff; }
+.ruleta-hub .logo-tile--mono.alt { background: var(--terracotta); }
+/* Rueda un poco más grande para que el centro (logo) crezca */
+.ruleta-stage { width: min(208px, 54vw); }
+@media (min-width: 900px) { .ruleta-stage { width: 272px; } }

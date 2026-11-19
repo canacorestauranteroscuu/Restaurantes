@@ -2,7 +2,7 @@
 const restaurants = [
   {
     name: "Magic Rimbus",
-    logo: "/assets/logos/magic-rimbus.webp",
+    logo: "/assets/logos/manual/magic-rimbus.webp?v=4dfb13d9",
     emoji: "🍽️",
     categories: ["Restaurante"],
     phone: "614 554 9607",
@@ -17,7 +17,7 @@ const restaurants = [
   },
   {
     name: "Smoke & Grill",
-    logo: "/assets/logos/smoke-grill.webp",
+    logo: "/assets/logos/manual/smoke-grill.webp?v=5a3578a5",
     emoji: "🍽️",
     categories: ["Comida para llevar"],
     phone: "614 610 9243",
@@ -32,7 +32,7 @@ const restaurants = [
   },
   {
     name: "Hakuna Bolas de Arroz",
-    logo: "/assets/logos/hakuna-bolas-de-arroz.webp",
+    logo: "/assets/logos/manual/hakuna-bolas-de-arroz.webp?v=e95e1edd",
     emoji: "🍽️",
     categories: ["Restaurante"],
     phone: "614 688 6060",
@@ -47,7 +47,7 @@ const restaurants = [
   },
   {
     name: "El Huauzontle",
-    logo: "/assets/logos/el-huauzontle.webp",
+    logo: "/assets/logos/el-huauzontle.webp?v=46b0f47d",
     emoji: "🍽️",
     categories: ["Desayunos"],
     phone: "614 443 2366",
@@ -62,7 +62,7 @@ const restaurants = [
   },
   {
     name: "El Ware",
-    logo: "/assets/logos/el-ware.webp",
+    logo: "/assets/logos/manual/el-ware.webp?v=009bb8ed",
     emoji: "🍽️",
     categories: ["Desayunos", "Comida para llevar", "Café", "Restaurante"],
     phone: "614 262 8831",
@@ -77,7 +77,7 @@ const restaurants = [
   },
   {
     name: "Mozao Café",
-    logo: "/assets/logos/mozao-cafe.webp",
+    logo: "/assets/logos/mozao-cafe.webp?v=c769a55e",
     emoji: "🍽️",
     categories: ["Café"],
     phone: "614 597 6730",
@@ -92,7 +92,7 @@ const restaurants = [
   },
   {
     name: "Casa Cervecera Bolivar",
-    logo: "/assets/logos/casa-cervecera-bolivar.webp",
+    logo: "/assets/logos/casa-cervecera-bolivar.webp?v=78a6361a",
     emoji: "🍽️",
     categories: ["Restaurante Bar"],
     phone: "614 115 5441",
@@ -107,7 +107,7 @@ const restaurants = [
   },
   {
     name: "El gallito ingles",
-    logo: "/assets/logos/el-gallito-ingles.webp",
+    logo: "/assets/logos/manual/el-gallito-ingles.webp?v=c66f0475",
     emoji: "🍽️",
     categories: ["Restaurante Bar"],
     phone: "614 101 4455",
@@ -122,7 +122,7 @@ const restaurants = [
   },
   {
     name: "ENCUENTRO",
-    logo: "/assets/logos/encuentro.webp",
+    logo: "/assets/logos/manual/encuentro.webp?v=1874535d",
     emoji: "🍽️",
     categories: ["Desayunos", "Restaurante Bar"],
     phone: "614 606 2666",
@@ -137,7 +137,7 @@ const restaurants = [
   },
   {
     name: "Steak Blvd.",
-    logo: "/assets/logos/steak-blvd.webp",
+    logo: "/assets/logos/steak-blvd.webp?v=9f63c1f6",
     emoji: "🍽️",
     categories: ["Otro"],
     phone: "614 112 3646",
@@ -152,7 +152,7 @@ const restaurants = [
   },
   {
     name: "Yakiyang",
-    logo: "/assets/logos/yakiyang.webp",
+    logo: "/assets/logos/manual/yakiyang.webp?v=21a2de06",
     emoji: "🍽️",
     categories: ["Restaurante Bar"],
     phone: "614 443 0027",
@@ -167,7 +167,7 @@ const restaurants = [
   },
   {
     name: "Plebes Roll",
-    logo: null,
+    logo: "/assets/logos/manual/plebes-roll.webp?v=cf7fec4f",
     emoji: "🍽️",
     categories: ["Área de niños", "Comida para llevar", "Restaurante", "Restaurante Bar"],
     phone: "614 281 2630",
@@ -182,7 +182,7 @@ const restaurants = [
   },
   {
     name: "BERLIN DOGOS SUPREMOS",
-    logo: "/assets/logos/berlin-dogos-supremos.webp",
+    logo: "/assets/logos/berlin-dogos-supremos.webp?v=8b7ea42e",
     emoji: "🍽️",
     categories: ["Comida para llevar", "Eventos", "Restaurante"],
     phone: "614 529 8048",
@@ -197,7 +197,7 @@ const restaurants = [
   },
   {
     name: "Café Cortez",
-    logo: "/assets/logos/cafe-cortez.webp",
+    logo: "/assets/logos/cafe-cortez.webp?v=e6e9eead",
     emoji: "☕",
     categories: ["Café", "Restaurante", "Desayunos"],
     phone: "614 415 3807",
@@ -212,7 +212,7 @@ const restaurants = [
   },
   {
     name: "Señor Camarón",
-    logo: "/assets/logos/senor-camaron.webp",
+    logo: "/assets/logos/senor-camaron.webp?v=3e6dbd87",
     emoji: "🍤",
     categories: ["Restaurante"],
     phone: "614 412 0404",
@@ -227,7 +227,7 @@ const restaurants = [
   },
   {
     name: "Sushiko",
-    logo: null,
+    logo: "/assets/logos/manual/sushiko.webp?v=6840ba7c",
     emoji: "🍣",
     categories: ["Restaurante", "Comida para llevar"],
     phone: "614 430 3434",
@@ -242,7 +242,7 @@ const restaurants = [
   },
   {
     name: "Akari",
-    logo: "/assets/logos/akari.webp",
+    logo: "/assets/logos/manual/akari.webp?v=50b941e2",
     emoji: "🍣",
     categories: ["Comida para llevar", "Pet friendly", "Restaurante", "Restaurante Bar", "Bar"],
     phone: "614 430 3030",
@@ -257,7 +257,7 @@ const restaurants = [
   },
   {
     name: "Restaurante Puebla en Chihuahua",
-    logo: "/assets/logos/restaurante-puebla-en-chihuahua.webp",
+    logo: "/assets/logos/manual/restaurante-puebla-en-chihuahua.webp?v=8b868867",
     emoji: "🫔",
     categories: ["Desayunos", "Eventos", "Restaurante", "Comida para llevar"],
     phone: "614 436 4213",
@@ -272,7 +272,7 @@ const restaurants = [
   },
   {
     name: "Kabuki Bistro",
-    logo: "/assets/logos/kabuki-bistro.webp",
+    logo: "/assets/logos/kabuki-bistro.webp?v=1072ca44",
     emoji: "🍣",
     categories: ["Comida para llevar", "Restaurante Bar"],
     phone: "614 437 4531",
@@ -287,7 +287,7 @@ const restaurants = [
   },
   {
     name: "Corinto Café",
-    logo: "/assets/logos/corinto-cafe.webp",
+    logo: "/assets/logos/corinto-cafe.webp?v=161845d4",
     emoji: "☕️",
     categories: ["Café"],
     phone: "614 554 2488",
@@ -302,7 +302,7 @@ const restaurants = [
   },
   {
     name: "Pit-Tacos",
-    logo: null,
+    logo: "/assets/logos/manual/pit-tacos.webp?v=004af696",
     emoji: "🌮",
     categories: ["Restaurante"],
     phone: "614 587 1204",
@@ -317,7 +317,7 @@ const restaurants = [
   },
   {
     name: "Mariscos Dejate Kayy",
-    logo: "/assets/logos/mariscos-dejate-kayy.webp",
+    logo: "/assets/logos/manual/mariscos-dejate-kayy.webp?v=1e9330ba",
     emoji: "🦑",
     categories: ["Restaurante"],
     phone: "614 605 5495",
@@ -332,7 +332,7 @@ const restaurants = [
   },
   {
     name: "Carbon’s burger",
-    logo: "/assets/logos/carbon-s-burger.webp",
+    logo: "/assets/logos/carbon-s-burger.webp?v=60c3d7ff",
     emoji: "🍔",
     categories: ["Restaurante", "Comida para llevar"],
     phone: "614 430 3430",
@@ -347,7 +347,7 @@ const restaurants = [
   },
   {
     name: "Rosina",
-    logo: "/assets/logos/rosina.webp",
+    logo: "/assets/logos/rosina.webp?v=9e335017",
     emoji: "🌹",
     categories: ["Desayunos", "Café", "Restaurante", "Restaurante Bar"],
     phone: "6141787241",
@@ -362,7 +362,7 @@ const restaurants = [
   },
   {
     name: "Paradójico",
-    logo: "/assets/logos/paradojico.webp",
+    logo: "/assets/logos/paradojico.webp?v=4f50319a",
     emoji: "🎭",
     categories: ["Restaurante Bar"],
     phone: "614 137 9993",
@@ -377,7 +377,7 @@ const restaurants = [
   },
   {
     name: "BOSTON´S PIZZA",
-    logo: "/assets/logos/boston-s-pizza.webp",
+    logo: "/assets/logos/boston-s-pizza.webp?v=d1fd9258",
     emoji: "🍕",
     categories: ["Restaurante Bar"],
     phone: "614 426 2627",
@@ -392,7 +392,7 @@ const restaurants = [
   },
   {
     name: "New Sheridan",
-    logo: "/assets/logos/new-sheridan.webp",
+    logo: "/assets/logos/new-sheridan.webp?v=86e98a67",
     emoji: "🎩",
     categories: ["Bar", "Restaurante", "Restaurante Bar"],
     phone: "614 404 7711",
@@ -407,7 +407,7 @@ const restaurants = [
   },
   {
     name: "Fonda Chilangos",
-    logo: "/assets/logos/fonda-chilangos.webp",
+    logo: "/assets/logos/manual/fonda-chilangos.webp?v=b3837f18",
     emoji: "🫔",
     categories: ["Comida para llevar", "Desayunos", "Eventos", "Restaurante"],
     phone: "614 411 9399",
@@ -422,7 +422,7 @@ const restaurants = [
   },
   {
     name: "Tacotote",
-    logo: "/assets/logos/tacotote.webp",
+    logo: "/assets/logos/tacotote.webp?v=0150e93f",
     emoji: "🌮",
     categories: ["Restaurante", "Comida para llevar"],
     phone: "614 423 7196",
@@ -437,7 +437,7 @@ const restaurants = [
   },
   {
     name: "Las Cazuelas De Falcón",
-    logo: "/assets/logos/las-cazuelas-de-falcon.webp",
+    logo: "/assets/logos/las-cazuelas-de-falcon.webp?v=3cbd5fdb",
     emoji: "🍛",
     categories: ["Eventos"],
     phone: "614-2154959",
@@ -452,7 +452,7 @@ const restaurants = [
   },
   {
     name: "Corazón Contento Food Park",
-    logo: "/assets/logos/corazon-contento-food-park.webp",
+    logo: "/assets/logos/corazon-contento-food-park.webp?v=08dbfbd0",
     emoji: "🥰",
     categories: ["Área de niños", "Café", "Comida para llevar", "Eventos", "Restaurante"],
     phone: "614 235 7522",
@@ -467,7 +467,7 @@ const restaurants = [
   },
   {
     name: "Las Tortas de Tu Tío",
-    logo: "/assets/logos/las-tortas-de-tu-tio.webp",
+    logo: "/assets/logos/las-tortas-de-tu-tio.webp?v=eb8a9d2d",
     emoji: "🍔",
     categories: ["Comida para llevar", "Restaurante"],
     phone: null,
@@ -482,7 +482,7 @@ const restaurants = [
   },
   {
     name: "Parador El Sueco",
-    logo: "/assets/logos/parador-el-sueco.webp",
+    logo: "/assets/logos/parador-el-sueco.webp?v=f37aed7b",
     emoji: "🚗",
     categories: ["Café", "Comida para llevar", "Desayunos", "Dulcería", "Expendio", "Restaurante", "Panadería"],
     phone: "614 354 3209",
@@ -497,7 +497,7 @@ const restaurants = [
   },
   {
     name: "Mariscos “La Buena Vida”",
-    logo: "/assets/logos/mariscos-la-buena-vida.webp",
+    logo: "/assets/logos/manual/mariscos-la-buena-vida.webp?v=2b505902",
     emoji: "🐙",
     categories: ["Restaurante"],
     phone: "614 416 1605",
@@ -512,7 +512,7 @@ const restaurants = [
   },
   {
     name: "The hottie wings",
-    logo: "/assets/logos/the-hottie-wings.webp",
+    logo: "/assets/logos/manual/the-hottie-wings.webp?v=7cea1d8a",
     emoji: "🌶️",
     categories: ["Comida para llevar", "Restaurante"],
     phone: "614 262 4897",
@@ -527,7 +527,7 @@ const restaurants = [
   },
   {
     name: "La Cabaña Smokehouse",
-    logo: null,
+    logo: "/assets/logos/manual/la-cabana-smokehouse.webp?v=b87a3cdb",
     emoji: "🏠",
     categories: ["Bar", "Café", "Comida para llevar", "Eventos", "Restaurante", "Restaurante Bar"],
     phone: "614 423 7070",
@@ -542,7 +542,7 @@ const restaurants = [
   },
   {
     name: "Mariscos Jardín Issa",
-    logo: "/assets/logos/mariscos-jardin-issa.webp",
+    logo: "/assets/logos/mariscos-jardin-issa.webp?v=a6b2aa72",
     emoji: "🐟",
     categories: ["Restaurante"],
     phone: "614 251 5633",
@@ -557,7 +557,7 @@ const restaurants = [
   },
   {
     name: "Los Fenicios",
-    logo: null,
+    logo: "/assets/logos/manual/los-fenicios.webp?v=eb658d6b",
     emoji: "🧆",
     categories: ["Restaurante"],
     phone: "614 414 2630",
@@ -572,7 +572,7 @@ const restaurants = [
   },
   {
     name: "Bar San Luis",
-    logo: "/assets/logos/bar-san-luis.webp",
+    logo: "/assets/logos/bar-san-luis.webp?v=354a53df",
     emoji: "🍻",
     categories: ["Restaurante Bar", "Bar"],
     phone: "614 410 2687",
@@ -587,7 +587,7 @@ const restaurants = [
   },
   {
     name: "Charly’s and Daniels",
-    logo: "/assets/logos/charly-s-and-daniels.webp",
+    logo: "/assets/logos/charly-s-and-daniels.webp?v=1d547cd8",
     emoji: "🍺",
     categories: ["Bar", "Comida para llevar", "Restaurante", "Restaurante Bar"],
     phone: "614 221 5394",
@@ -602,7 +602,7 @@ const restaurants = [
   },
   {
     name: "Lasañisima",
-    logo: "/assets/logos/lasanisima.webp",
+    logo: "/assets/logos/manual/lasanisima.webp?v=574c0cd5",
     emoji: "🧀",
     categories: ["Comida para llevar", "Restaurante"],
     phone: "614 414 0387",
@@ -617,7 +617,7 @@ const restaurants = [
   },
   {
     name: "Pasteleria Dulce Noviembre",
-    logo: "/assets/logos/pasteleria-dulce-noviembre.webp",
+    logo: "/assets/logos/pasteleria-dulce-noviembre.webp?v=8ede020c",
     emoji: "🎂",
     categories: ["Pastelería"],
     phone: "614 436 5151",
@@ -632,7 +632,7 @@ const restaurants = [
   },
   {
     name: "Sorrento",
-    logo: "/assets/logos/sorrento.webp",
+    logo: "/assets/logos/sorrento.webp?v=c58aa3a7",
     emoji: "🍕",
     categories: ["Restaurante Bar", "Restaurante", "Comida para llevar", "Bar"],
     phone: "614 118 9545",
@@ -647,7 +647,7 @@ const restaurants = [
   },
   {
     name: "El Hojaldre",
-    logo: "/assets/logos/el-hojaldre.webp",
+    logo: "/assets/logos/el-hojaldre.webp?v=3699c7a4",
     emoji: "🥐",
     categories: ["Desayunos", "Restaurante", "Panadería"],
     phone: "614 413 4329",
@@ -662,7 +662,7 @@ const restaurants = [
   },
   {
     name: "Mariscos La Iguana",
-    logo: "/assets/logos/mariscos-la-iguana.webp",
+    logo: "/assets/logos/mariscos-la-iguana.webp?v=320a9195",
     emoji: "🦐",
     categories: ["Restaurante"],
     phone: "614 436 9142",
@@ -677,7 +677,7 @@ const restaurants = [
   },
   {
     name: "Naranja y Limón",
-    logo: "/assets/logos/naranja-y-limon.webp",
+    logo: "/assets/logos/manual/naranja-y-limon.webp?v=0f89d916",
     emoji: "🍊",
     categories: ["Comida para llevar", "Desayunos", "Restaurante", "Otro"],
     phone: "614 413 0809",
@@ -692,7 +692,7 @@ const restaurants = [
   },
   {
     name: "Las Brasas Parrilla Mexicana",
-    logo: "/assets/logos/las-brasas-parrilla-mexicana.webp",
+    logo: "/assets/logos/manual/las-brasas-parrilla-mexicana.webp?v=c2ed9813",
     emoji: "🥩",
     categories: ["Restaurante Bar"],
     phone: "61 4345 9465",
@@ -707,7 +707,7 @@ const restaurants = [
   },
   {
     name: "Mamá Carola",
-    logo: "/assets/logos/mama-carola.webp",
+    logo: "/assets/logos/mama-carola.webp?v=f9a70c17",
     emoji: "👩‍🍳",
     categories: ["Desayunos", "Restaurante"],
     phone: "614 413 5757",
@@ -722,7 +722,7 @@ const restaurants = [
   },
   {
     name: "Woko Loco",
-    logo: "/assets/logos/woko-loco.webp",
+    logo: "/assets/logos/manual/woko-loco.webp?v=0f9b1ed9",
     emoji: "🥢",
     categories: ["Comida para llevar", "Restaurante"],
     phone: "614 413 2821",
@@ -737,7 +737,7 @@ const restaurants = [
   },
   {
     name: "Betty Cooker Comida Casera",
-    logo: "/assets/logos/betty-cooker-comida-casera.webp",
+    logo: "/assets/logos/betty-cooker-comida-casera.webp?v=d8c528b2",
     emoji: "🍲",
     categories: ["Comida para llevar", "Desayunos", "Restaurante"],
     phone: "614 415 0898",
@@ -752,7 +752,7 @@ const restaurants = [
   },
   {
     name: "Aura Café",
-    logo: "/assets/logos/aura-cafe.webp",
+    logo: "/assets/logos/aura-cafe.webp?v=851bd092",
     emoji: "☕",
     categories: ["Restaurante", "Café"],
     phone: "614 189 4618",
@@ -767,7 +767,7 @@ const restaurants = [
   },
   {
     name: "Asador Libanés",
-    logo: "/assets/logos/asador-libanes.webp",
+    logo: "/assets/logos/asador-libanes.webp?v=ff1d5308",
     emoji: "🥙",
     categories: ["Restaurante Bar"],
     phone: "614 443 6636",
@@ -782,7 +782,7 @@ const restaurants = [
   },
   {
     name: "Tortas Piolines",
-    logo: "/assets/logos/tortas-piolines.webp",
+    logo: "/assets/logos/manual/tortas-piolines.webp?v=42b6ae3b",
     emoji: "🥖",
     categories: ["Restaurante"],
     phone: "614 414 4551",
@@ -797,7 +797,7 @@ const restaurants = [
   },
   {
     name: "Italianisimmo Pasta y Cafe",
-    logo: "/assets/logos/italianisimmo-pasta-y-cafe.webp",
+    logo: "/assets/logos/italianisimmo-pasta-y-cafe.webp?v=5c6c72cc",
     emoji: "🍝",
     categories: ["Restaurante", "Comida para llevar"],
     phone: "614 423 4000",
@@ -812,7 +812,7 @@ const restaurants = [
   },
   {
     name: "Tacos Villa",
-    logo: "/assets/logos/tacos-villa.webp",
+    logo: "/assets/logos/tacos-villa.webp?v=1acd0869",
     emoji: "🌯",
     categories: ["Comida para llevar"],
     phone: "614 499 4210",
@@ -827,7 +827,7 @@ const restaurants = [
   },
   {
     name: "El Norteñito Chihuahua",
-    logo: "/assets/logos/el-nortenito-chihuahua.webp",
+    logo: "/assets/logos/manual/el-nortenito-chihuahua.webp?v=743f0223",
     emoji: "🤠",
     categories: ["Comida para llevar", "Desayunos", "Restaurante Bar"],
     phone: "614 443 1513",
@@ -842,7 +842,7 @@ const restaurants = [
   },
   {
     name: "27 y Salsas",
-    logo: null,
+    logo: "/assets/logos/manual/27-y-salsas.webp?v=ffadda81",
     emoji: "🔥",
     categories: ["Comida para llevar", "Restaurante"],
     phone: "614 414 1480",
@@ -857,7 +857,7 @@ const restaurants = [
   },
   {
     name: "Mariscos La Jaiba Feliz",
-    logo: "/assets/logos/mariscos-la-jaiba-feliz.webp",
+    logo: "/assets/logos/manual/mariscos-la-jaiba-feliz.webp?v=ccc6bf06",
     emoji: "🦀",
     categories: ["Restaurante"],
     phone: "614 179 5854",
@@ -872,7 +872,7 @@ const restaurants = [
   },
   {
     name: "El Temorense",
-    logo: "/assets/logos/el-temorense.webp",
+    logo: "/assets/logos/el-temorense.webp?v=1aaf07ab",
     emoji: "🫔",
     categories: ["Comida para llevar", "Desayunos", "Restaurante", "Restaurante Bar"],
     phone: "614 609 6023",
@@ -887,7 +887,7 @@ const restaurants = [
   },
   {
     name: "Nómada Paradero Gastronomico",
-    logo: null,
+    logo: "/assets/logos/manual/nomada-paradero-gastronomico.webp?v=1fd90ebd",
     emoji: "🏕️",
     categories: ["Restaurante Bar"],
     phone: "614 538 3723",
@@ -902,7 +902,7 @@ const restaurants = [
   },
   {
     name: "Mayólica",
-    logo: "/assets/logos/mayolica.webp",
+    logo: "/assets/logos/manual/mayolica.webp?v=2c8d1dd8",
     emoji: "☕",
     categories: ["Comida para llevar", "Desayunos", "Restaurante"],
     phone: "614 305 7311",
@@ -917,7 +917,7 @@ const restaurants = [
   },
   {
     name: "Deliciosa Mente",
-    logo: "/assets/logos/deliciosa-mente.webp",
+    logo: "/assets/logos/manual/deliciosa-mente.webp?v=3a469b2d",
     emoji: "🥡",
     categories: ["Comida para llevar", "Otro"],
     phone: "6141628832",
@@ -932,7 +932,7 @@ const restaurants = [
   },
   {
     name: "La Tarima - Alitas & Burgers",
-    logo: "/assets/logos/la-tarima-alitas-burgers.webp",
+    logo: "/assets/logos/la-tarima-alitas-burgers.webp?v=c16059f2",
     emoji: "🍗",
     categories: ["Comida para llevar", "Restaurante"],
     phone: "614 377 0099",
@@ -947,7 +947,7 @@ const restaurants = [
   },
   {
     name: "Costa Langosta",
-    logo: "/assets/logos/costa-langosta.webp",
+    logo: "/assets/logos/costa-langosta.webp?v=3e8dec15",
     emoji: "🦞",
     categories: ["Restaurante Bar"],
     phone: "614 415 4967",
@@ -962,7 +962,7 @@ const restaurants = [
   },
   {
     name: "Pinos Burger",
-    logo: "/assets/logos/pinos-burger.webp",
+    logo: "/assets/logos/manual/pinos-burger.webp?v=87c68465",
     emoji: "🍔",
     categories: ["Restaurante"],
     phone: "614 264 8695",
@@ -977,7 +977,7 @@ const restaurants = [
   },
   {
     name: "Ricos Tacos de la 24",
-    logo: "/assets/logos/ricos-tacos-de-la-24.webp",
+    logo: "/assets/logos/ricos-tacos-de-la-24.webp?v=b8688660",
     emoji: "🌮",
     categories: ["Restaurante"],
     phone: "614 410 3882",
@@ -992,7 +992,7 @@ const restaurants = [
   },
   {
     name: "naturalbalance.club",
-    logo: "/assets/logos/naturalbalance-club.webp",
+    logo: "/assets/logos/naturalbalance-club.webp?v=7cc37999",
     emoji: "🥗",
     categories: ["Comida para llevar", "Otro", "Venta alimentos para cocinar"],
     phone: "6143689898",
