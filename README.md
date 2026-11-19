@@ -1,57 +1,73 @@
-# Restaurantes CANACO Chihuahua — Donde Comemos
+# Restaurantes CANACO Chihuahua — sercanaco.com (fase 1)
 
-Public directory of restaurants in the Sección Restauranteros CANACO Chihuahua.
+Directorio público y **Ruleta del Sabor** de la Sección Restauranteros CANACO Chihuahua.
 
-**Live site:** [canacorestauranteroscuu.github.io/Restaurantes/dondecomemos.html](https://canacorestauranteroscuu.github.io/Restaurantes/dondecomemos.html)
+| Entorno | URL |
+|--------|-----|
+| GitHub Pages (legacy, sigue activo hasta el corte) | [canacorestauranteroscuu.github.io/Restaurantes/dondecomemos.html](https://canacorestauranteroscuu.github.io/Restaurantes/dondecomemos.html) |
+| Cloudflare Pages (nuevo sitio, fase 1) | `https://sercanaco.com` — raíz del directorio `site/` |
 
-## How it works
+## Cloudflare Pages
 
-The directory auto-syncs daily from two sources:
+| Ajuste | Valor |
+|--------|--------|
+| **Build command** | *(ninguno — sitio estático)* |
+| **Build output directory** | `site` |
+| **Root directory** | `/` (raíz del repositorio) |
 
-1. **Notion** — Directorio de Empresas (2026) database. Controls which restaurants appear (must have "Pagado" status), plus emoji and categories.
-2. **Google Places API** — Pulls live business data: hours, address, rating, phone, website, Google Maps link.
+No hace falta instalar dependencias para desplegar. El workflow de GitHub Actions solo actualiza datos; Cloudflare puede usar deploy al hacer push.
 
-A GitHub Action runs `sync.py` daily at 6 AM (Chihuahua time). It always reads **Notion** (who is listed, emoji, categories). **Google Places** is called only for Place IDs that are not yet in `places_cache.json`, so routine syncs do not re-bill every restaurant.
+Archivos de borde en `site/`:
 
-You can also trigger a sync immediately via `repository_dispatch` (event type `sync-restaurants`) when a new restaurantero is added—see below.
+- `_redirects` — 301 desde rutas legacy (`/dondecomemos.html`, páginas antiguas de GitHub Pages)
+- `_headers` — cabeceras de seguridad básicas
+- `sitemap.xml` / `robots.txt` — canónicos en `https://sercanaco.com`
 
-## Setup
+## Cómo funciona la sincronización
 
-Three secrets are required in the repo settings (Settings → Secrets → Actions):
+1. **Notion** — base «Directorio de Empresas». Solo entradas con estado «Pagado».
+2. **Google Places API** — horarios, dirección, calificación, etc. (con caché en `places_cache.json`).
 
-| Secret | Description |
-|--------|-------------|
-| `NOTION_TOKEN` | Notion internal integration token |
-| `GOOGLE_API_KEY` | Google Cloud API key with Places API enabled |
-| `NOTION_DB_ID` | Notion database ID (default: `2f03b368f49680c4adefdd8d3a244068`) |
+El Action `Sync Restaurant Directory` ejecuta `sync.py` y actualiza:
 
-## Adding a new restaurant
+- `dondecomemos.html` (GitHub Pages, ruta histórica)
+- `site/assets/restaurants-data.js` (sitio nuevo)
 
-1. Add the restaurant to the Notion database
-2. Set status to "Pagado"
-3. Add the Google Place ID (find it via [Google Maps](https://www.google.com/maps))
-4. Add an emoji
-5. The next sync updates the site. Only that restaurant’s Place ID triggers a Google Places API call (unless you force a full refresh).
+Secretos en el repositorio (solo nombres): `NOTION_TOKEN`, `GOOGLE_API_KEY`, `NOTION_DB_ID`.
 
-### Event-driven sync (optional)
+## Desarrollo local
 
-To run the workflow when Notion changes (instead of waiting for the daily job), send a GitHub `repository_dispatch` from any webhook-capable tool (Notion automation, Zapier, etc.):
+Sirve el directorio `site/` con cualquier servidor estático, por ejemplo:
 
-1. Create a fine-grained or classic PAT with `contents: read` on this repo and permission to trigger workflows.
-2. POST to `https://api.github.com/repos/canacorestauranteroscuu/restaurantes/dispatches` with body `{"event_type":"sync-restaurants","client_payload":{}}` and header `Authorization: Bearer <PAT>`.
-
-No Places calls are made if the new row reuses Place IDs already in `places_cache.json`.
-
-## Multi-location restaurants
-
-Put comma-separated Place IDs in the "Google Place ID" field:
+```bash
+python3 -m http.server 8787 --directory site
 ```
-ChIJr9wn5TtD6oYR-mtNxo-v9p4, ChIJAaAxRzVD6oYR3XKBTQDTNDc
+
+Abre `http://localhost:8787/` para probar la Ruleta y las rutas públicas. La raíz del repositorio no es el preview de Cloudflare; `dondecomemos.html` en la raíz se prueba abriéndolo por su ruta en GitHub Pages o sirviendo el repo desde la raíz si lo necesitas.
+
+## Estructura
+
 ```
-Each Place ID generates its own card with the same restaurant branding.
+site/                 # Output de Cloudflare Pages
+  index.html          # Ruleta (/)
+  restaurantes/
+  restauranteros/     # La Sección, únete, renovar, FAQ, contacto
+  aviso-de-privacidad/
+  terminos/
+  404.html
+dondecomemos.html     # Legacy GitHub Pages (se mantiene)
+sync.py               # Sincronización Notion + Places
+places_cache.json
+```
 
-## Manual sync
+## Agregar un restaurante
 
-Go to Actions → "Sync Restaurant Directory" → "Run workflow" to trigger an immediate sync.
+Igual que antes: alta en Notion, estado «Pagado», Google Place ID y emoji. El siguiente sync actualiza ambos destinos de datos.
 
-Enable **“Refrescar todos los datos de Google Places”** only when you want to re-fetch hours, ratings, and phones for every restaurant (~one Places Details call per Place ID). Normal runs leave this unchecked.
+### Sincronización manual o por evento
+
+Ver `.github/workflows/sync.yml` — cron diario y `workflow_dispatch`. Opcional: `repository_dispatch` con `sync-restaurants`.
+
+## Multi-sucursal
+
+Place IDs separados por comas en Notion, como antes.

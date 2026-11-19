@@ -1,0 +1,9 @@
+# sercanaco.com — Phase 1 redirects
+/dondecomemos.html / 301
+/seccion.html /restauranteros/ 301
+/afiliate.html https://canacochihuahua.com/ 301
+/links.html / 301
+/restaurantes /restaurantes/ 301
+/restauranteros /restauranteros/ 301
+/terminos /terminos/ 301
+/aviso-de-privacidad /aviso-de-privacidad/ 301

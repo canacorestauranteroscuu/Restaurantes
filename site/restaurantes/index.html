@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directorio de restaurantes — Chihuahua | sercanaco.com</title>
+  <meta name="description" content="Directorio de restaurantes socios de la Sección Restauranteros CANACO Chihuahua. Horarios, ubicación y contacto.">
+  <link rel="canonical" href="https://sercanaco.com/restaurantes/">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="section">
+    <div class="container">
+      <h1>Los restaurantes</h1>
+      <p style="color:var(--muted)">Directorio oficial de socios con membresía activa en la Sección.</p>
+      <p style="margin:1rem 0"><a class="btn btn-primary" href="/">Volver a la Ruleta del sabor</a></p>
+      <div class="section-head" style="margin-top:2rem">
+        <span id="dirCount" style="color:var(--muted);font-size:0.9rem">—</span>
+        <input type="search" class="search-input" id="dirSearch" placeholder="Buscar restaurante…" autocomplete="off">
+      </div>
+      <label class="open-toggle-row" style="color:var(--ink);margin:0.75rem 0 1.25rem;display:flex;align-items:center;gap:0.5rem">
+        <input type="checkbox" id="dirOpenOnly">
+        <span>Solo abiertos ahora</span>
+      </label>
+      <div class="rest-list" id="directoryList"></div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="/assets/restaurants-data.js"></script>
+  <script src="/assets/restaurant-core.js"></script>
+  <script src="/assets/layout.js"></script>
+  <script src="/assets/directory.js"></script>
+  <script>mountSiteHeader('restaurantes'); mountSiteFooter();</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Únete a la Sección Restauranteros | sercanaco.com</title>
+  <meta name="description" content="Registro para unirte a la Sección Restauranteros CANACO Chihuahua. Requiere membresía CANACO activa.">
+  <link rel="canonical" href="https://sercanaco.com/restauranteros/unete/">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="section">
+    <div class="container container-narrow">
+      <p class="eyebrow">Únete</p>
+      <h1>Registro a la Sección Restauranteros</h1>
+      <p style="color:var(--muted)">Antes de comenzar, confirma que tu restaurante tiene membresía activa en <a href="https://canacochihuahua.com/" target="_blank" rel="noopener">CANACO Chihuahua</a>.</p>
+
+      <ol class="steps" style="margin-top:2rem">
+        <li class="step-item"><span class="step-num">1</span><span>Consulta el monto vigente de la cuota anual de la Sección (se actualiza cada año).</span></li>
+        <li class="step-item"><span class="step-num">2</span><span>Realiza tu pago y guarda el comprobante.</span></li>
+        <li class="step-item"><span class="step-num">3</span><span>Completa el formulario de registro con los datos de tu restaurante.</span></li>
+      </ol>
+
+      <button type="button" class="btn btn-primary btn-lg" id="startRegistro" style="margin-top:1.5rem">Empezar registro</button>
+
+      <div class="placeholder-box" id="paymentPlaceholder" aria-live="polite">
+        <p class="todo">TODO (fase 2): conectar formulario real y mostrar datos bancarios solo tras autenticación.</p>
+        <h2 style="font-size:1.1rem;margin-top:0.75rem">Datos de pago (marcador de posición)</h2>
+        <p style="color:var(--muted);font-size:0.9rem">Esta sección mostrará el monto, banco, CLABE y titular solo después de «Empezar registro». No uses números reales en el repositorio.</p>
+        <ul style="margin:1rem 0;color:var(--ink)">
+          <li>Cuota anual: <strong>$[MONTO_PLACEHOLDER] MXN</strong></li>
+          <li>Banco: <strong>[BANCO_PLACEHOLDER]</strong></li>
+          <li>CLABE: <strong>[CLABE_PLACEHOLDER]</strong></li>
+          <li>Titular: <strong>[TITULAR_PLACEHOLDER]</strong></li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--muted)">Cuando el equipo confirme el flujo en fase 2, reemplazar estos marcadores con datos servidos desde el backend, nunca en HTML estático público.</p>
+      </div>
+
+      <p style="margin-top:2rem"><a href="/restauranteros/">← Volver a La Sección</a></p>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="/assets/restaurant-core.js"></script>
+  <script src="/assets/layout.js"></script>
+  <script src="/assets/unete.js"></script>
+  <script>mountSiteHeader('unete'); mountSiteFooter();</script>
+</body>
+</html>
