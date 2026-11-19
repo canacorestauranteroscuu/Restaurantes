@@ -25,6 +25,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Verify GitHub Pages root redirects
+        run: bash scripts/check_gh_pages_root_redirects.sh
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -38,20 +41,19 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
-          HTML_FILE: dondecomemos.html
           FORCE_PLACES_REFRESH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_places_refresh == true && 'true' || '' }}
         run: python sync.py
 
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet dondecomemos.html places_cache.json site/assets/restaurants-data.js site/assets/logos || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet places_cache.json site/assets/restaurants-data.js site/assets/logos || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "CANACO Sync Bot"
           git config user.email "canacorestauranteroscuu@gmail.com"
-          git add dondecomemos.html places_cache.json site/assets/restaurants-data.js site/assets/logos
+          git add places_cache.json site/assets/restaurants-data.js site/assets/logos
           git commit -m "🔄 Auto-sync restaurant directory $(date +%Y-%m-%d)"
           git push
