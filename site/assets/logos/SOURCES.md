@@ -4,8 +4,8 @@ Generado por `sync.py` / `logo_utils.py`. Revisar entradas `web` antes de produc
 
 | Restaurante | Slug | Fuente | Detalle |
 |-------------|------|--------|---------|
-| 27 y Salsas | `27-y-salsas` | **initials** | Notion download failed: cannot identify image file <_io.BytesIO object at 0x7f9ac31e6bb0> |
-| Akari | `akari` | **initials** | Web failed (https://logo.clearbit.com/akari.com.mx): <urlopen error [Errno -5] No address associated with hostname> |
+| 27 y Salsas | `27-y-salsas` | **initials** | Logo en Notion es PDF (omitido) |
+| Akari | `akari` | **web** | https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png |
 | Asador Libanés | `asador-libanes` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/f07f0d17-2d23-461b-a5d8-582987 |
 | Aura Café | `aura-cafe` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/24853037-5169-4c03-ac61-b8baa3 |
 | Bar San Luis | `bar-san-luis` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/2dd042fa-2f61-40c8-9113-3cd41b |
@@ -25,10 +25,10 @@ Generado por `sync.py` / `logo_utils.py`. Revisar entradas `web` antes de produc
 | El Huauzontle | `el-huauzontle` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/624591d6-6177-49ab-95b0-884413 |
 | El Norteñito Chihuahua | `el-nortenito-chihuahua` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/91f6d65c-2798-4046-b492-7ce73e |
 | El Temorense | `el-temorense` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/777e6312-6d3c-46e4-8259-6d3d95 |
-| El Ware | `el-ware` | **initials** | Web failed (https://logo.clearbit.com/Warecuu.com): <urlopen error [Errno -5] No address associated with hostname> |
+| El Ware | `el-ware` | **web** | https://scontent-ord5-1.xx.fbcdn.net/v/t39.30808-1/466047974_1075783257881217_2317514677458630268_n.jpg?stp=dst-jpg_tt6&cstp=mx960x958&ctp=s720x720&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=8ZBTfDo4yNYQ7kNvwG801un&_nc_oc=AdqrTNVltU_r7fzP8CVD8y_FuXut1lxw8wvnL5mN9IQI33P9h7Cy0IY0PWTLHNeZcH4&_nc_zt=24&_nc_ht=scontent-ord5-1.xx&_nc_gid=wuH9lNilxPo0KFuSlT-ywA&_nc_ss=7b20f&oh=00_AQRSllQ_qPP5CM5lSHyVmFCHDG_x6pqwWd__EMrpKdasLw&oe=6B051E33 |
 | ENCUENTRO | `encuentro` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/485ab7d3-3d83-41d7-90cf-ea0299 |
 | Fonda Chilangos | `fonda-chilangos` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/74eff6f0-0771-4e66-818a-dc2d19 |
-| Hakuna Bolas de Arroz | `hakuna-bolas-de-arroz` | **initials** | Web failed (https://logo.clearbit.com/hakunabolasdearroz.com): <urlopen error [Errno -5] No address associated with hostname> |
+| Hakuna Bolas de Arroz | `hakuna-bolas-de-arroz` | **web** | https://scontent-ord5-1.xx.fbcdn.net/v/t39.30808-1/763961806_1499388788899244_5730443371373636150_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s720x720&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=eBfzGzP_ne4Q7kNvwHj3aUd&_nc_oc=AdokriEm2_Sb8hUA5XML7zwi27U1JL89i634sVHhpnEmVflF5q_U3OK3u0mOU-fwL78&_nc_zt=24&_nc_ht=scontent-ord5-1.xx&_nc_gid=h9ynjvZXm2Lw5BXkeUqs6A&_nc_ss=7b20f&oh=00_AQSh-kWDb5Tmci40gYhUVpXtn1ssHQ3_D57X97EfuOgIIQ&oe=6B05139F |
 | Italianisimmo Pasta y Cafe | `italianisimmo-pasta-y-cafe` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/a1118802-ef48-4ec5-aa99-c95a54 |
 | Kabuki Bistro | `kabuki-bistro` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/9aa07dd5-b130-41c2-9dfd-550941 |
 | La Cabaña Smokehouse | `la-cabana-smokehouse` | **initials** | Web failed (https://logo.clearbit.com/smokehouse.mx): <urlopen error [Errno -5] No address associated with hostname> |
@@ -50,12 +50,12 @@ Generado por `sync.py` / `logo_utils.py`. Revisar entradas `web` antes de produc
 | Naranja y Limón | `naranja-y-limon` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/993eec44-02b3-47ca-b06e-a45eaa |
 | naturalbalance.club | `naturalbalance-club` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/622e46a8-8c9b-4465-8827-1b1874 |
 | New Sheridan | `new-sheridan` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/67d96ae3-5a5a-4b4c-ab39-38ef4a |
-| Nómada Paradero Gastronomico | `nomada-paradero-gastronomico` | **web** | https://linktr.ee/og/image/Nmdcuu.jpg |
+| Nómada Paradero Gastronomico | `nomada-paradero-gastronomico` | **initials** | Sin logo en Notion ni web |
 | Parador El Sueco | `parador-el-sueco` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/8bdcf1ad-2eb4-45bc-81cd-0160b1 |
 | Paradójico | `paradojico` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/e39467c4-8943-442b-9923-9e99d7 |
 | Pasteleria Dulce Noviembre | `pasteleria-dulce-noviembre` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/c2a7411d-c12a-4925-a099-ebe82e |
 | Pinos Burger | `pinos-burger` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/074fc26a-e2e0-4e7c-8b38-c57267 |
-| Pit-Tacos | `pit-tacos` | **web** | https://pittacos.com.mx/images/hero-plate.jpg |
+| Pit-Tacos | `pit-tacos` | **initials** | Sin logo en Notion ni web |
 | Plebes Roll | `plebes-roll` | **initials** | Sin logo en Notion ni web |
 | Restaurante Puebla en Chihuahua | `restaurante-puebla-en-chihuahua` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/78b1ce2e-55d5-4443-ac75-5189dd |
 | Ricos Tacos de la 24 | `ricos-tacos-de-la-24` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/369b5bda-9b3a-428c-b940-ddca50 |
@@ -70,10 +70,10 @@ Generado por `sync.py` / `logo_utils.py`. Revisar entradas `web` antes de produc
 | The hottie wings | `the-hottie-wings` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/ec7ca68f-510b-4d70-a097-f6f1d1 |
 | Tortas Piolines | `tortas-piolines` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/22b0b9c9-ca6f-437d-8212-d855a2 |
 | Woko Loco | `woko-loco` | **notion** | https://prod-files-secure.s3.us-west-2.amazonaws.com/bd060faf-8c9c-40cc-b1ec-b55094164199/78663d5c-ec1a-4d42-bfab-50a97f |
-| Yakiyang | `yakiyang` | **initials** | Web failed (https://logo.clearbit.com/Yakiyang.com): <urlopen error [Errno -5] No address associated with hostname> |
+| Yakiyang | `yakiyang` | **web** | https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-1/813101927_1548021530688563_4658722417392280230_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s720x720&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=naNQt8SUANgQ7kNvwEA54l9&_nc_oc=AdpXtsZD7uZR8qcivubj2hS1Bdl9mqT1TPq2lAJaQCVdz-YmJ27Gs7-S1c6T2qMwYsc&_nc_zt=24&_nc_ht=scontent-ord5-2.xx&_nc_gid=wJvF6BDw7DTHcYPv0bkBNg&_nc_ss=7b20f&oh=00_AQSvkDQPcExs_v0BvytSEUPzAfnhh2iJeB8lhzByOynrsA&oe=6B053A7F |
 
 ## Resumen
 
 - Notion: 56
-- Web: 2
-- Iniciales (sin imagen): 9
+- Web: 4
+- Iniciales (sin imagen): 7

@@ -2,12 +2,12 @@
   "27 y Salsas": {
     "slug": "27-y-salsas",
     "source": "initials",
-    "detail": "Notion download failed: cannot identify image file <_io.BytesIO object at 0x7f9ac31e6bb0>"
+    "detail": "Logo en Notion es PDF (omitido)"
   },
   "Akari": {
     "slug": "akari",
-    "source": "initials",
-    "detail": "Web failed (https://logo.clearbit.com/akari.com.mx): <urlopen error [Errno -5] No address associated with hostname>"
+    "source": "web",
+    "detail": "https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png"
   },
   "Asador Libanés": {
     "slug": "asador-libanes",
@@ -106,8 +106,8 @@
   },
   "El Ware": {
     "slug": "el-ware",
-    "source": "initials",
-    "detail": "Web failed (https://logo.clearbit.com/Warecuu.com): <urlopen error [Errno -5] No address associated with hostname>"
+    "source": "web",
+    "detail": "https://scontent-ord5-1.xx.fbcdn.net/v/t39.30808-1/466047974_1075783257881217_2317514677458630268_n.jpg?stp=dst-jpg_tt6&cstp=mx960x958&ctp=s720x720&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=8ZBTfDo4yNYQ7kNvwG801un&_nc_oc=AdqrTNVltU_r7fzP8CVD8y_FuXut1lxw8wvnL5mN9IQI33P9h7Cy0IY0PWTLHNeZcH4&_nc_zt=24&_nc_ht=scontent-ord5-1.xx&_nc_gid=wuH9lNilxPo0KFuSlT-ywA&_nc_ss=7b20f&oh=00_AQRSllQ_qPP5CM5lSHyVmFCHDG_x6pqwWd__EMrpKdasLw&oe=6B051E33"
   },
   "ENCUENTRO": {
     "slug": "encuentro",
@@ -121,8 +121,8 @@
   },
   "Hakuna Bolas de Arroz": {
     "slug": "hakuna-bolas-de-arroz",
-    "source": "initials",
-    "detail": "Web failed (https://logo.clearbit.com/hakunabolasdearroz.com): <urlopen error [Errno -5] No address associated with hostname>"
+    "source": "web",
+    "detail": "https://scontent-ord5-1.xx.fbcdn.net/v/t39.30808-1/763961806_1499388788899244_5730443371373636150_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s720x720&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=eBfzGzP_ne4Q7kNvwHj3aUd&_nc_oc=AdokriEm2_Sb8hUA5XML7zwi27U1JL89i634sVHhpnEmVflF5q_U3OK3u0mOU-fwL78&_nc_zt=24&_nc_ht=scontent-ord5-1.xx&_nc_gid=h9ynjvZXm2Lw5BXkeUqs6A&_nc_ss=7b20f&oh=00_AQSh-kWDb5Tmci40gYhUVpXtn1ssHQ3_D57X97EfuOgIIQ&oe=6B05139F"
   },
   "Italianisimmo Pasta y Cafe": {
     "slug": "italianisimmo-pasta-y-cafe",
@@ -231,8 +231,8 @@
   },
   "Nómada Paradero Gastronomico": {
     "slug": "nomada-paradero-gastronomico",
-    "source": "web",
-    "detail": "https://linktr.ee/og/image/Nmdcuu.jpg"
+    "source": "initials",
+    "detail": "Sin logo en Notion ni web"
   },
   "Paradójico": {
     "slug": "paradojico",
@@ -256,8 +256,8 @@
   },
   "Pit-Tacos": {
     "slug": "pit-tacos",
-    "source": "web",
-    "detail": "https://pittacos.com.mx/images/hero-plate.jpg"
+    "source": "initials",
+    "detail": "Sin logo en Notion ni web"
   },
   "Plebes Roll": {
     "slug": "plebes-roll",
@@ -331,7 +331,7 @@
   },
   "Yakiyang": {
     "slug": "yakiyang",
-    "source": "initials",
-    "detail": "Web failed (https://logo.clearbit.com/Yakiyang.com): <urlopen error [Errno -5] No address associated with hostname>"
+    "source": "web",
+    "detail": "https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-1/813101927_1548021530688563_4658722417392280230_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s720x720&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=naNQt8SUANgQ7kNvwEA54l9&_nc_oc=AdpXtsZD7uZR8qcivubj2hS1Bdl9mqT1TPq2lAJaQCVdz-YmJ27Gs7-S1c6T2qMwYsc&_nc_zt=24&_nc_ht=scontent-ord5-2.xx&_nc_gid=wJvF6BDw7DTHcYPv0bkBNg&_nc_ss=7b20f&oh=00_AQSvkDQPcExs_v0BvytSEUPzAfnhh2iJeB8lhzByOynrsA&oe=6B053A7F"
   }
 }
