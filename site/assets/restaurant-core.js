@@ -42,8 +42,13 @@ function phoneDigits(p) {
   return d.length === 10 ? '52' + d : d;
 }
 
+// Corrige medianoche mal escrita por el sync: "6:00 PM – 12:00 PM" → "6:00 PM – 12:00 AM"
+function fixMidnight(h) {
+  return h.replace(/(\d{1,2}:\d{2}\s*PM)\s*–\s*12:00\s*PM/gi, (m, open) => `${open} – 12:00 AM`);
+}
 function todayHours(r) {
-  return (r.hours && r.hours[todayName]) || null;
+  const h = r.hours && r.hours[todayName];
+  return h ? fixMidnight(h) : null;
 }
 
 function isOpenNow(r) {

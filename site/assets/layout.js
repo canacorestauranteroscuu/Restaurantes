@@ -98,12 +98,11 @@ function mountSiteFooter() {
 (function () {
   const els = document.querySelectorAll('.reveal');
   if (!els.length) return;
-  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    els.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let fired = false;
   const io = new IntersectionObserver(
     (entries) => {
+      fired = true;
       entries.forEach((e) => {
         if (e.isIntersecting) {
           e.target.classList.add('is-visible');
@@ -113,5 +112,9 @@ function mountSiteFooter() {
     },
     { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
   );
+  document.documentElement.classList.add('js-reveal-ready');
   els.forEach((el) => io.observe(el));
+  setTimeout(() => {
+    if (!fired) els.forEach((el) => el.classList.add('is-visible'));
+  }, 1500);
 })();
