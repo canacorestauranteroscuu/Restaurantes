@@ -766,3 +766,9 @@ body.has-sticky { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 .ruleta-hub .logo-tile { width: 86%; height: 86%; padding: 6px; border-radius: 14px; }
 .ruleta-hub .logo-tile--mono { font-size: 1.75rem; padding: 0; }
 .hub-idle { font: 700 .8125rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--canaco-blue); }
+
+/* Home: menos hueco lista → CTAs (móvil y desktop) */
+.section-home-directory { padding-bottom: clamp(1.25rem, 0.75rem + 1.5vw, 2rem); }
+.section-home-cta { padding-top: clamp(1.25rem, 0.75rem + 1.5vw, 2rem); }
+.section-home-cta .cta-duo { margin-top: 0; }
+.home-dir-more { margin: 0.75rem 0 0; text-align: center; }
