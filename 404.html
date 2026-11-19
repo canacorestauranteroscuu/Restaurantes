@@ -1,17 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-MX">
 <head>
-<meta charset="UTF-8">
-<script>
-  // GitHub Pages is case-sensitive. Redirect lowercase paths to correct case.
-  var path = window.location.pathname;
-  if (path.toLowerCase().indexOf('/restaurantes/') === 0 && path.indexOf('/Restaurantes/') !== 0) {
-    window.location.replace(path.replace(/\/restaurantes\//i, '/Restaurantes/'));
-  }
-</script>
-<title>Página no encontrada</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirigiendo — sercanaco.com</title>
+  <link rel="canonical" href="https://sercanaco.com/">
+  <script>
+    (function () {
+      var map = {
+        '/': 'https://sercanaco.com/',
+        '/index.html': 'https://sercanaco.com/',
+        '/links.html': 'https://sercanaco.com/',
+        '/dondecomemos.html': 'https://sercanaco.com/restaurantes/',
+        '/seccion.html': 'https://sercanaco.com/restauranteros/',
+        '/afiliate.html': 'https://sercanaco.com/restauranteros/unete/',
+        '/restaurantes': 'https://sercanaco.com/restaurantes/',
+        '/restaurantes/': 'https://sercanaco.com/restaurantes/',
+        '/restauranteros': 'https://sercanaco.com/restauranteros/',
+        '/restauranteros/': 'https://sercanaco.com/restauranteros/',
+        '/restauranteros/unete': 'https://sercanaco.com/restauranteros/unete/',
+        '/restauranteros/unete/': 'https://sercanaco.com/restauranteros/unete/',
+        '/restauranteros/contacto': 'https://sercanaco.com/restauranteros/contacto/',
+        '/restauranteros/contacto/': 'https://sercanaco.com/restauranteros/contacto/',
+        '/restauranteros/preguntas': 'https://sercanaco.com/restauranteros/preguntas/',
+        '/restauranteros/preguntas/': 'https://sercanaco.com/restauranteros/preguntas/',
+        '/restauranteros/renovar': 'https://sercanaco.com/restauranteros/renovar/',
+        '/restauranteros/renovar/': 'https://sercanaco.com/restauranteros/renovar/',
+        '/aviso-de-privacidad': 'https://sercanaco.com/aviso-de-privacidad/',
+        '/aviso-de-privacidad/': 'https://sercanaco.com/aviso-de-privacidad/',
+        '/terminos': 'https://sercanaco.com/terminos/',
+        '/terminos/': 'https://sercanaco.com/terminos/',
+      };
+      function stripProjectPrefix(pathname) {
+        var path = pathname.replace(/^\/Restaurantes(?=\/|$)/i, '') || '/';
+        if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+        return path || '/';
+      }
+      var raw = location.pathname;
+      var path = stripProjectPrefix(raw);
+      var pathNoSlash = path.replace(/\/$/, '') || '/';
+      var base =
+        map[path] ||
+        map[path + '.html'] ||
+        map[pathNoSlash] ||
+        map[pathNoSlash + '.html'] ||
+        map[raw] ||
+        'https://sercanaco.com/';
+      var dest = base + location.search + location.hash;
+      var meta = document.createElement('meta');
+      meta.httpEquiv = 'refresh';
+      meta.content = '0; url=' + dest;
+      document.head.appendChild(meta);
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.href = base;
+      location.replace(dest);
+    })();
+  </script>
 </head>
 <body>
-<p>Redirigiendo...</p>
+  <p>Si no te redirigimos automáticamente, abre <a href="https://sercanaco.com/">sercanaco.com</a>.</p>
 </body>
 </html>

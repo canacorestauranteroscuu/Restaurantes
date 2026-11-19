@@ -1,0 +1,14 @@
+name: GitHub Pages root redirects
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify root redirect stubs
+        run: bash scripts/check_gh_pages_root_redirects.sh
