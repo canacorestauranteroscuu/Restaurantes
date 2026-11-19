@@ -36,7 +36,7 @@
       el.classList.toggle('is-active', on);
       el.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    const inMore = !['all', 'Restaurante', 'Desayunos', 'Café'].includes(key);
+    const inMore = !['all', ...HOME_CHIP_CATEGORY_KEYS].includes(key);
     moreBtn?.classList.toggle('is-active', inMore);
     if (moreBtn) moreBtn.textContent = inMore ? `${CATEGORY_LABELS[key] || key} ▾` : 'Más ▾';
     closeMore();
@@ -46,8 +46,7 @@
   chipRow?.querySelectorAll('.chip[data-filter]').forEach((b) => b.addEventListener('click', () => setFilter(b.dataset.filter)));
 
   if (moreMenu) {
-    MORE_FILTER_CATEGORIES.forEach((cat) => {
-      if (!restaurants.some((r) => r.categories.includes(cat))) return;
+    moreFilterCategories().forEach((cat) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = CATEGORY_LABELS[cat] || cat;
