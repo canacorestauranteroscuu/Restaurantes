@@ -159,3 +159,51 @@ function countOpen(list) {
 const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>'"]/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+  );
+}
+const MONO_STOP = new Set(['y', 'de', 'del', 'la', 'el', 'los', 'las', '&']);
+function monogram(name) {
+  const w = name
+    .replace(/[^\p{L}\p{N}\s&]/gu, '')
+    .split(/\s+/)
+    .filter((x) => x && !MONO_STOP.has(x.toLowerCase()));
+  return (w.slice(0, 2).map((x) => x[0]).join('') || name[0] || '?').toUpperCase();
+}
+function logoTile(r, size = 'sm') {
+  const slug = slugify(r.name);
+  const px = size === 'lg' ? 76 : 40;
+  let src = r.logo || null;
+  if (!src && typeof LOGOS !== 'undefined' && LOGOS.has(slug)) {
+    src = `/assets/logos/${slug}.webp`;
+  }
+  if (src) {
+    const mono = escapeHtml(monogram(r.name));
+    const alt = slug.length % 2;
+    return `<span class="logo-tile logo-tile--${size}"><img src="${src}" alt="" width="${px}" height="${px}" loading="lazy" decoding="async" onerror="this.parentNode.outerHTML=monoTile('${mono}','${size}',${alt})"></span>`;
+  }
+  return monoTile(escapeHtml(monogram(r.name)), size, slug.length % 2);
+}
+function monoTile(txt, size, alt) {
+  return `<span class="logo-tile logo-tile--${size} logo-tile--mono${alt ? ' alt' : ''}" aria-hidden="true">${txt}</span>`;
+}
+function to24(s) {
+  return s
+    .replace(/(\d{1,2}):(\d{2})\s*(AM|PM)/gi, (m, h, mi, ap) => {
+      let hh = parseInt(h, 10) % 12;
+      if (ap.toUpperCase() === 'PM') hh += 12;
+      if (parseInt(h, 10) === 12 && ap.toUpperCase() === 'AM') hh = 0;
+      if (parseInt(h, 10) === 12 && ap.toUpperCase() === 'PM') hh = 12;
+      return `${String(hh).padStart(2, '0')}:${mi}`;
+    })
+    .replace(/\s*–\s*/g, '–');
+}
+function hoyHorario(r) {
+  const h = todayHours(r);
+  if (!h) return 'Horario no disponible';
+  if (h === 'Cerrado') return 'Hoy cerrado';
+  return 'Hoy ' + to24(h);
+}

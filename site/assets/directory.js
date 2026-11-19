@@ -14,25 +14,25 @@
     if (countEl) {
       countEl.textContent = `${items.length} resultado${items.length !== 1 ? 's' : ''}`;
     }
-  if (!listEl) return;
+    if (!listEl) return;
     listEl.innerHTML =
       items.length === 0
-        ? '<p style="color:var(--muted)">No se encontraron restaurantes.</p>'
+        ? '<p class="empty-state"><img src="/assets/fotos/comida-detalle-320.webp" width="64" height="64" alt="" loading="lazy">No encontramos ese nombre. Prueba con otro o <a href="/">gira la ruleta</a>.</p>'
         : items
             .map((r) => {
               const st = statusText(r);
               const id = slugify(r.name);
-              return `<article class="rest-card" id="${id}" data-name="${r.name.replace(/"/g, '&quot;')}">
-          <span class="rest-thumb" aria-hidden="true">${initials(r.name)}</span>
+              return `<article class="rest-card" id="${id}" data-name="${escapeHtml(r.name)}">
+          ${logoTile(r, 'sm')}
           <span class="rest-info">
-            <div class="rest-name">${r.name}</div>
-            <div class="rest-meta"><span class="${st.cls}">${st.text}</span> · ${categoryLine(r)}${ratingLine(r)}</div>
-            ${r.address ? `<div class="rest-meta" style="margin-top:0.35rem">${r.address}</div>` : ''}
-            <p class="rest-meta" style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.5rem">
+            <span class="rest-name">${escapeHtml(r.name)}</span>
+            <span class="rest-meta"><span class="${st.cls}">${st.text}</span> · ${escapeHtml(categoryLine(r))}${ratingLine(r)}</span>
+            ${r.address ? `<span class="rest-meta" style="margin-top:0.35rem">${escapeHtml(r.address)}</span>` : ''}
+            <span class="rest-meta" style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.5rem">
               ${r.mapsUrl ? `<a href="${r.mapsUrl}" target="_blank" rel="noopener">Cómo llegar</a>` : ''}
               ${r.phone ? `<a href="tel:${phoneDigits(r.phone)}">Llamar</a>` : ''}
               ${waLink(getWaNum(r)) ? `<a href="${waLink(getWaNum(r))}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
-            </p>
+            </span>
           </span>
         </article>`;
             })

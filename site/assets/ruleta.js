@@ -1,4 +1,4 @@
-/* Ruleta del Sabor — home page */
+/* Ruleta del Sabor — home (pase Muriel). Reemplaza site/assets/ruleta.js completo. */
 (function () {
   if (typeof restaurants === 'undefined') return;
 
@@ -6,56 +6,45 @@
   let openOnly = true;
   let lastWinner = null;
   let spinning = false;
+  let angle = 0;
+  const SPIN_MS = 3000;
 
-  const wheelEl = document.getElementById('ruletaWheel');
-  const resultName = document.getElementById('ruletaResultName');
-  const resultMeta = document.getElementById('ruletaResultMeta');
-  const spinMain = document.getElementById('spinBtn');
-  const spinSticky = document.getElementById('spinBtnSticky');
-  const openToggle = document.getElementById('openNowToggle');
-  const openCountEl = document.getElementById('openCountNote');
-  const chipRow = document.getElementById('filterChips');
-  const moreBtn = document.getElementById('chipMoreBtn');
-  const moreMenu = document.getElementById('chipMoreMenu');
-  const listPreview = document.getElementById('homeRestList');
-  const homeSearch = document.getElementById('homeSearch');
-  const homeTotal = document.getElementById('homeRestTotal');
-  const stickyBar = document.getElementById('stickySpin');
+  const $ = (id) => document.getElementById(id);
+  const wheel = $('ruletaWheel'), hub = $('ruletaHub'), hint = $('ruletaHint');
+  const result = $('ruletaResult'), live = $('ruletaLive'), empty = $('ruletaEmpty');
+  const spinMain = $('spinBtn'), spinSticky = $('spinBtnSticky');
+  const openToggle = $('openNowToggle'), openCount = $('openCountNote');
+  const chipRow = $('filterChips'), moreBtn = $('chipMoreBtn'), moreMenu = $('chipMoreMenu');
+  const listPreview = $('homeRestList'), homeSearch = $('homeSearch'), homeTotal = $('homeRestTotal');
+  const stickyBar = $('stickySpin'), maps = $('ruletaMaps'), share = $('ruletaShare');
 
-  function pool() {
-    return filterRestaurants({
-      category: activeFilter,
-      openOnly,
-      query: homeSearch?.value?.trim() || '',
-    });
-  }
+  const q = () => homeSearch?.value?.trim() || '';
+  const pool = () => filterRestaurants({ category: activeFilter, openOnly, query: q() });
 
-  function updateOpenNote() {
-    const all = filterRestaurants({
-      category: activeFilter,
-      query: homeSearch?.value?.trim() || '',
-    });
+  function updateCounts() {
+    const all = filterRestaurants({ category: activeFilter, query: q() });
     const openN = countOpen(all);
-    if (openCountEl) {
-      openCountEl.textContent = openOnly
-        ? `Solo abiertos ahora · ${openN} de ${all.length} abiertos`
-        : `${all.length} restaurantes socios`;
-    }
+    if (openCount) openCount.textContent = openOnly ? `${openN} de ${all.length}` : `${all.length} socios`;
     if (homeTotal) homeTotal.textContent = `${restaurants.length} restaurantes socios`;
+    document.querySelectorAll('[data-stat="socios"]').forEach((el) => (el.textContent = restaurants.length));
+    if (empty) empty.hidden = true;
   }
 
   function setFilter(key) {
     activeFilter = key;
     chipRow?.querySelectorAll('.chip[data-filter]').forEach((el) => {
-      el.classList.toggle('is-active', el.dataset.filter === key);
+      const on = el.dataset.filter === key;
+      el.classList.toggle('is-active', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    updateOpenNote();
-    renderPreview();
+    const inMore = !['all', 'Restaurante', 'Desayunos', 'Café'].includes(key);
+    moreBtn?.classList.toggle('is-active', inMore);
+    if (moreBtn) moreBtn.textContent = inMore ? `${CATEGORY_LABELS[key] || key} ▾` : 'Más ▾';
+    closeMore();
+    updateCounts();
   }
 
-  chipRow?.querySelectorAll('.chip[data-filter]').forEach((btn) => {
-    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
-  });
+  chipRow?.querySelectorAll('.chip[data-filter]').forEach((b) => b.addEventListener('click', () => setFilter(b.dataset.filter)));
 
   if (moreMenu) {
     MORE_FILTER_CATEGORIES.forEach((cat) => {
@@ -67,121 +56,127 @@
       moreMenu.appendChild(b);
     });
   }
-
+  function closeMore() { moreMenu?.classList.remove('is-open'); moreBtn?.setAttribute('aria-expanded', 'false'); }
   moreBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
-    moreMenu?.classList.toggle('is-open');
+    const open = moreMenu.classList.toggle('is-open');
+    moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  document.addEventListener('click', () => moreMenu?.classList.remove('is-open'));
+  document.addEventListener('click', closeMore);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMore(); });
+
+  // «Solo abiertos»: el <label> nativo ya alterna el checkbox. NO añadir otro listener de click (causaba doble toggle).
+  openToggle?.addEventListener('change', () => { openOnly = openToggle.checked; updateCounts(); });
 
   function renderPreview() {
     if (!listPreview) return;
-    const q = homeSearch?.value?.trim() || '';
-    const items = filterRestaurants({ category: 'all', query: q, openOnly: false }).slice(0, 6);
-    listPreview.innerHTML = items
-      .map((r) => {
-        const st = statusText(r);
-        return `<a class="rest-card" href="/restaurantes/#${slugify(r.name)}" data-name="${r.name.replace(/"/g, '&quot;')}">
-          <span class="rest-thumb" aria-hidden="true">${initials(r.name)}</span>
-          <span class="rest-info">
-            <div class="rest-name">${r.name}</div>
-            <div class="rest-meta"><span class="${st.cls}">${st.text}</span> · ${categoryLine(r)}${ratingLine(r)}</div>
-          </span>
-          <span class="rest-chevron" aria-hidden="true">›</span>
-        </a>`;
-      })
-      .join('');
-    highlightWinner();
+    const items = filterRestaurants({ category: 'all', query: q(), openOnly: false }).slice(0, 6);
+    listPreview.innerHTML = items.map((r) => {
+      const st = statusText(r);
+      return `<a class="rest-card${lastWinner && lastWinner.name === r.name ? ' is-highlight' : ''}" href="/restaurantes/#${slugify(r.name)}">
+        ${logoTile(r, 'sm')}
+        <span class="rest-info">
+          <span class="rest-name">${escapeHtml(r.name)}</span>
+          <span class="rest-meta"><span class="${st.cls}">${st.text}</span> · ${escapeHtml(categoryLine(r))}${ratingLine(r)}</span>
+        </span>
+        <span class="rest-chevron" aria-hidden="true">›</span>
+      </a>`;
+    }).join('');
   }
 
-  function highlightWinner() {
-    if (!lastWinner || !listPreview) return;
-    listPreview.querySelectorAll('.rest-card').forEach((el) => {
-      el.classList.toggle('is-highlight', el.dataset.name === lastWinner.name);
+  function setBusy(b) {
+    [spinMain, spinSticky].forEach((el) => {
+      if (!el) return;
+      el.setAttribute('aria-disabled', b ? 'true' : 'false');
+      el.textContent = b ? 'Girando…' : (lastWinner ? 'Otra vez' : '¡Sorpréndeme!');
     });
   }
 
+  function pickWinner(c) {
+    if (c.length < 2 || !lastWinner) return c[Math.floor(Math.random() * c.length)];
+    const rest = c.filter((r) => r.name !== lastWinner.name);
+    return rest[Math.floor(Math.random() * rest.length)];
+  }
+
+  function showEmpty() {
+    if (!empty) return;
+    empty.hidden = false;
+    live.textContent = openOnly ? 'A esta hora no hay socios abiertos con este filtro.' : 'No hay socios con este filtro.';
+  }
+  $('ruletaVerTodos')?.addEventListener('click', () => {
+    openToggle.checked = false; openOnly = false; activeFilter !== 'all' && setFilter('all'); updateCounts(); spin();
+  });
+
   function showWinner(r) {
     const st = statusText(r);
-    resultName.textContent = r.name;
-    resultMeta.innerHTML = `<span class="${st.cls}">${st.text}</span> · ${categoryLine(r)}${ratingLine(r)}`;
-    wheelEl.textContent = '';
-    wheelEl.classList.remove('spinning');
     lastWinner = r;
-    highlightWinner();
-    const maps = document.getElementById('ruletaMaps');
-    if (maps) {
-      maps.href = r.mapsUrl || '#';
-      maps.style.display = r.mapsUrl ? '' : 'none';
-    }
-    document.getElementById('ruletaShare').onclick = () => shareWinner(r);
+    hub.innerHTML = logoTile(r, 'sm');
+    $('resLogo').innerHTML = logoTile(r, 'lg');
+    $('resName').textContent = r.name;
+    $('resType').textContent = categoryLine(r) + (r.rating ? ` · ★ ${r.rating.toFixed(1)}` : '');
+    $('resStatus').innerHTML = `<span class="${st.cls}">${st.text}</span> · ${escapeHtml(hoyHorario(r))}`;
+    $('resAddr').textContent = r.address || '';
+    hint.hidden = true;
+    const stage = wheel.parentElement; stage.classList.remove('is-done'); void stage.offsetWidth; stage.classList.add('is-done');
+    result.classList.add('is-shown');
+    result.classList.remove('is-in'); void result.offsetWidth; result.classList.add('is-in');
+    if (maps) { maps.href = r.mapsUrl || '#'; maps.hidden = !r.mapsUrl; }
+    if (share) share.onclick = () => shareWinner(r);
+    live.textContent = `Te tocó ${r.name}. ${st.text}. ${hoyHorario(r)}. ${r.address || ''}`;
+    if (navigator.vibrate && !prefersReducedMotion) navigator.vibrate(12);
+    renderPreview();
+    const box = result.getBoundingClientRect();
+    if (box.bottom > innerHeight - 90) result.scrollIntoView({ block: 'center', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }
 
   function shareWinner(r) {
-    const st = statusText(r);
-    const text = `La Ruleta del Sabor me sugiere ${r.name} (${st.text}). ¿Vienes?\n\n${SITE_ORIGIN}/`;
-    if (navigator.share) {
-      navigator.share({ title: 'Ruleta del Sabor', text }).catch(() => {});
-    } else {
-      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
-    }
+    const text = `La Ruleta del Sabor me mandó a ${r.name}. ¡Vamos a consumir local! ${SITE_ORIGIN}/`;
+    if (navigator.share) navigator.share({ title: 'Ruleta del Sabor', text }).catch(() => {});
+    else window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   }
 
   function spin() {
     if (spinning) return;
-    const candidates = pool();
-    if (!candidates.length) {
-      resultMeta.textContent = 'No hay restaurantes abiertos con estos filtros.';
-      return;
-    }
+    const c = pool();
+    if (!c.length) { showEmpty(); return; }
+    if (empty) empty.hidden = true;
+    const winner = pickWinner(c);
     spinning = true;
-    const winner = candidates[Math.floor(Math.random() * candidates.length)];
-    wheelEl.classList.add('spinning');
+    setBusy(true);
 
     if (prefersReducedMotion) {
-      showWinner(winner);
-      spinning = false;
-      return;
+      showWinner(winner); spinning = false; setBusy(false); return;
     }
-
-    let cycles = 0;
-    const maxCycles = 16;
-    const tick = setInterval(() => {
-      wheelEl.textContent = candidates[Math.floor(Math.random() * candidates.length)].name;
-      cycles += 1;
-      if (cycles >= maxCycles) {
-        clearInterval(tick);
-        showWinner(winner);
-        spinning = false;
+    angle += 1440 + Math.floor(Math.random() * 360);
+    wheel.style.transition = `transform ${SPIN_MS}ms var(--ease-spin)`;
+    wheel.style.transform = `rotate(${angle}deg)`;
+    const t0 = performance.now();
+    let lastStep = -1;
+    const STEPS = 22;
+    (function tick(now) {
+      const p = Math.min(1, (now - t0) / SPIN_MS);
+      const step = Math.floor((1 - Math.pow(1 - p, 3)) * STEPS); // se frena junto con la rueda
+      if (step !== lastStep && p < 1) {
+        lastStep = step;
+        hub.innerHTML = logoTile(c[Math.floor(Math.random() * c.length)], 'sm');
+        hub.classList.remove('is-tick'); void hub.offsetWidth; hub.classList.add('is-tick');
       }
-    }, 70);
+      if (p < 1) requestAnimationFrame(tick);
+      else { showWinner(winner); spinning = false; setBusy(false); }
+    })(t0);
   }
 
-  [spinMain, spinSticky].forEach((btn) => btn?.addEventListener('click', spin));
-
-  openToggle?.addEventListener('change', () => {
-    openOnly = openToggle.checked;
-    document.getElementById('openDot')?.classList.toggle('is-on', openOnly);
-    updateOpenNote();
-    renderPreview();
-  });
-
-  openCountEl?.closest('label')?.addEventListener('click', (e) => {
-    if (e.target === openToggle) return;
-    openToggle.checked = !openToggle.checked;
-    openToggle.dispatchEvent(new Event('change'));
-  });
-
-  homeSearch?.addEventListener('input', renderPreview);
+  [spinMain, spinSticky].forEach((b) => b?.addEventListener('click', spin));
+  homeSearch?.addEventListener('input', () => { renderPreview(); updateCounts(); });
 
   if (stickyBar && spinMain) {
-    const obs = new IntersectionObserver(
-      ([entry]) => stickyBar.classList.toggle('is-visible', !entry.isIntersecting),
-      { threshold: 0 }
-    );
-    obs.observe(spinMain);
+    new IntersectionObserver(([e]) => {
+      const show = !e.isIntersecting && e.boundingClientRect.top < 0;
+      stickyBar.classList.toggle('is-visible', show);
+      document.body.classList.toggle('has-sticky', show);
+    }, { threshold: 0 }).observe(spinMain);
   }
 
-  updateOpenNote();
+  updateCounts();
   renderPreview();
 })();

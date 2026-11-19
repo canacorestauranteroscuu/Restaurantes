@@ -8,6 +8,12 @@ import os, json, re, sys
 from datetime import datetime, timezone
 import urllib.request, urllib.parse
 
+try:
+    from logo_utils import resolve_logo_for_entry, slugify
+except ImportError:
+    resolve_logo_for_entry = None
+    slugify = None
+
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NOTION_DB_ID = os.environ.get("NOTION_DB_ID", "2f03b368f49680c4adefdd8d3a244068")
 GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"]
@@ -17,6 +23,7 @@ CACHE_FILE = os.environ.get("PLACES_CACHE_FILE", "places_cache.json")
 FORCE_PLACES_REFRESH = os.environ.get("FORCE_PLACES_REFRESH", "").lower() in (
     "1", "true", "yes",
 )
+SKIP_LOGOS = os.environ.get("SKIP_LOGOS", "").lower() in ("1", "true", "yes")
 
 # ── Notion API ──────────────────────────────────────────────
 
@@ -93,8 +100,13 @@ def extract_notion_data(page):
     # Support comma-separated Place IDs for multi-location restaurants
     place_ids = [pid.strip() for pid in place_ids_raw.split(",") if pid.strip()] if place_ids_raw else []
 
+    social_url = get_url(props.get("Liga de una red social (TikTok, Instagram, Facebook)", {})) or social
+    if not social and social_url:
+        social = social_url
+
     return {
         "name": name,
+        "page": page,
         "categories": categories,
         "phone": phone,
         "whatsapp": whatsapp or None,
@@ -277,6 +289,7 @@ def build_restaurant_entry(notion_data, locations):
 
     entry = {
         "name": notion_data["name"],
+        "logo": notion_data.get("logo"),
         "emoji": notion_data["emoji"],
         "categories": notion_data["categories"],
         "phone": primary.get("phone") or notion_data["phone"] or None,
@@ -340,6 +353,7 @@ def entry_to_js(entry):
     lines = []
     lines.append("  {")
     lines.append(f'    name: {js_val(entry["name"])},')
+    lines.append(f'    logo: {js_val(entry.get("logo"))},')
     lines.append(f'    emoji: {js_val(entry["emoji"])},')
     lines.append(f'    categories: {js_val(entry["categories"])},')
     lines.append(f'    phone: {js_val(entry["phone"])},')
@@ -409,12 +423,28 @@ def main():
     all_entries = []
     active_place_ids = set()
 
+    notion_hdrs = {"Authorization": f"Bearer {NOTION_TOKEN}"} if NOTION_TOKEN else {}
+
     for page in pages:
         notion_data = extract_notion_data(page)
         if not notion_data["name"]:
             continue
 
         print(f"\n📍 {notion_data['name']}")
+
+        if not SKIP_LOGOS and resolve_logo_for_entry:
+            logo_path, src = resolve_logo_for_entry(
+                notion_data["name"],
+                notion_data.pop("page", page),
+                notion_data.get("web"),
+                notion_data.get("social"),
+                notion_headers=notion_hdrs,
+            )
+            notion_data["logo"] = logo_path
+            print(f"   Logo: {src.get('source')} → {logo_path or 'iniciales'}")
+        else:
+            notion_data.pop("page", None)
+            notion_data["logo"] = None
 
         if notion_data["place_ids"]:
             locations = []

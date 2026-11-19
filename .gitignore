@@ -1,1 +1,3 @@
 __pycache__/
+*.pyc
+scripts/notion_logo_urls.json

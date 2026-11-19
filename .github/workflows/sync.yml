@@ -30,6 +30,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install Python dependencies for sync
+        run: pip install pillow
+
       - name: Run sync script
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -42,13 +45,13 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet dondecomemos.html places_cache.json site/assets/restaurants-data.js || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet dondecomemos.html places_cache.json site/assets/restaurants-data.js site/assets/logos || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "CANACO Sync Bot"
           git config user.email "canacorestauranteroscuu@gmail.com"
-          git add dondecomemos.html places_cache.json site/assets/restaurants-data.js
+          git add dondecomemos.html places_cache.json site/assets/restaurants-data.js site/assets/logos
           git commit -m "🔄 Auto-sync restaurant directory $(date +%Y-%m-%d)"
           git push

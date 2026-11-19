@@ -6,3 +6,12 @@
 
 /assets/*
   Cache-Control: public, max-age=3600
+
+/assets/fotos/*
+  Cache-Control: public, max-age=2592000, immutable
+
+/assets/logos/*
+  Cache-Control: public, max-age=2592000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=86400

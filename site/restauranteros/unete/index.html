@@ -2,49 +2,56 @@
 <html lang="es-MX">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js')</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071B33">
   <title>Únete a la Sección Restauranteros | sercanaco.com</title>
   <meta name="description" content="Registro para unirte a la Sección Restauranteros CANACO Chihuahua. Requiere membresía CANACO activa.">
   <link rel="canonical" href="https://sercanaco.com/restauranteros/unete/">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css">
+  <meta property="og:site_name" content="sercanaco.com">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:url" content="https://sercanaco.com/restauranteros/unete/">
+  <meta property="og:title" content="Únete a la Sección Restauranteros">
+  <meta property="og:image" content="https://sercanaco.com/assets/og/og-sercanaco.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <div id="site-header"></div>
-  <main class="section">
+  <main id="contenido" class="section">
     <div class="container container-narrow">
       <p class="eyebrow">Únete</p>
       <h1>Registro a la Sección Restauranteros</h1>
       <p style="color:var(--muted)">Antes de comenzar, confirma que tu restaurante tiene membresía activa en <a href="https://canacochihuahua.com/" target="_blank" rel="noopener">CANACO Chihuahua</a>.</p>
 
-      <ol class="steps" style="margin-top:2rem">
-        <li class="step-item"><span class="step-num">1</span><span>Consulta el monto vigente de la cuota anual de la Sección (se actualiza cada año).</span></li>
-        <li class="step-item"><span class="step-num">2</span><span>Realiza tu pago y guarda el comprobante.</span></li>
-        <li class="step-item"><span class="step-num">3</span><span>Completa el formulario de registro con los datos de tu restaurante.</span></li>
-      </ol>
-
-      <button type="button" class="btn btn-primary btn-lg" id="startRegistro" style="margin-top:1.5rem">Empezar registro</button>
-
-      <div class="placeholder-box" id="paymentPlaceholder" aria-live="polite">
-        <p class="todo">TODO (fase 2): conectar formulario real y mostrar datos bancarios solo tras autenticación.</p>
-        <h2 style="font-size:1.1rem;margin-top:0.75rem">Datos de pago (marcador de posición)</h2>
-        <p style="color:var(--muted);font-size:0.9rem">Esta sección mostrará el monto, banco, CLABE y titular solo después de «Empezar registro». No uses números reales en el repositorio.</p>
-        <ul style="margin:1rem 0;color:var(--ink)">
-          <li>Cuota anual: <strong>$[MONTO_PLACEHOLDER] MXN</strong></li>
-          <li>Banco: <strong>[BANCO_PLACEHOLDER]</strong></li>
-          <li>CLABE: <strong>[CLABE_PLACEHOLDER]</strong></li>
-          <li>Titular: <strong>[TITULAR_PLACEHOLDER]</strong></li>
-        </ul>
-        <p style="font-size:0.85rem;color:var(--muted)">Cuando el equipo confirme el flujo en fase 2, reemplazar estos marcadores con datos servidos desde el backend, nunca en HTML estático público.</p>
+      <div class="unete-grid">
+        <ol class="steps reveal">
+          <li class="step-item"><span class="step-num">1</span><span>Ten tu membresía <a href="https://canacochihuahua.com/" target="_blank" rel="noopener">CANACO ↗</a> activa.</span></li>
+          <li class="step-item"><span class="step-num">2</span><span>Escríbenos por WhatsApp: te mandamos la cuota anual vigente y cómo pagarla.</span></li>
+          <li class="step-item"><span class="step-num">3</span><span>Envía tu comprobante y los datos de tu restaurante. ¡Listo, ya estás en la Ruleta del sabor!</span></li>
+        </ol>
+        <figure class="media media--3x4 reveal" style="--i:1">
+          <picture>
+            <source type="image/avif" srcset="/assets/fotos/restaurantera-equipo-480.avif 480w, /assets/fotos/restaurantera-equipo.avif 864w" sizes="(min-width: 800px) 40vw, 100vw">
+            <source type="image/webp" srcset="/assets/fotos/restaurantera-equipo-480.webp 480w, /assets/fotos/restaurantera-equipo.webp 864w" sizes="(min-width: 800px) 40vw, 100vw">
+            <img src="/assets/fotos/restaurantera-equipo-480.jpg" srcset="/assets/fotos/restaurantera-equipo-480.jpg 480w, /assets/fotos/restaurantera-equipo.jpg 864w" sizes="(min-width: 800px) 40vw, 100vw" width="864" height="1152" loading="lazy" decoding="async" alt="Restaurantera sonriente frente a su equipo en el comedor de su restaurante (imagen ilustrativa)">
+          </picture>
+        </figure>
       </div>
+      <a class="btn btn-cta btn-lg" style="margin-top:1.5rem" target="_blank" rel="noopener"
+         href="https://wa.me/526142354312?text=Hola%2C%20quiero%20unir%20mi%20restaurante%20a%20la%20Secci%C3%B3n%20Restauranteros%20CANACO.">Quiero registrarme por WhatsApp ↗</a>
 
       <p style="margin-top:2rem"><a href="/restauranteros/">← Volver a La Sección</a></p>
     </div>
   </main>
   <div id="site-footer"></div>
-  <script src="/assets/restaurant-core.js"></script>
   <script src="/assets/layout.js"></script>
-  <script src="/assets/unete.js"></script>
   <script>mountSiteHeader('unete'); mountSiteFooter();</script>
 </body>
 </html>

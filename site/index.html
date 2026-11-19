@@ -2,65 +2,115 @@
 <html lang="es-MX">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruleta del Sabor — Restaurantes en Chihuahua | Sección Restauranteros CANACO</title>
-  <meta name="description" content="¿No sabes a dónde ir a comer en Chihuahua? Gira la Ruleta del Sabor: restaurantes locales socios de la Sección Restauranteros CANACO.">
+  <script>document.documentElement.classList.add('js')</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071B33">
+  <title>Ruleta del Sabor — Consume local en Chihuahua | sercanaco.com</title>
+  <meta name="description" content="Los restauranteros de Chihuahua alimentan a muchas familias. Gira la Ruleta del sabor y elige dónde comer hoy.">
   <link rel="canonical" href="https://sercanaco.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sercanaco.com/">
-  <meta property="og:title" content="Ruleta del Sabor — Chihuahua">
-  <meta property="og:locale" content="es_MX">
-  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css">
+  <meta property="og:site_name" content="sercanaco.com">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sercanaco.com/">
+  <meta property="og:title" content="Consume local · Ruleta del sabor Chihuahua">
+  <meta property="og:description" content="Los restauranteros de Chihuahua alimentan a muchas familias. Gira la ruleta y elige dónde comer hoy.">
+  <meta property="og:image" content="https://sercanaco.com/assets/og/og-sercanaco.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mesa con platillos chihuahuenses y el texto Consume local. Aquí se alimenta Chihuahua.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index, follow">
 </head>
 <body>
   <div id="site-header"></div>
 
-  <main>
-    <section class="hero">
+  <main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
+      <picture class="hero-bg" aria-hidden="true">
+        <source media="(max-width: 899px)" type="image/avif" srcset="/assets/fotos/hero-tacos-movil-480.avif 480w, /assets/fotos/hero-tacos-movil.avif 720w" sizes="100vw">
+        <source media="(max-width: 899px)" type="image/webp" srcset="/assets/fotos/hero-tacos-movil-480.webp 480w, /assets/fotos/hero-tacos-movil.webp 720w" sizes="100vw">
+        <source media="(max-width: 899px)" srcset="/assets/fotos/hero-tacos-movil-480.jpg 480w, /assets/fotos/hero-tacos-movil.jpg 720w" sizes="100vw">
+        <source type="image/avif" srcset="/assets/fotos/hero-mesa-chihuahua-960.avif 960w, /assets/fotos/hero-mesa-chihuahua.avif 1280w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/fotos/hero-mesa-chihuahua-960.webp 960w, /assets/fotos/hero-mesa-chihuahua.webp 1280w" sizes="100vw">
+        <img src="/assets/fotos/hero-mesa-chihuahua.jpg" srcset="/assets/fotos/hero-mesa-chihuahua-960.jpg 960w, /assets/fotos/hero-mesa-chihuahua.jpg 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+      </picture>
       <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Sección Restauranteros · Chihuahua</p>
-          <h1>¿No sabes a dónde ir a comer en Chihuahua?</h1>
-          <p class="hero-lead">Gira la Ruleta del sabor: restaurantes locales de quienes le echan ganas.</p>
-          <div class="chip-row" id="filterChips">
-            <button type="button" class="chip is-active" data-filter="all">Todos</button>
-            <button type="button" class="chip" data-filter="Restaurante">Restaurante</button>
-            <button type="button" class="chip" data-filter="Desayunos">Desayuno</button>
-            <button type="button" class="chip" data-filter="Café">Café</button>
+        <div class="hero-copy">
+          <p class="eyebrow">Consume local · Chihuahua</p>
+          <h1 id="hero-title">Consume local. <em>Aquí se alimenta Chihuahua.</em></h1>
+          <p class="hero-lead">Nuestros restauranteros alimentan a muchas familias y dan empleo en toda la ciudad. Gira la ruleta y elige dónde comer hoy.</p>
+        </div>
+
+        <div class="ruleta-card" role="region" aria-labelledby="ruleta-title">
+          <h2 id="ruleta-title" class="sr-only">Ruleta del sabor</h2>
+          <div class="chip-row" id="filterChips" role="group" aria-label="Tipo de lugar">
+            <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">Todos</button>
+            <button type="button" class="chip" data-filter="Restaurante" aria-pressed="false">Restaurante</button>
+            <button type="button" class="chip" data-filter="Desayunos" aria-pressed="false">Desayuno</button>
+            <button type="button" class="chip" data-filter="Café" aria-pressed="false">Café</button>
             <div class="chip-more-wrap">
-              <button type="button" class="chip" id="chipMoreBtn">Más ▾</button>
-              <div class="chip-more-menu" id="chipMoreMenu"></div>
+              <button type="button" class="chip" id="chipMoreBtn" aria-haspopup="true" aria-expanded="false" aria-controls="chipMoreMenu">Más ▾</button>
             </div>
           </div>
-          <div class="open-toggle-row">
-            <label for="openNowToggle">
-              <span class="status-dot is-on" id="openDot"></span>
-              <span id="openCountNote">Solo abiertos ahora</span>
-            </label>
-            <input type="checkbox" id="openNowToggle" checked style="position:absolute;opacity:0;width:1px;height:1px">
+          <div class="chip-more-menu" id="chipMoreMenu"></div>
+          <label class="switch" for="openNowToggle">
+            <input type="checkbox" id="openNowToggle" role="switch" checked>
+            <span class="switch-track" aria-hidden="true"></span>
+            <span>Solo abiertos ahora</span>
+            <span class="switch-count" id="openCountNote"></span>
+          </label>
+
+          <div class="ruleta-stage">
+            <span class="ruleta-pointer" aria-hidden="true"></span>
+            <div class="ruleta-wheel" id="ruletaWheel" aria-hidden="true"></div>
+            <div class="ruleta-hub" id="ruletaHub" aria-hidden="true"><span class="logo-tile logo-tile--sm logo-tile--mono">?</span></div>
           </div>
-        </div>
-        <div class="ruleta-card">
-          <div class="ruleta-label">Ruleta del sabor</div>
-          <div class="ruleta-wheel" id="ruletaWheel" aria-live="polite">Toca «Sorpréndeme» para girar</div>
-          <div class="ruleta-result-name" id="ruletaResultName">—</div>
-          <div class="ruleta-meta" id="ruletaResultMeta">Elige un restaurante con la ruleta</div>
+
+          <p class="ruleta-hint" id="ruletaHint">¿Antojo de algo rico? Gira y apoya a un restaurante de aquí.</p>
+          <div class="ruleta-empty" id="ruletaEmpty" hidden>
+            <picture>
+              <source type="image/avif" srcset="/assets/fotos/comida-detalle-320.avif">
+              <source type="image/webp" srcset="/assets/fotos/comida-detalle-320.webp">
+              <img src="/assets/fotos/comida-detalle-320.jpg" width="64" height="64" alt="" loading="lazy" decoding="async">
+            </picture>
+            <div>A esta hora no hay socios abiertos con este filtro.<br>
+              <button type="button" class="btn btn-ghost" id="ruletaVerTodos" style="margin-top:.4rem">Girar con todos</button></div>
+          </div>
+          <div class="ruleta-result" id="ruletaResult">
+            <span id="resLogo"></span>
+            <div>
+              <h3 class="res-name" id="resName"></h3>
+              <p class="res-line" id="resType"></p>
+              <p class="res-line" id="resStatus"></p>
+              <p class="res-line" id="resAddr"></p>
+              <p class="res-thanks">Buen provecho. Gracias por consumir local.</p>
+            </div>
+          </div>
+          <p class="sr-only" id="ruletaLive" aria-live="polite" aria-atomic="true"></p>
+
           <div class="ruleta-actions">
-            <button type="button" class="btn btn-primary btn-lg" id="spinBtn">¡Sorpréndeme!</button>
-            <a class="btn btn-ghost" id="ruletaMaps" href="#" target="_blank" rel="noopener" style="display:none">Cómo llegar</a>
+            <button type="button" class="btn btn-cta btn-lg" id="spinBtn">¡Sorpréndeme!</button>
+            <a class="btn btn-ghost" id="ruletaMaps" href="#" target="_blank" rel="noopener" hidden>Cómo llegar ↗</a>
             <button type="button" class="btn btn-ghost" id="ruletaShare">Compartir</button>
           </div>
         </div>
+
+        <ul class="proof-strip" aria-label="Los restauranteros en Chihuahua">
+          <li><strong data-stat="socios">—</strong><span>restaurantes socios en la ruleta</span></li>
+        </ul>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div>
             <h2>Los restaurantes</h2>
             <p style="margin:0;color:var(--muted);font-size:0.9rem" id="homeRestTotal">— restaurantes socios</p>
@@ -76,7 +126,7 @@
 
     <section class="section section-surface">
       <div class="container cta-duo">
-        <div class="cta-box">
+        <div class="cta-box reveal" style="--i:0">
           <p class="eyebrow">¿Eres restaurantero?</p>
           <h3>Únete a la Sección Restauranteros</h3>
           <p style="color:var(--muted);font-size:0.92rem">Juntas mensuales, red de contactos y tu restaurante en la Ruleta del sabor.</p>
@@ -85,7 +135,7 @@
             <a class="btn btn-ghost" href="/restauranteros/">Conoce la Sección</a>
           </div>
         </div>
-        <div class="cta-box">
+        <div class="cta-box reveal" style="--i:1">
           <p class="eyebrow">Ya soy socio</p>
           <h3>Renueva o conoce el proceso</h3>
           <p style="color:var(--muted);font-size:0.92rem">El portal de socios llegará en la fase 2. Mientras tanto, consulta cómo renovar.</p>
@@ -98,12 +148,13 @@
   </main>
 
   <div class="sticky-spin" id="stickySpin">
-    <button type="button" class="btn btn-primary btn-block btn-lg" id="spinBtnSticky">¡Sorpréndeme!</button>
+    <button type="button" class="btn btn-cta btn-block btn-lg" id="spinBtnSticky">¡Sorpréndeme!</button>
   </div>
 
   <div id="site-footer"></div>
 
   <script src="/assets/restaurants-data.js"></script>
+  <script src="/assets/logos/logos.js"></script>
   <script src="/assets/restaurant-core.js"></script>
   <script src="/assets/layout.js"></script>
   <script src="/assets/ruleta.js"></script>

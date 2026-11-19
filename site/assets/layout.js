@@ -26,6 +26,7 @@ function mountSiteHeader(activeKey) {
     `<a href="${CANACO_GENERAL}" target="_blank" rel="noopener">CANACO General${externalIcon()}</a>`;
 
   root.innerHTML = `
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/">
@@ -89,5 +90,28 @@ function mountSiteFooter() {
       </div>
     </div>
     <p class="footer-copy">Sección Especializada de Restaurantes · CANACO Servytur Chihuahua</p>
+    <p class="ia-note">Fotografías ilustrativas generadas con IA. No corresponden a un restaurante socio en particular.</p>
   </footer>`;
 }
+
+/* Revelado escalonado (pase Muriel) */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+  );
+  els.forEach((el) => io.observe(el));
+})();
