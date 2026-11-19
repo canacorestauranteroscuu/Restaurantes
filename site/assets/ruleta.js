@@ -7,7 +7,6 @@
   let lastWinner = null;
   let spinning = false;
   let angle = 0;
-  const SPIN_MS = 3000;
 
   const $ = (id) => document.getElementById(id);
   const wheel = $('ruletaWheel'), hub = $('ruletaHub'), hint = $('ruletaHint');
@@ -111,7 +110,7 @@
   function showWinner(r) {
     const st = statusText(r);
     lastWinner = r;
-    hub.innerHTML = logoTile(r, 'sm');
+    setHub(r);
     $('resLogo').innerHTML = logoTile(r, 'lg');
     $('resName').textContent = r.name;
     $('resType').textContent = categoryLine(r) + (r.rating ? ` · ★ ${r.rating.toFixed(1)}` : '');
@@ -136,34 +135,72 @@
     else window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   }
 
-  function spin() {
+  // El gradiente empieza en -15°: gajo 0 centrado arriba; puntero fijo a las 12.
+  const SPIN_MS = 4600, SEG = 30;
+  const mod = (n, m) => ((n % m) + m) % m;
+  const segmentUnderPointer = (a) => Math.floor(mod(15 - a, 360) / SEG);
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function setHub(r) {
+    const key = slugify(r.name);
+    if (hub.dataset.slug === key) return;
+    hub.dataset.slug = key;
+    hub.innerHTML = logoTile(r, 'sm').replace(' loading="lazy"', '');
+  }
+  async function preloadSlots(slots) {
+    await Promise.race([
+      Promise.allSettled(slots.map(async (r) => {
+        const m = /src="([^"]+)"/.exec(logoTile(r, 'sm'));
+        if (!m) return;
+        const img = new Image(); img.src = m[1]; await img.decode();
+      })),
+      new Promise((resolve) => setTimeout(resolve, 700))
+    ]);
+  }
+  async function spin() {
     if (spinning) return;
-    const c = pool();
+    const c = pool(); // instantánea: un cambio de filtro nunca cambia este giro
     if (!c.length) { showEmpty(); return; }
     if (empty) empty.hidden = true;
-    const winner = pickWinner(c);
-    spinning = true;
-    setBusy(true);
+    const winner = pickWinner(c); // decidido ANTES de crear la animación
+    spinning = true; setBusy(true);
+    result.classList.remove('is-shown');
+    wheel.parentElement.classList.remove('is-done');
 
-    if (prefersReducedMotion) {
-      showWinner(winner); spinning = false; setBusy(false); return;
-    }
-    angle += 1440 + Math.floor(Math.random() * 360);
-    wheel.style.transition = `transform ${SPIN_MS}ms var(--ease-spin)`;
-    wheel.style.transform = `rotate(${angle}deg)`;
+    const slots = Array.from({length: 12}, (_, i) => c[i % c.length]);
+    const others = c.filter((r) => r !== winner);
+    for (let i = others.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [others[i], others[j]] = [others[j], others[i]]; }
+    for (let i = 0; i < 12; i++) slots[i] = others.length ? others[i % others.length] : winner;
+    const winnerIndex = Math.floor(Math.random() * 12);
+    slots[winnerIndex] = winner;
+    const startIdx = segmentUnderPointer(angle);
+    if (lastWinner && startIdx !== winnerIndex && c.includes(lastWinner)) slots[startIdx] = lastWinner;
+    const start = angle;
+    const target = mod(-winnerIndex * SEG, 360);
+    const end = start + 4 * 360 + mod(target - mod(start, 360), 360);
+    wheel.style.transition = 'none';
+    let lastIndex = -1;
+    const paint = (a) => {
+      angle = a;
+      wheel.style.transform = `rotate(${a}deg)`;
+      const index = segmentUnderPointer(a);
+      if (index !== lastIndex) { lastIndex = index; setHub(slots[index]); }
+    };
+    const finish = () => {
+      paint(end);
+      angle = mod(end, 360);
+      wheel.style.transform = `rotate(${angle}deg)`;
+      showWinner(winner); spinning = false; setBusy(false);
+    };
+    if (motion.matches) { finish(); return; }
+    paint(start);
+    await preloadSlots(slots);
     const t0 = performance.now();
-    let lastStep = -1;
-    const STEPS = 22;
-    (function tick(now) {
+    (function frame(now) {
       const p = Math.min(1, (now - t0) / SPIN_MS);
-      const step = Math.floor((1 - Math.pow(1 - p, 3)) * STEPS); // se frena junto con la rueda
-      if (step !== lastStep && p < 1) {
-        lastStep = step;
-        hub.innerHTML = logoTile(c[Math.floor(Math.random() * c.length)], 'sm');
-        hub.classList.remove('is-tick'); void hub.offsetWidth; hub.classList.add('is-tick');
-      }
-      if (p < 1) requestAnimationFrame(tick);
-      else { showWinner(winner); spinning = false; setBusy(false); }
+      if (p === 1 || motion.matches) { finish(); return; }
+      paint(start + (end - start) * (1 - Math.pow(1 - p, 3)));
+      requestAnimationFrame(frame);
     })(t0);
   }
 
