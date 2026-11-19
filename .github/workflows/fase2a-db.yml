@@ -1,0 +1,33 @@
+name: Fase 2a schema
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  sql:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sercanaco_fase2a
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install psql
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: Run fase 2a SQL tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/sercanaco_fase2a
+          PGPASSWORD: postgres
+        run: bash scripts/test_fase2a.sh

@@ -1,0 +1,35 @@
+# Local / CLI config for sercanaco.com fase 2a.
+# Target hosted project (apply manually later, never from CI): lynbusuqmexsehpvaqev
+# Do not link or apply this config to any other Supabase project.
+project_id = "sercanaco"
+
+[api]
+enabled = true
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+major_version = 15
+
+[auth]
+enabled = true
+site_url = "https://sercanaco.com"
+enable_signup = false
+enable_anonymous_sign_ins = false
+additional_redirect_urls = ["https://sercanaco.com/**"]
+
+[auth.email]
+enable_signup = false
+enable_confirmations = false
+double_confirm_changes = true
+otp_length = 6
+otp_expiry = 3600
+max_frequency = "1m"
+
+[auth.email.template.magic_link]
+subject = "Tu código para entrar a sercanaco.com"
+content_path = "./templates/magic_link.html"
+
+[auth.sms]
+enable_signup = false
