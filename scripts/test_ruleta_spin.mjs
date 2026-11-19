@@ -16,20 +16,42 @@ const SEG = 30;
 const mod = (n, m) => ((n % m) + m) % m;
 const segmentUnderPointer = (a) => Math.floor(mod(15 - a, 360) / SEG);
 
-function spinEndAngle(start, winnerIndex) {
+function spinEndAngle(start, winnerIndex, startIdx = null) {
   const target = mod(-winnerIndex * SEG, 360);
-  return start + 4 * 360 + mod(target - mod(start, 360), 360);
+  const si = startIdx == null ? segmentUnderPointer(start) : startIdx;
+  const extraTurn = si === winnerIndex ? 360 : 0;
+  return start + 4 * 360 + extraTurn + mod(target - mod(start, 360), 360);
+}
+
+function hubAtSpinStart(startIdx, winnerIndex, winner, lastWinner, others) {
+  if (startIdx !== winnerIndex) return null;
+  const decoy = (lastWinner && lastWinner !== winner) ? lastWinner : others.find((r) => r !== winner);
+  return decoy || winner;
 }
 
 for (let winnerIndex = 0; winnerIndex < 12; winnerIndex++) {
   for (let start = 0; start < 720; start += 11.3) {
-    const end = spinEndAngle(start, winnerIndex);
+    const startIdx = segmentUnderPointer(start);
+    const end = spinEndAngle(start, winnerIndex, startIdx);
     assert.equal(
       segmentUnderPointer(end),
       winnerIndex,
       `winner ${winnerIndex} start ${start} end ${end}`
     );
   }
+}
+
+// Ganador ya bajo el puntero: hub en t=0 no debe ser el ganador (decoy / vuelta extra).
+{
+  const start = 120;
+  const winnerIndex = segmentUnderPointer(start);
+  const winner = { name: 'Ganador' };
+  const lastWinner = { name: 'Anterior' };
+  const others = [{ name: 'Otro' }];
+  const hubStart = hubAtSpinStart(winnerIndex, winnerIndex, winner, lastWinner, others);
+  assert.notEqual(hubStart, winner);
+  const end = spinEndAngle(start, winnerIndex, winnerIndex);
+  assert.equal(segmentUnderPointer(end), winnerIndex);
 }
 
 // Centro sigue al puntero: en cada frame el índice mostrado es el del gajo bajo el puntero.

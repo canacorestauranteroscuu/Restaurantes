@@ -191,14 +191,23 @@
     slots[winnerIndex] = winner;
     const startIdx = segmentUnderPointer(angle);
     if (lastWinner && startIdx !== winnerIndex && c.includes(lastWinner)) slots[startIdx] = lastWinner;
+    // Nunca mostrar al ganador en el hub mientras la rueda aún no gira (preload / t=0).
+    if (startIdx === winnerIndex) {
+      const decoy = (lastWinner && lastWinner !== winner && c.includes(lastWinner))
+        ? lastWinner
+        : others.find((r) => r !== winner);
+      if (decoy) slots[startIdx] = decoy;
+    }
     const start = angle;
     const target = mod(-winnerIndex * SEG, 360);
-    const end = start + 4 * 360 + mod(target - mod(start, 360), 360);
+    const extraTurn = startIdx === winnerIndex ? 360 : 0;
+    const end = start + 4 * 360 + extraTurn + mod(target - mod(start, 360), 360);
     wheel.style.transition = 'none';
     let lastIndex = -1;
-    const paint = (a) => {
+    const paint = (a, syncHub = true) => {
       angle = a;
       wheel.style.transform = `rotate(${a}deg)`;
+      if (!syncHub) return;
       const index = segmentUnderPointer(a);
       if (index !== lastIndex) { lastIndex = index; setHub(slots[index]); }
     };
@@ -210,12 +219,12 @@
     };
     if (motion.matches) { finish(); return; }
     await preloadSlots(slots);
-    paint(start);
+    paint(start, false);
     const t0 = performance.now();
     (function frame(now) {
       const p = Math.min(1, (now - t0) / SPIN_MS);
       if (p === 1 || motion.matches) { finish(); return; }
-      paint(start + (end - start) * (1 - Math.pow(1 - p, 3)));
+      paint(start + (end - start) * (1 - Math.pow(1 - p, 3)), p > 0);
       requestAnimationFrame(frame);
     })(t0);
   }

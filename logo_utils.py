@@ -193,7 +193,12 @@ def extract_notion_logo_urls(page: dict) -> list[str]:
 
 
 def _content_bbox(rgba):
-    """Bounding box of visible content (not transparent / not flat background)."""
+    """Bounding box of visible content (alpha-first, else border-color diff for opaque)."""
+    alpha = rgba.getchannel("A")
+    if alpha.getextrema()[0] < 250:
+        box = alpha.point(lambda a: 255 if a > 8 else 0).getbbox()
+        if box:
+            return box
     w, h = rgba.size
     px = [rgba.getpixel((x, y)) for x in range(0, w, max(1, w // 32)) for y in (0, h - 1)] + [
         rgba.getpixel((x, y)) for y in range(0, h, max(1, h // 32)) for x in (0, w - 1)

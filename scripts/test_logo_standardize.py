@@ -17,6 +17,31 @@ except ImportError:
 
 
 @unittest.skipIf(Image is None, "Pillow not installed")
+class ContentBboxTest(unittest.TestCase):
+    def test_dark_logo_on_transparent_alpha_bbox(self):
+        size = 240
+        im = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(im)
+        draw.rectangle((70, 90, 170, 150), fill=(12, 18, 28, 255))
+        box = logo_utils._content_bbox(im)
+        self.assertIsNotNone(box)
+        w, h = box[2] - box[0], box[3] - box[1]
+        self.assertLess(w, size * 0.7)
+        self.assertLess(h, size * 0.5)
+        out = logo_utils.standardize_logo(self._png_bytes(im))
+        out_im = Image.open(io.BytesIO(out)).convert("RGBA")
+        obox = logo_utils._content_bbox(out_im)
+        self.assertIsNotNone(obox)
+        self.assertGreater(obox[2] - obox[0], logo_utils.LOGO_SIZE * 0.35)
+
+    @staticmethod
+    def _png_bytes(im):
+        buf = io.BytesIO()
+        im.save(buf, format="PNG")
+        return buf.getvalue()
+
+
+@unittest.skipIf(Image is None, "Pillow not installed")
 class StandardizeLogoTest(unittest.TestCase):
     def test_output_size_and_fill_ratio(self):
         size = 320
