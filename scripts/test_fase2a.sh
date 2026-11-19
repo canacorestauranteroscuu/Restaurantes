@@ -55,15 +55,19 @@ run_psql() {
   fi
 }
 run_psql -c "INSERT INTO auth.users (id, email) VALUES ('00000000-0000-4000-8000-0000000000c1','c1@example.test'),('00000000-0000-4000-8000-0000000000c2','c2@example.test'); INSERT INTO public.socios (id, nombre) VALUES ('10000000-0000-4000-8000-0000000000cc','Fonda Carrera'); INSERT INTO public.cuentas_socio (socio_id, user_id) VALUES ('10000000-0000-4000-8000-0000000000cc','00000000-0000-4000-8000-0000000000c1');"
+# Cualquiera de las dos sesiones puede perder el candado y salir con error.
+# El invariante es el conteo final, no qué sesión gana.
+set +e
 run_psql -c "BEGIN; INSERT INTO public.cuentas_socio (socio_id, user_id) VALUES ('10000000-0000-4000-8000-0000000000cc','00000000-0000-4000-8000-0000000000c2'); SELECT pg_sleep(2); COMMIT;" &
 race_pid=$!
 sleep 1
-set +e
 run_psql -c "INSERT INTO auth.users (id, email) VALUES ('00000000-0000-4000-8000-0000000000c4','c4@example.test'); INSERT INTO public.cuentas_socio (socio_id, user_id) VALUES ('10000000-0000-4000-8000-0000000000cc','00000000-0000-4000-8000-0000000000c4');"
-set -e
+fg_status=$?
 wait "$race_pid"
+bg_status=$?
+set -e
 race_n="$(run_psql -tAc "SELECT count(*) FROM public.cuentas_socio WHERE socio_id='10000000-0000-4000-8000-0000000000cc'")"
 if [[ "$race_n" != "2" ]]; then
-  echo "L1: la carrera dejo $race_n cuentas, se esperaban 2" >&2
+  echo "L1: la carrera dejo $race_n cuentas (fondo $bg_status, frente $fg_status), se esperaban 2" >&2
   exit 1
 fi
