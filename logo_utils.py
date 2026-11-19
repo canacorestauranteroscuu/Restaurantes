@@ -15,13 +15,13 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 try:
-    from PIL import Image, ImageDraw, ImageOps
+    from PIL import Image, ImageChops, ImageDraw, ImageOps
 except ImportError:
-    Image = None
+    Image = ImageChops = None
 
 LOGO_DIR = Path(os.environ.get("LOGO_DIR", "site/assets/logos"))
 SOURCES_JSON = LOGO_DIR / "sources.json"
-LOGO_SIZE = int(os.environ.get("LOGO_SIZE", "256"))
+LOGO_SIZE = int(os.environ.get("LOGO_SIZE", "512"))
 USER_AGENT = "CANACO-LogoSync/1.0 (+https://sercanaco.com)"
 
 
@@ -192,6 +192,24 @@ def extract_notion_logo_urls(page: dict) -> list[str]:
     return urls
 
 
+def _content_bbox(rgba):
+    """Bounding box of visible content (alpha-first, else border-color diff for opaque)."""
+    alpha = rgba.getchannel("A")
+    if alpha.getextrema()[0] < 250:
+        box = alpha.point(lambda a: 255 if a > 8 else 0).getbbox()
+        if box:
+            return box
+    w, h = rgba.size
+    px = [rgba.getpixel((x, y)) for x in range(0, w, max(1, w // 32)) for y in (0, h - 1)] + [
+        rgba.getpixel((x, y)) for y in range(0, h, max(1, h // 32)) for x in (0, w - 1)
+    ]
+    bg = tuple(sorted(c[i] for c in px)[len(px) // 2] for i in range(3))
+    rgb = Image.new("RGB", rgba.size, bg)
+    rgb.paste(rgba, (0, 0), rgba)
+    diff = ImageChops.difference(rgb, Image.new("RGB", rgba.size, bg)).convert("L")
+    return diff.point(lambda v: 255 if v > 14 else 0).getbbox()
+
+
 def standardize_logo(raw: bytes) -> bytes:
     if Image is None:
         raise RuntimeError("Pillow is required for logo processing")
@@ -200,27 +218,18 @@ def standardize_logo(raw: bytes) -> bytes:
     if raw[:15].lower().startswith(b"<!doctype") or raw[:5].lower().startswith(b"<html"):
         raise ValueError("response is HTML, not an image")
     im = Image.open(io.BytesIO(raw))
-    im = ImageOps.exif_transpose(im)
-    im = im.convert("RGBA")
-
+    im = ImageOps.exif_transpose(im).convert("RGBA")
+    box = _content_bbox(im)
+    if box:
+        im = im.crop(box)
     size = LOGO_SIZE
-    canvas = Image.new("RGBA", (size, size), (255, 255, 255, 255))
-    inner = int(size * 0.82)
+    margin = 0.04
+    inner = int(size * (1 - 2 * margin))
     thumb = ImageOps.contain(im, (inner, inner), Image.Resampling.LANCZOS)
-    x = (size - thumb.width) // 2
-    y = (size - thumb.height) // 2
-    canvas.paste(thumb, (x, y), thumb)
-
-    # Rounded square mask
-    mask = Image.new("L", (size, size), 0)
-    draw = ImageDraw.Draw(mask)
-    radius = int(size * 0.14)
-    draw.rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=255)
-    out = Image.new("RGBA", (size, size), (255, 255, 255, 255))
-    out.paste(canvas, (0, 0), mask)
-
+    canvas = Image.new("RGBA", (size, size), (255, 255, 255, 255))
+    canvas.paste(thumb, ((size - thumb.width) // 2, (size - thumb.height) // 2), thumb)
     buf = io.BytesIO()
-    out.convert("RGB").save(buf, format="WEBP", quality=82, method=6)
+    canvas.convert("RGB").save(buf, format="WEBP", quality=86, method=6)
     return buf.getvalue()
 
 

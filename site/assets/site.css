@@ -678,7 +678,6 @@ body { line-height: 1.6; -webkit-font-smoothing: antialiased; }
 .ruleta-pointer { position: absolute; top: -6px; left: 50%; z-index: 2; width: 0; height: 0; transform: translateX(-50%);
   border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 18px solid var(--terracotta); filter: drop-shadow(0 2px 2px rgba(0,0,0,.25)); }
 .ruleta-hub { position: absolute; inset: 22%; z-index: 1; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(7,27,51,.22); }
-.ruleta-hub .logo-tile { width: 72%; height: 72%; }
 .ruleta-hub.is-tick .logo-tile { animation: hubTick .12s var(--ease-out); }
 @keyframes hubTick { from { transform: scale(.88); opacity: .6; } to { transform: none; opacity: 1; } }
 
@@ -704,12 +703,11 @@ body { line-height: 1.6; -webkit-font-smoothing: antialiased; }
 .ruleta-empty img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; flex: none; }
 
 /* Logos estandarizados */
-.logo-tile { --s: 56px; width: var(--s); height: var(--s); flex: none; border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--border); padding: 8px; display: grid; place-items: center; overflow: hidden; }
+.logo-tile { --s: 64px; width: var(--s); height: var(--s); flex: none; border-radius: 14px; background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--border); padding: 4px; display: grid; place-items: center; overflow: hidden; }
 .logo-tile img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.logo-tile--lg { --s: 96px; padding: 10px; }
+.logo-tile--lg { --s: clamp(104px, 28vw, 128px); padding: 6px; border-radius: 20px; }
 .logo-tile--mono { padding: 0; background: var(--canaco-blue); color: #FFFFFF; font-family: var(--font-serif); font-weight: 700; font-size: calc(var(--s) * .36); letter-spacing: .02em; box-shadow: none; }
 .logo-tile--mono.alt { background: var(--terracotta); color: #fff; }
-.ruleta-hub .logo-tile--mono { font-size: 1.35rem; }
 .rest-card.is-highlight { border-color: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
 .rest-thumb { display: none; } /* reemplazado por .logo-tile */
 
@@ -762,9 +760,12 @@ body.has-sticky { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 
 @media print { .reveal { opacity: 1 !important; transform: none !important; } }
 
-.ruleta-hub { inset: 16%; }
-.ruleta-hub .logo-tile { width: 86%; height: 86%; padding: 6px; border-radius: 14px; }
-.ruleta-hub .logo-tile--mono { font-size: 1.75rem; padding: 0; }
+.ruleta-hub { inset: 13%; }
+.ruleta-hub .logo-tile { width: 100%; height: 100%; padding: 13%; border-radius: 50%; box-shadow: none; background: #fff; }
+.ruleta-hub .logo-tile--mono { padding: 0; font-size: 2rem; }
+.ruleta-hub .logo-tile--mono { background: var(--canaco-blue); color: #fff; }
+.ruleta-hub .logo-tile--mono.alt { background: var(--terracotta); }
+@media (min-width: 900px) { .ruleta-hub .logo-tile--mono { font-size: 2.5rem; } }
 .hub-idle { font: 700 .8125rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--canaco-blue); }
 
 /* Home: menos hueco lista → CTAs (móvil y desktop) */
