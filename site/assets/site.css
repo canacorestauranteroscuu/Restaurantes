@@ -175,6 +175,11 @@ h3 { font-family: var(--font-sans); font-weight: 600; margin: 0 0 0.5rem; }
   .menu-toggle { display: none; }
   .brand-text { font-size: 0.8rem; max-width: none; }
 }
+@media (min-width: 900px) and (max-width: 1100px) {
+  .nav-desktop { gap: 0.7rem; font-size: 0.82rem; }
+  .nav-desktop a, .header-actions .btn { white-space: nowrap; }
+  .header-actions .btn { padding-inline: 0.7rem; }
+}
 
 /* —— Hero / Ruleta —— */
 .hero {

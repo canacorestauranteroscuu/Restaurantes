@@ -23,3 +23,4 @@ jobs:
           node scripts/test_category_filters.mjs
           python3 scripts/test_logo_utils_auth.py
           python3 scripts/test_logo_standardize.py
+          node --test scripts/test_portal.mjs
