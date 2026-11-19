@@ -1,6 +1,6 @@
 # Fase 2a — esquema de socios, cuotas y comprobantes
 
-Esquema de base para sercanaco.com. Este cambio no toca el sitio estático (`site/`) y no se aplica solo: no hay credenciales de Supabase en CI.
+Esquema de base para sercanaco.com. No se aplica solo: no hay credenciales de servicio en CI. El portal estático vive en `/portal/`.
 
 Proyecto destino, vacío, plan free, organización CANACO SER: `lynbusuqmexsehpvaqev`.
 
@@ -111,3 +111,15 @@ Cubren: anon sin permiso, aislamiento entre dos socios, `admin_lectura` no aprue
 8. Contraseña mínima de 10, con mayúsculas, minúsculas, dígitos y símbolo, y secure password change. La protección de contraseñas filtradas pide plan Pro: en el plan free no está.
 9. El API expone solo `public` y `graphql_public`. `private` no va en esa lista.
 10. Después del apply, el bucket `comprobantes` queda privado, 10 MiB, y solo jpeg, png y pdf. `anon` no ejecuta `aprobar_renovacion`.
+
+## Portal
+
+`/portal/` es una página estática. El cliente vendido es `@supabase/supabase-js` 2.119.2 (`site/assets/vendor/supabase.js`). La URL y la clave publicable viven en `site/assets/portal/config.mjs`. No hay clave de servicio en el repo.
+
+El login pide el correo y luego el código de 6 dígitos: `signInWithOtp` con `shouldCreateUser: false` y `verifyOtp` con `type: 'email'`. No consume un enlace mágico (`detectSessionInUrl: false`). La sesión queda solo en la clave que escribe supabase-js. Cerrar sesión llama `signOut`.
+
+Quien tiene ficha ve su membresía del año en curso y del siguiente, su historial y el aviso de pago. La cuota que se muestra sale de `calcular_monto_esperado`; el cálculo local es la misma fórmula y no sustituye al servidor. El archivo se valida en el navegador (JPG, PNG o PDF, hasta 10 MB) y se sube después de insertar la fila, con `upsert: false` y un nombre nuevo. Si el archivo no se guarda, el aviso queda pendiente y hay que enviar otro: no se puede reescribir.
+
+Tesorero y presidente ven la cola pendiente, abren el comprobante con URL firmada de descarga y deciden por `aprobar_renovacion` / `rechazar_renovacion`. Si el RPC pide motivo, el formulario lo pide. Un pago de la propia ficha no muestra los botones y, si igual llega, el error se explica. `admin_lectura` ve la cola y no decide. La contraseña es opcional, en el perfil, con la misma política de 10 caracteres y cuatro clases.
+
+El enlace «Socios» del menú es el único cambio en las páginas públicas. La lista del dashboard de arriba sigue haciendo falta para que el código llegue de verdad.

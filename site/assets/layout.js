@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { href: '/restaurantes/', label: 'Restaurantes', key: 'restaurantes' },
   { href: '/restauranteros/', label: 'La Sección', key: 'restauranteros' },
   { href: '/restauranteros/unete/', label: 'Únete', key: 'unete' },
+  { href: '/portal/', label: 'Socios', key: 'portal' },
 ];
 
 function externalIcon() {
