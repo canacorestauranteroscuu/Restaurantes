@@ -14,7 +14,7 @@ Los 67 socios actuales se cargan después, desde Notion. Esta migración no los 
 2. El cliente debe pedir el código con `shouldCreateUser: false`. Quien no esté invitado no crea cuenta. Después, si quiere, puede fijar una contraseña con `updateUser`; eso no cambia el esquema.
 3. Aplicar únicamente `supabase/migrations/20261119180000_fase2a_schema.sql` en ese proyecto (`supabase db push` ya vinculado a ese ref, o el SQL editor de ese proyecto). No correr `supabase/tests/bootstrap.sql` ahí: `auth` y `storage` ya existen.
 4. Invitar usuarios y asignar filas en `usuario_roles` y `cuentas_socio` con el rol de servicio. Como máximo dos cuentas por restaurante.
-5. No sembrar socios reales en git.
+5. No sembrar socios reales en git. Cuando se carguen los 67 desde Notion, `es_socio_base` queda en true exactamente en esas 67 fichas. Después, `SELECT count(*) FROM public.socios WHERE es_socio_base` tiene que devolver 67. Si falta una, esa ficha se cobra como alta prorrateada.
 
 ## Tablas
 
@@ -39,7 +39,9 @@ El tipo también lo fija el servidor: `renovacion` si `es_socio_base` o si ya ha
 - `renovacion`, o un `alta` cuya fecha cae en otro año: la cuota entera de `anio`.
 - `alta` del mismo año: `round(cuota * (13 - mes) / 12, 2)`, un solo redondeo. Con 1200 MXN: enero 1200 … diciembre 100. El mes de `fecha_pago` sí cuenta. El día en que alguien aprieta aprobar no cuenta.
 
-`fecha_pago` tiene que caer entre 2026-01-01 y 2036-12-31, y `anio` es ese año o el siguiente. Hay una sola renovación `aprobada` por socio y año.
+`fecha_pago` tiene que caer entre 2026-01-01 y 2036-12-31, y `anio` es ese año o el siguiente. Tampoco puede ser posterior a hoy en `America/Chihuahua`: lo rechaza el trigger de INSERT y `aprobar_renovacion`, también si quien aprueba cambia la fecha. No es un CHECK, porque `current_date` no es immutable.
+
+Hay una sola renovación `aprobada` por socio y año. Una segunda aprobación responde «ya hay una renovacion aprobada para ese año»; el índice único sigue siendo el cierre si dos sesiones llegan juntas.
 
 Si el monto final no es el `monto_reportado`, si el override no es la cuota, o si corregir `fecha_pago` mueve la cuota, hace falta un `motivo` y queda una fila `cambio_monto`. Un monto negativo o con más de 2 decimales se rechaza.
 
@@ -69,9 +71,11 @@ Políticas solo de lectura e inserción para `authenticated`. No hay UPDATE ni D
 
 El socio sube y lee su carpeta. Tesorero, presidente y admin de lectura leen todo. No hay política para `public` ni para `anon`, así que el rol anónimo no ve filas aunque la plataforma le deje privilegio de tabla. Se abren con URL firmada y disposición `download`, no en línea.
 
+El frontend sube con `upsert: false`. No hay política de UPDATE, así que un reintento usa otro nombre de archivo.
+
 ## Cómo se prueban
 
-`scripts/test_fase2a.sh` crea un Postgres local, aplica `supabase/tests/bootstrap.sql` (roles `anon` / `authenticated`, stub de `auth.uid()` y de `storage`) y luego la migración y `supabase/tests/fase2a.sql`. El workflow `.github/workflows/fase2a-db.yml` hace lo mismo contra el servicio `postgres:15`. No llama a Supabase hospedado.
+`scripts/test_fase2a.sh` crea un Postgres local, aplica `supabase/tests/bootstrap.sql` (roles `anon` / `authenticated`, stub de `auth.uid()` y de `storage`) y luego la migración y `supabase/tests/fase2a.sql`. El workflow `.github/workflows/fase2a-db.yml` hace lo mismo contra `postgres:17` fijado por digest. No llama a Supabase hospedado.
 
 Cubren: anon sin permiso, aislamiento entre dos socios, `admin_lectura` no aprueba, tesorero y presidente sí, prorrateo de los 12 meses más base y renovación, override sin motivo, corrección de fecha sin motivo, auditoría append-only, y la ruta del comprobante.
 
@@ -89,6 +93,9 @@ Cubren: anon sin permiso, aislamiento entre dos socios, `admin_lectura` no aprue
 - Un tesorero o presidente que también es socio de esa ficha no aprueba ni rechaza ese pago.
 - `auditoria` tampoco se puede truncar. `service_role` no tiene TRUNCATE, UPDATE ni DELETE.
 - `anon` no ejecuta las tres funciones públicas, aunque el proyecto le dé EXECUTE por default privileges. Tampoco usa la secuencia de `auditoria`.
+- `fecha_pago` no puede ser posterior a hoy en Chihuahua. El socio no elige un mes que todavía no llega para bajar la cuota.
+- Los 67 de Notion se cargan con `es_socio_base = true`, y el conteo de esa columna tiene que ser 67.
+- El comprobante se sube con `upsert: false`.
 
 ## Dashboard antes del go-live
 

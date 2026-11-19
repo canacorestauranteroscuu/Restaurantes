@@ -321,6 +321,10 @@ SECURITY DEFINER
 SET search_path = ''
 AS $$
 BEGIN
+  -- No es un CHECK: current_date no es immutable. Hoy se mide en Chihuahua.
+  IF NEW.fecha_pago > (now() AT TIME ZONE 'America/Chihuahua')::date THEN
+    RAISE EXCEPTION 'fecha_pago no puede ser futura';
+  END IF;
   NEW.tipo := private.tipo_membresia(NEW.socio_id, NEW.anio);
   RETURN NEW;
 END;
@@ -431,17 +435,30 @@ BEGIN
   IF v.socio_id IN (SELECT private.socio_ids_propios()) THEN
     RAISE EXCEPTION 'no puede aprobar su propia renovacion';
   END IF;
-
-  v_antes := private.renovacion_snapshot(v);
-  v_tipo := private.tipo_membresia(v.socio_id, v.anio);
-  v_fecha := COALESCE(p_fecha_pago, v.fecha_pago);
-  v_esperado_original := private.calcular_monto_esperado(v.socio_id, v.fecha_pago, v.anio);
-  v_esperado := private.calcular_monto_esperado(v.socio_id, v_fecha, v.anio);
-
   IF p_monto_override IS NOT NULL
      AND (p_monto_override < 0 OR p_monto_override <> round(p_monto_override, 2)) THEN
     RAISE EXCEPTION 'monto invalido';
   END IF;
+
+  IF EXISTS (
+    SELECT 1
+    FROM public.renovaciones r
+    WHERE r.socio_id = v.socio_id
+      AND r.anio = v.anio
+      AND r.estado = 'aprobada'
+      AND r.id <> p_renovacion_id
+  ) THEN
+    RAISE EXCEPTION 'ya hay una renovacion aprobada para ese año';
+  END IF;
+
+  v_antes := private.renovacion_snapshot(v);
+  v_tipo := private.tipo_membresia(v.socio_id, v.anio);
+  v_fecha := COALESCE(p_fecha_pago, v.fecha_pago);
+  IF v_fecha > (now() AT TIME ZONE 'America/Chihuahua')::date THEN
+    RAISE EXCEPTION 'fecha_pago no puede ser futura';
+  END IF;
+  v_esperado_original := private.calcular_monto_esperado(v.socio_id, v.fecha_pago, v.anio);
+  v_esperado := private.calcular_monto_esperado(v.socio_id, v_fecha, v.anio);
 
   IF p_monto_override IS NOT NULL AND p_monto_override IS DISTINCT FROM v_esperado THEN
     v_final := p_monto_override;
@@ -466,16 +483,21 @@ BEGIN
     v_motivo := NULL;
   END IF;
 
-  UPDATE public.renovaciones
-  SET tipo = v_tipo,
-      fecha_pago = v_fecha,
-      monto_esperado = v_final,
-      motivo_cambio = v_motivo,
-      estado = 'aprobada',
-      aprobado_por = (SELECT auth.uid()),
-      aprobado_at = now()
-  WHERE id = p_renovacion_id
-  RETURNING * INTO v;
+  BEGIN
+    UPDATE public.renovaciones
+    SET tipo = v_tipo,
+        fecha_pago = v_fecha,
+        monto_esperado = v_final,
+        motivo_cambio = v_motivo,
+        estado = 'aprobada',
+        aprobado_por = (SELECT auth.uid()),
+        aprobado_at = now()
+    WHERE id = p_renovacion_id
+    RETURNING * INTO v;
+  EXCEPTION
+    WHEN unique_violation THEN
+      RAISE EXCEPTION 'ya hay una renovacion aprobada para ese año';
+  END;
 
   v_despues := private.renovacion_snapshot(v);
 

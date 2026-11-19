@@ -63,8 +63,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000091',
   '10000000-0000-4000-8000-000000000009',
-  2027,
-  DATE '2027-01-10',
+  2026,
+  DATE '2026-01-10',
   1200
 );
 DO $$
@@ -121,7 +121,7 @@ VALUES (
   '20000000-0000-4000-8000-000000000081',
   '10000000-0000-4000-8000-000000000008',
   2027,
-  DATE '2026-12-20',
+  DATE '2026-11-01',
   1200
 );
 RESET ROLE;
@@ -137,6 +137,15 @@ BEGIN
   END IF;
   SET LOCAL ROLE authenticated;
   PERFORM set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b1', true);
+  got := public.calcular_monto_esperado(
+    '10000000-0000-4000-8000-000000000008',
+    DATE '2026-11-01',
+    2027
+  );
+  IF got <> 1200 THEN
+    RAISE EXCEPTION 'pago de 2026 para la membresia 2027 debio ser 1200, fue %', got;
+  END IF;
+  -- diciembre 2026 sigue siendo la cuota entera; calcular no inserta la fila.
   got := public.calcular_monto_esperado(
     '10000000-0000-4000-8000-000000000008',
     DATE '2026-12-20',
@@ -188,8 +197,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000071',
   '10000000-0000-4000-8000-000000000007',
-  2027,
-  DATE '2027-12-31',
+  2026,
+  DATE '2026-11-01',
   5
 );
 RESET ROLE;
@@ -198,7 +207,7 @@ SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b1
 DO $$
 BEGIN
   PERFORM public.aprobar_renovacion('20000000-0000-4000-8000-000000000071');
-  RAISE EXCEPTION 'aprobo un pago de 5 contra cuota de 100';
+  RAISE EXCEPTION 'aprobo un pago de 5 contra cuota de 200';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLERRM NOT LIKE '%requiere motivo%' THEN
@@ -209,7 +218,7 @@ SELECT public.aprobar_renovacion(
   '20000000-0000-4000-8000-000000000071',
   NULL,
   NULL,
-  'el socio reporto 5 y la cuota de diciembre es 100'
+  'el socio reporto 5 y la cuota de noviembre es 200'
 );
 DO $$
 BEGIN
@@ -217,9 +226,9 @@ BEGIN
     SELECT 1 FROM public.renovaciones
     WHERE id = '20000000-0000-4000-8000-000000000071'
       AND estado = 'aprobada'
-      AND monto_esperado = 100
+      AND monto_esperado = 200
   ) THEN
-    RAISE EXCEPTION 'el pago corto no quedo en 100';
+    RAISE EXCEPTION 'el pago corto no quedo en 200';
   END IF;
   IF NOT EXISTS (
     SELECT 1 FROM public.auditoria
@@ -249,8 +258,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000061',
   '10000000-0000-4000-8000-000000000006',
-  2027,
-  DATE '2027-03-01',
+  2026,
+  DATE '2026-03-01',
   1000
 );
 INSERT INTO storage.objects (bucket_id, name)
@@ -265,11 +274,11 @@ DO $$
 BEGIN
   PERFORM public.aprobar_renovacion(
     '20000000-0000-4000-8000-000000000061',
-    DATE '2027-12-01',
+    DATE '2026-11-01',
     NULL,
     NULL
   );
-  RAISE EXCEPTION 'movio marzo a diciembre sin motivo';
+  RAISE EXCEPTION 'movio marzo a noviembre sin motivo';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLERRM NOT LIKE '%requiere motivo%' THEN
@@ -278,19 +287,19 @@ EXCEPTION
 END $$;
 SELECT public.aprobar_renovacion(
   '20000000-0000-4000-8000-000000000061',
-  DATE '2027-12-01',
+  DATE '2026-11-01',
   NULL,
-  'la fecha real es diciembre'
+  'la fecha real es noviembre'
 );
 DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM public.renovaciones
     WHERE id = '20000000-0000-4000-8000-000000000061'
-      AND fecha_pago = DATE '2027-12-01'
-      AND monto_esperado = 100
+      AND fecha_pago = DATE '2026-11-01'
+      AND monto_esperado = 200
   ) THEN
-    RAISE EXCEPTION 'diciembre no quedo en 100';
+    RAISE EXCEPTION 'noviembre no quedo en 200';
   END IF;
   IF NOT EXISTS (
     SELECT 1 FROM public.auditoria
@@ -307,15 +316,15 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000021',
   '10000000-0000-4000-8000-000000000002',
-  2027,
-  DATE '2027-01-10',
+  2026,
+  DATE '2026-01-10',
   1200
 );
 SET ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b2', false);
 SELECT public.aprobar_renovacion(
   '20000000-0000-4000-8000-000000000021',
-  DATE '2027-06-01',
+  DATE '2026-06-01',
   NULL,
   NULL
 );
@@ -324,7 +333,7 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM public.renovaciones
     WHERE id = '20000000-0000-4000-8000-000000000021'
-      AND fecha_pago = DATE '2027-06-01'
+      AND fecha_pago = DATE '2026-06-01'
       AND monto_esperado = 1200
       AND motivo_cambio IS NULL
   ) THEN
@@ -333,7 +342,8 @@ BEGIN
 END $$;
 RESET ROLE;
 
--- M3: 2099 no entra. Dos aprobadas del mismo socio y año tampoco.
+-- M3: 2099 no entra (es futura, y además está fuera del CHECK). Una fecha
+-- anterior a 2026 sí llega al CHECK. Dos aprobadas del mismo socio y año tampoco.
 DO $$
 BEGIN
   INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado)
@@ -347,6 +357,25 @@ BEGIN
 EXCEPTION
   WHEN check_violation THEN
     NULL;
+  WHEN OTHERS THEN
+    IF SQLERRM NOT LIKE '%fecha_pago no puede ser futura%' THEN
+      RAISE;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+  INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado)
+  VALUES (
+    '10000000-0000-4000-8000-000000000006',
+    2026,
+    DATE '2025-06-01',
+    1
+  );
+  RAISE EXCEPTION 'acepto fecha 2025';
+EXCEPTION
+  WHEN check_violation THEN
+    NULL;
 END $$;
 
 SET ROLE authenticated;
@@ -355,8 +384,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000072',
   '10000000-0000-4000-8000-000000000007',
-  2027,
-  DATE '2027-01-15',
+  2026,
+  DATE '2026-01-15',
   1200
 );
 RESET ROLE;
@@ -367,8 +396,10 @@ BEGIN
   PERFORM public.aprobar_renovacion('20000000-0000-4000-8000-000000000072');
   RAISE EXCEPTION 'segunda aprobacion del mismo año';
 EXCEPTION
-  WHEN unique_violation THEN
-    NULL;
+  WHEN OTHERS THEN
+    IF SQLERRM NOT LIKE '%ya hay una renovacion aprobada para ese año%' THEN
+      RAISE;
+    END IF;
 END $$;
 
 -- L4: negativo y más de 2 decimales.
@@ -522,6 +553,93 @@ BEGIN
 EXCEPTION
   WHEN insufficient_privilege THEN
     NULL;
+END $$;
+RESET ROLE;
+
+-- R1: una fecha posterior a hoy en Chihuahua no se inserta ni se aprueba.
+-- El caso del review (alta 2027-12-01 por 100) cae aquí mientras esa fecha no llegue.
+INSERT INTO public.socios (id, nombre)
+VALUES ('10000000-0000-4000-8000-000000000004', 'Fonda Futura');
+
+DO $$
+DECLARE
+  hoy date := (now() AT TIME ZONE 'America/Chihuahua')::date;
+BEGIN
+  INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado)
+  VALUES (
+    '10000000-0000-4000-8000-000000000004',
+    EXTRACT(YEAR FROM (hoy + 1))::integer,
+    hoy + 1,
+    100
+  );
+  RAISE EXCEPTION 'acepto fecha futura';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLERRM NOT LIKE '%fecha_pago no puede ser futura%' THEN
+      RAISE;
+    END IF;
+END $$;
+
+DO $$
+DECLARE
+  hoy date := (now() AT TIME ZONE 'America/Chihuahua')::date;
+BEGIN
+  IF DATE '2027-12-01' <= hoy THEN
+    RETURN;
+  END IF;
+  INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado)
+  VALUES (
+    '10000000-0000-4000-8000-000000000004',
+    2027,
+    DATE '2027-12-01',
+    100
+  );
+  RAISE EXCEPTION 'acepto alta con fecha 2027-12-01';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLERRM NOT LIKE '%fecha_pago no puede ser futura%' THEN
+      RAISE;
+    END IF;
+END $$;
+
+INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado)
+VALUES (
+  '20000000-0000-4000-8000-000000000041',
+  '10000000-0000-4000-8000-000000000004',
+  EXTRACT(YEAR FROM (now() AT TIME ZONE 'America/Chihuahua'))::integer,
+  (now() AT TIME ZONE 'America/Chihuahua')::date,
+  1200
+);
+
+SET ROLE authenticated;
+SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b1', false);
+DO $$
+DECLARE
+  hoy date := (now() AT TIME ZONE 'America/Chihuahua')::date;
+BEGIN
+  PERFORM public.aprobar_renovacion(
+    '20000000-0000-4000-8000-000000000041',
+    hoy + 1,
+    NULL,
+    'no deberia hacer falta'
+  );
+  RAISE EXCEPTION 'aprobo con fecha futura';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLERRM NOT LIKE '%fecha_pago no puede ser futura%' THEN
+      RAISE;
+    END IF;
+END $$;
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM public.renovaciones
+    WHERE id = '20000000-0000-4000-8000-000000000041'
+      AND estado = 'pendiente'
+      AND motivo_cambio IS NULL
+  ) THEN
+    RAISE EXCEPTION 'la fecha futura dejo de ser pendiente';
+  END IF;
 END $$;
 RESET ROLE;
 

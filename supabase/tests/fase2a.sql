@@ -23,6 +23,9 @@ INSERT INTO public.cuentas_socio (socio_id, user_id) VALUES
   ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-0000000000a1'),
   ('10000000-0000-4000-8000-000000000002', '00000000-0000-4000-8000-0000000000a2');
 
+-- 2026 ya pasó el 19 de noviembre: las filas de prueba usan fechas que no son futuras.
+INSERT INTO public.cuota_anual (anio, monto) VALUES (2026, 1200.00);
+
 -- Tercera cuenta del socio A debe fallar (el segundo hueco lo ocupa otro usuario sintético).
 INSERT INTO auth.users (id, email) VALUES
   ('00000000-0000-4000-8000-0000000000a3', 'socio.a2@example.test'),
@@ -71,7 +74,7 @@ BEGIN
   END IF;
   BEGIN
     INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado, metodo)
-    VALUES ('10000000-0000-4000-8000-000000000002', 2027, DATE '2027-03-01', 1000, 'transferencia');
+    VALUES ('10000000-0000-4000-8000-000000000002', 2026, DATE '2026-03-01', 1000, 'transferencia');
     RAISE EXCEPTION 'socio A no debe insertar renovacion de B';
   EXCEPTION
     WHEN insufficient_privilege OR check_violation THEN
@@ -80,15 +83,15 @@ BEGIN
 END $$;
 RESET ROLE;
 
--- Alta propia del socio nuevo (no base), marzo 2027 → 1000.
+-- Alta propia del socio nuevo (no base), marzo 2026 → 1000.
 SET ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a1', false);
 INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado, metodo, comprobante_path)
 VALUES (
   '20000000-0000-4000-8000-000000000010',
   '10000000-0000-4000-8000-000000000001',
-  2027,
-  DATE '2027-03-15',
+  2026,
+  DATE '2026-03-15',
   1000,
   'transferencia',
   '10000000-0000-4000-8000-000000000001/20000000-0000-4000-8000-000000000010/comprobante.pdf'
@@ -99,8 +102,8 @@ BEGIN
   INSERT INTO public.renovaciones (socio_id, anio, fecha_pago, monto_reportado, estado)
   VALUES (
     '10000000-0000-4000-8000-000000000001',
-    2027,
-    DATE '2027-04-01',
+    2026,
+    DATE '2026-04-01',
     900,
     'aprobada'
   );
@@ -241,7 +244,7 @@ END $$;
 
 SELECT public.aprobar_renovacion(
   '20000000-0000-4000-8000-000000000010',
-  DATE '2027-02-02',
+  DATE '2026-02-02',
   1050,
   'ajuste de captura, no es la cuota de febrero'
 );
@@ -260,14 +263,14 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM public.renovaciones
     WHERE id = '20000000-0000-4000-8000-000000000010'
-      AND fecha_pago = DATE '2027-02-02'
+      AND fecha_pago = DATE '2026-02-02'
       AND monto_esperado = 1050
   ) THEN
     RAISE EXCEPTION 'fecha o monto de la aprobacion no quedaron como el override';
   END IF;
   SELECT estado INTO mem
   FROM public.membresias
-  WHERE socio_id = '10000000-0000-4000-8000-000000000001' AND anio = 2027;
+  WHERE socio_id = '10000000-0000-4000-8000-000000000001' AND anio = 2026;
   IF mem <> 'activa' THEN
     RAISE EXCEPTION 'membresia %', mem;
   END IF;
@@ -286,8 +289,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000020',
   '10000000-0000-4000-8000-000000000002',
-  2027,
-  DATE '2027-01-10',
+  2026,
+  DATE '2026-01-10',
   1200,
   'efectivo'
 );
@@ -341,8 +344,8 @@ INSERT INTO public.renovaciones (id, socio_id, anio, fecha_pago, monto_reportado
 VALUES (
   '20000000-0000-4000-8000-000000000030',
   '10000000-0000-4000-8000-000000000001',
-  2027,
-  DATE '2027-06-01',
+  2026,
+  DATE '2026-06-01',
   700,
   now() - interval '25 hours'
 );
