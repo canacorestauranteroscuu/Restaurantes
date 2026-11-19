@@ -250,9 +250,45 @@ def _flood_from_edges(close: np.ndarray) -> np.ndarray:
     return seen
 
 
+def _enclosed_mask(close: np.ndarray) -> np.ndarray:
+    """Componentes de `close` que no tocan el borde: huecos dentro de la marca."""
+    h, w = close.shape
+    seen = np.zeros_like(close, dtype=bool)
+    holes = np.zeros_like(close, dtype=bool)
+    for y in range(h):
+        for x in range(w):
+            if not close[y, x] or seen[y, x]:
+                continue
+            q = deque([(y, x)])
+            seen[y, x] = True
+            comp = [(y, x)]
+            touches = y in (0, h - 1) or x in (0, w - 1)
+            while q:
+                cy, cx = q.popleft()
+                for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                    if 0 <= ny < h and 0 <= nx < w and close[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        if ny in (0, h - 1) or nx in (0, w - 1):
+                            touches = True
+                        q.append((ny, nx))
+                        comp.append((ny, nx))
+            if not touches:
+                for cy, cx in comp:
+                    holes[cy, cx] = True
+    return holes
+
+
 def _key_to_white(rgb: np.ndarray, bg, tol_in=36.0, tol_out=110.0) -> np.ndarray:
+    """Quita el fondo, incluido el que queda encerrado en letras (O, A, P, D, 8).
+
+    El borde suave sigue saliendo solo del fondo conectado al borde. Un hueco se
+    borra únicamente si sus píxeles coinciden con el color de fondo (distancia
+    ≤ tol_in): un color distinto de la marca, aunque esté adentro, se queda.
+    """
     d = _dist(rgb, bg)
-    region = _flood_from_edges(d < tol_out)
+    edge = _flood_from_edges(d < tol_out)
+    holes = _enclosed_mask(d <= tol_in)
+    region = edge | holes
     a = np.clip((d - tol_in) / (tol_out - tol_in), 0, 1)
     a[~region] = 1.0
     a = np.asarray(

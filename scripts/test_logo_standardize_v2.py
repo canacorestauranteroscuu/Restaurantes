@@ -52,6 +52,40 @@ class V2(unittest.TestCase):
         self.assertTrue((image[256, 30] < 40).all())
         self.assertTrue((image[2, 2] > 245).all())
 
+    def test_hueco_de_letra_pasa_a_blanco_y_el_relleno_no(self):
+        bg = (20, 60, 170)
+        im = Image.new("RGB", (300, 300), bg)
+        draw = ImageDraw.Draw(im)
+        draw.ellipse((40, 40, 260, 260), fill=(210, 30, 40))
+        draw.ellipse((110, 110, 190, 190), fill=bg)
+        image = out(im)
+        self.assertTrue((image[256, 256] > 245).all())
+        ring = image[256, 150]
+        self.assertGreater(ring[0], 160)
+        self.assertLess(ring[2], 80)
+
+        marked = Image.new("RGB", (300, 300), bg)
+        draw = ImageDraw.Draw(marked)
+        draw.ellipse((40, 40, 260, 260), fill=(210, 30, 40))
+        draw.ellipse((110, 110, 190, 190), fill=(240, 210, 40))
+        kept = out(marked)
+        center = kept[256, 256]
+        self.assertGreater(center[0], 180)
+        self.assertGreater(center[1], 150)
+        self.assertLess(center[2], 80)
+
+        # Cerca del fondo (dentro de tol_out) pero no es el color de fondo:
+        # no se come. Solo entra lo que coincide con el fondo (≤ tol_in).
+        close = Image.new("RGB", (300, 300), bg)
+        draw = ImageDraw.Draw(close)
+        draw.ellipse((40, 40, 260, 260), fill=(210, 30, 40))
+        draw.ellipse((110, 110, 190, 190), fill=(90, 60, 170))
+        near = out(close)
+        mid = near[256, 256]
+        self.assertGreater(mid[0], 70)
+        self.assertLess(mid[2], 200)
+        self.assertLess(abs(mid[0] - mid[2]), 120)
+
     def test_papel_crema_a_blanco(self):
         im = Image.new("RGB", (300, 300), (240, 236, 225))
         ImageDraw.Draw(im).rectangle((80, 80, 220, 220), fill=(20, 80, 40))

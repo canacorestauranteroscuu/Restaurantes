@@ -25,3 +25,4 @@ jobs:
           python3 scripts/test_logo_standardize.py
           python3 scripts/test_logo_standardize_v2.py
           python3 scripts/test_logo_version.py
+          node --test scripts/test_portal.mjs
