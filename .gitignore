@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+scripts/notion_logo_urls.json
+scripts/_*.json
+scripts/_fetch_urls.txt
+*X-Amz-Security-Token*
+*X-Amz-Signature*
