@@ -69,3 +69,11 @@ IMMUTABLE
 AS $$
   SELECT lower((regexp_match(name, '\.([^.]+)$'))[1]);
 $$;
+
+-- En el proyecto hospedado esto ya existe y no se toca desde la migración:
+-- RLS activo, y los privilegios de tabla los pone la plataforma.
+ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+GRANT USAGE ON SCHEMA storage TO anon, authenticated;
+GRANT SELECT, INSERT, UPDATE ON storage.objects TO authenticated;
+REVOKE ALL ON storage.objects FROM anon;
+REVOKE ALL ON storage.objects FROM PUBLIC;

@@ -59,7 +59,9 @@ La lógica de aprobar, rechazar y calcular vive en `private` (`SECURITY DEFINER`
 
 Bucket privado `comprobantes` (no público): jpeg, png o pdf, tope 10 MiB. Ruta `{socio_id}/{renovacion_id}/archivo`.
 
-Políticas solo para `authenticated`. El socio sube y lee su carpeta. Tesorero, presidente y admin de lectura leen todo. No hay política para `public` ni para `anon`. Se sirven con URL firmada, no con un URL público del bucket.
+`storage.objects` y `storage.buckets` son de `supabase_storage_admin`. La migración no hace `ALTER`, `GRANT` ni `REVOKE` en ese esquema: `postgres` no es el dueño y el apply se revierte entero. RLS ya está activo en el proyecto. Lo que sí crea la migración son las políticas.
+
+Políticas solo para `authenticated`. El socio sube y lee su carpeta. Tesorero, presidente y admin de lectura leen todo. No hay política para `public` ni para `anon`, así que el rol anónimo no ve filas aunque la plataforma le deje privilegio de tabla. Se sirven con URL firmada, no con un URL público del bucket.
 
 ## Cómo se prueban
 
@@ -72,7 +74,8 @@ Cubren: anon sin permiso, aislamiento entre dos socios, `admin_lectura` no aprue
 - Los roles no están en `raw_user_meta_data` ni en `user_metadata`.
 - `auth.uid()` no se reemplaza en la migración. El bootstrap de tests solo existe para CI.
 - El actor de una aprobación es `auth.uid()` dentro de la función, no un id que mande el cliente.
-- `anon` no recibe `GRANT` de tablas ni de storage.
+- `anon` no recibe `GRANT` sobre las tablas de `public`. En `storage` no se revoca el privilegio de la plataforma; no hay política para `anon` ni para `public`.
+- La migración no altera ni otorga privilegios sobre `storage.*`. Ese esquema es de `supabase_storage_admin`.
 - `private` no está en `api.schemas`. El API solo ve wrappers `SECURITY INVOKER`. La función que escribe es `SECURITY DEFINER` en `private` y vuelve a exigir tesorero o presidente con `auth.uid()`, no con un id del cliente.
 - Los roles no se leen de `app_metadata`. La tabla evita un JWT viejo: el cambio de rol vale en la siguiente consulta.
 - `es_socio_base` y el vínculo cuenta↔socio no los puede reasignar `authenticated` ni `anon`.

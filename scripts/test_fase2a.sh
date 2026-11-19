@@ -5,6 +5,11 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DB_NAME="${FASE2A_DB:-sercanaco_fase2a}"
+
+if grep -nE 'ALTER TABLE storage\.|(GRANT|REVOKE)[[:space:]].*storage' "$ROOT/supabase/migrations/"*.sql; then
+  echo "la migracion no puede alterar ni otorgar privilegios en storage (owner: supabase_storage_admin)" >&2
+  exit 1
+fi
 PSQL=(psql -v ON_ERROR_STOP=1)
 
 if [[ -n "${DATABASE_URL:-}" ]]; then

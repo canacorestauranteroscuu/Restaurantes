@@ -622,6 +622,10 @@ REVOKE INSERT, UPDATE, DELETE ON public.membresias FROM PUBLIC, anon, authentica
 
 -- ---------------------------------------------------------------------------
 -- Storage privado: comprobantes/{socio_id}/{renovacion_id}/archivo
+--
+-- storage.* pertenece a supabase_storage_admin. Esta migración no hace
+-- ALTER, GRANT ni REVOKE ahí: postgres no es el dueño y el apply se cae.
+-- RLS ya viene activo. Las políticas sí se pueden crear.
 -- ---------------------------------------------------------------------------
 
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
@@ -637,7 +641,19 @@ SET public = false,
     file_size_limit = EXCLUDED.file_size_limit,
     allowed_mime_types = EXCLUDED.allowed_mime_types;
 
-ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_class c
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE n.nspname = 'storage'
+      AND c.relname = 'objects'
+      AND c.relrowsecurity
+  ) THEN
+    RAISE EXCEPTION 'storage.objects no tiene RLS; en Supabase ya viene activo';
+  END IF;
+END $$;
 
 CREATE POLICY comprobantes_socio_insert ON storage.objects
 FOR INSERT TO authenticated
@@ -690,8 +706,3 @@ WITH CHECK (
   )
   AND lower(storage.extension(name)) IN ('jpg', 'jpeg', 'png', 'pdf')
 );
-
-GRANT USAGE ON SCHEMA storage TO authenticated;
-GRANT SELECT, INSERT, UPDATE ON storage.objects TO authenticated;
-REVOKE ALL ON storage.objects FROM anon;
-REVOKE ALL ON storage.objects FROM PUBLIC;
